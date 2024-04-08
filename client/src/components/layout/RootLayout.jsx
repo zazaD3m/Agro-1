@@ -1,4 +1,16 @@
+import { Outlet } from "react-router-dom";
+import Header from "../header/Header";
+import { Toaster } from "../ui/toaster";
+
 const RootLayout = () => {
-  return <div>RootLayout</div>;
+  return (
+    <>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+      <Toaster />
+    </>
+  );
 };
 export default RootLayout;

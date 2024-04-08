@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { apiSlice } from "../api/apiSlice";
-import { USERS_URL } from "../../lib/constants";
+import { USERS_URL } from "@/constants/urls";
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import { clearUser, setUser } from "./userSlice";
 import { clearToken } from "../auth/authSlice";

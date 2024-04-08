@@ -10,7 +10,7 @@ const spinnerVariants = cva("flex-col items-center justify-center", {
       false: "hidden",
     },
     fullScreen: {
-      true: "size-full text-4xl",
+      true: "size-full",
       false: "",
     },
   },

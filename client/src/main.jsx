@@ -16,9 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         persistor={persistor}
         loading={<Spinner fullScreen size="huge" />}
       >
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
+        <App />
       </PersistGate>
     </Provider>
   </React.StrictMode>,

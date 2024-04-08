@@ -1,7 +1,7 @@
 import { apiSlice } from "../api/apiSlice";
 import { clearToken, setToken } from "./authSlice";
 import { clearUser, setUser } from "../user/userSlice";
-import { AUTH_URL } from "../../lib/constants";
+import { AUTH_URL } from "@/constants/urls";
 import { userApiSlice } from "../user/userApiSlice";
 
 // this will inject endpoints into main apiSlice
