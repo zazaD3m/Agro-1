@@ -19,6 +19,12 @@ export const getMe = asyncHandler(async (req, res) => {
     ThrowErr.ServerError();
   }
 
+  delete req.user.password;
+  delete req.user.role;
+  delete req.user.isBlocked;
+  delete req.user.agreeTerms;
+  delete req.user.__v;
+
   res.status(200).json({ userInfo: req.user });
 });
 

@@ -24,21 +24,20 @@ const FormCheckbox = ({
           <div className="flex items-start gap-x-2 gap-y-2 space-y-0  tracking-wider">
             <FormControl>
               <Checkbox
+                className="mt-1"
                 checked={field.value}
                 onCheckedChange={field.onChange}
               />
             </FormControl>
-            <FormLabel asChild>
-              <legend>
-                {label}{" "}
-                <Link
-                  className="self-center leading-snug text-blue-500 underline-offset-2 hover:underline"
-                  to={redirectLink}
-                >
-                  {redirectLinkText}
-                </Link>
-              </legend>
-            </FormLabel>
+            <div className="">
+              <FormLabel>{label} - </FormLabel>
+              <Link
+                className="leading-snug text-blue-500 underline-offset-2 hover:underline"
+                to={redirectLink}
+              >
+                {redirectLinkText}
+              </Link>
+            </div>
           </div>
           <FormMessage className="w-full" />
         </FormItem>

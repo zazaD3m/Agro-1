@@ -21,7 +21,11 @@ import {
 // /api/auth
 const router = Router();
 
-router.post("/register", [registerValidator, validateRegister], registerUser);
+router.post(
+  "/register",
+  //  [registerValidator, validateRegister],
+  registerUser
+);
 
 router.post("/login", [loginValidator, validate], loginUser);
 

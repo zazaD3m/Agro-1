@@ -21,10 +21,10 @@ const userSchema = new Schema(
       type: String,
     },
     birthYear: {
-      type: String,
+      type: Number,
     },
     phoneNumber: {
-      type: String,
+      type: Number,
     },
     password: {
       type: String,
@@ -38,6 +38,12 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    agreeTerms: {
+      type: Boolean,
+    },
+    agreePrivacyPolicy: {
+      type: Boolean,
+    },
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
@@ -49,7 +55,7 @@ const userSchema = new Schema(
 
 userSchema.pre("save", async function (next) {
   if (this.isModified("firstName") || this.isModified("lastName")) {
-    this.fullName = this.firstName + this.lastName;
+    this.fullName = this.firstName + " " + this.lastName;
   }
 
   try {

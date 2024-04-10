@@ -1,4 +1,3 @@
-import { DevTool } from "@hookform/devtools";
 import { Form, FormSubmitError } from "@/components/ui/form";
 import { useRegisterMutation } from "@/features/auth/authApiSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -43,7 +42,9 @@ const registerSchema = yup.object({
 });
 
 const RegisterForm = () => {
-  const [registerMutation, { isError, isLoading }] = useRegisterMutation();
+  const [registerMutation, { isError, error, isLoading }] =
+    useRegisterMutation();
+
   const form = useForm({
     defaultValues: {
       password: "",
@@ -62,94 +63,110 @@ const RegisterForm = () => {
     reValidateMode: "onSubmit",
   });
 
-  const { handleSubmit, control, reset, setValue } = form;
+  const {
+    handleSubmit,
+    getValues,
+    control,
+    reset,
+    setError,
+    setFocus,
+    setValue,
+  } = form;
 
   const onSubmit = (data) => {
-    console.log(data);
+    registerMutation(data);
   };
 
   useEffect(() => {
     if (isError) {
-      reset();
+      const status = error.status;
+      const message = error.data.message;
+      if (status === 409 && message === "Email already in use") {
+        setError(
+          "email",
+          {
+            message:
+              "ასეთი ელ-ფოსტით უკვე რეგისტრირებულია სხვა მომხმარებელი, ჩაწერეთ სხვა ელ-ფოსტა.",
+          },
+          { shouldFocus: true },
+        );
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError]);
 
   return (
-    <>
-      <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <FormText
-            control={control}
-            name="email"
-            label="ელფოსტა"
-            isLoading={isLoading}
-            placeholder="example@gmail.com"
-            autoComplete="email"
-          />
-          <FormText
-            control={control}
-            name="password"
-            label="პაროლი"
-            isLoading={isLoading}
-            password={true}
-            passwordShowDefault={true}
-          />
-          <FormText
-            control={control}
-            name="confirmPassword"
-            label="გაიმეორე პაროლი"
-            isLoading={isLoading}
-            password={true}
-            passwordShowDefault={true}
-          />
-          <FormText
-            control={control}
-            name="firstName"
-            label="სახელი"
-            isLoading={isLoading}
-          />
-          <FormText
-            control={control}
-            name="lastName"
-            label="გვარი"
-            isLoading={isLoading}
-          />
-          <FormGender control={control} />
-          <FormBirth control={control} setValue={setValue} />
-          <FormText
-            control={control}
-            name="phoneNumber"
-            label="ტელეფონის ნომერი"
-            type="number"
-            isLoading={isLoading}
-          />
-          <FormCheckbox
-            control={control}
-            name="agreeTerms"
-            label="ვეთანხმები"
-            redirectLink="/rules"
-            redirectLinkText="წესებსა და პირობებს"
-          />
-          <FormCheckbox
-            control={control}
-            name="agreePrivacyPolicy"
-            label="ვეთანხმები"
-            redirectLink="/privacy-agreement"
-            redirectLinkText="კონფიდენციალობის პოლიტიკას"
-          />
-          {/*  */}
-          <FormSubmitError
-            isError={isError}
-            error="მომხმარებელი ან პაროლი არასწორია"
-          />
-          <LoadingButton type="submit" className="w-full" loading={isLoading}>
-            დადასტურება
-          </LoadingButton>
-        </form>
-      </Form>
-      <DevTool control={control} />
-    </>
+    <Form {...form}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <FormText
+          control={control}
+          name="email"
+          label="ელფოსტა"
+          isLoading={isLoading}
+          placeholder="example@gmail.com"
+          autoComplete="email"
+        />
+        <FormText
+          control={control}
+          name="password"
+          label="პაროლი"
+          isLoading={isLoading}
+          password={true}
+          passwordShowDefault={true}
+        />
+        <FormText
+          control={control}
+          name="confirmPassword"
+          label="გაიმეორე პაროლი"
+          isLoading={isLoading}
+          password={true}
+          passwordShowDefault={true}
+        />
+        <FormText
+          control={control}
+          name="firstName"
+          label="სახელი"
+          isLoading={isLoading}
+        />
+        <FormText
+          control={control}
+          name="lastName"
+          label="გვარი"
+          isLoading={isLoading}
+        />
+        <FormGender control={control} />
+        <FormBirth control={control} setValue={setValue} />
+        <FormText
+          control={control}
+          name="phoneNumber"
+          label="ტელეფონის ნომერი"
+          type="number"
+          isLoading={isLoading}
+        />
+        <FormCheckbox
+          control={control}
+          name="agreeTerms"
+          label="ვეთანხმები"
+          redirectLink="/rules"
+          redirectLinkText="წესებსა და პირობებს"
+        />
+        <FormCheckbox
+          control={control}
+          name="agreePrivacyPolicy"
+          label="ვეთანხმები"
+          redirectLink="/privacy-agreement"
+          redirectLinkText="კონფიდენციალობის პოლიტიკას"
+        />
+        {/*  */}
+        <FormSubmitError
+          isError={isError && error.status !== 409 ? isError : false}
+          error="მოხდა შეფერხება, სცადეთ ხელმეორედ."
+        />
+        <LoadingButton type="submit" className="w-full" loading={isLoading}>
+          დადასტურება
+        </LoadingButton>
+      </form>
+    </Form>
   );
 };
 export default RegisterForm;

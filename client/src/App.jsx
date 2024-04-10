@@ -4,6 +4,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 
 import { rehydrateState } from "./app/actions";
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" errorElement={<GlobalError />}>
       <Route path="auth" element={<AuthLayout />}>
+        <Route index element={<Navigate replace to="login" />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
