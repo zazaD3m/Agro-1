@@ -11,21 +11,12 @@ module.exports = {
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parserOptions: { ecmaVersion: "latest", sourceType: "module" },
   settings: { react: { version: "18.2" } },
-  plugins: ["react-refresh", "tailwindcss"],
+  plugins: ["react-refresh"],
   rules: {
-    "react/jsx-no-target-blank": "off",
     "react-refresh/only-export-components": [
       "warn",
       { allowConstantExport: true },
     ],
     "react/prop-types": 0,
-    "tailwindcss/no-custom-classname": "off",
-    "tailwindcss/classnames-order": "error",
-  },
-  settings: {
-    tailwindcss: {
-      callees: ["cn", "cva"],
-      config: "tailwind.config.js",
-    },
   },
 };

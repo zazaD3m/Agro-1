@@ -11,7 +11,16 @@ const userSchema = new Schema(
     lastName: {
       type: String,
     },
+    fullName: {
+      type: String,
+    },
     email: {
+      type: String,
+    },
+    gender: {
+      type: String,
+    },
+    birthYear: {
       type: String,
     },
     phoneNumber: {
@@ -39,6 +48,10 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function (next) {
+  if (this.isModified("firstName") || this.isModified("lastName")) {
+    this.fullName = this.firstName + this.lastName;
+  }
+
   try {
     if (!this.isModified("password")) {
       return next();
