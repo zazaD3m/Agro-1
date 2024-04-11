@@ -63,15 +63,7 @@ const RegisterForm = () => {
     reValidateMode: "onSubmit",
   });
 
-  const {
-    handleSubmit,
-    getValues,
-    control,
-    reset,
-    setError,
-    setFocus,
-    setValue,
-  } = form;
+  const { handleSubmit, control, setError, setValue } = form;
 
   const onSubmit = (data) => {
     registerMutation(data);
@@ -159,7 +151,7 @@ const RegisterForm = () => {
         />
         {/*  */}
         <FormSubmitError
-          isError={isError && error.status !== 409 ? isError : false}
+          isError={isError && error?.status !== 409 ? isError : false}
           error="მოხდა შეფერხება, სცადეთ ხელმეორედ."
         />
         <LoadingButton type="submit" className="w-full" loading={isLoading}>
