@@ -1,6 +1,4 @@
 import { Input } from "@/components/ui/input";
-import { PasswordInput } from "@/components/ui/password-input";
-import { Link } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -8,9 +6,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormSubmitError,
+  FormMessageSuccess,
 } from "@/components/ui/form";
-import { useLoginMutation } from "@/features/auth/authApiSlice";
+import { useSendPasswordResetEmailMutation } from "@/features/auth/authApiSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -25,7 +23,8 @@ const forgotPasswordSchema = yup.object({
 });
 
 const ForgotPasswordForm = () => {
-  const [loginMutation, { isError, isLoading }] = useLoginMutation();
+  const [sendPasswordResetEmail, { isError, error, isLoading, isSuccess }] =
+    useSendPasswordResetEmailMutation();
 
   const form = useForm({
     defaultValues: {
@@ -36,15 +35,22 @@ const ForgotPasswordForm = () => {
     reValidateMode: "onSubmit",
   });
 
-  const { handleSubmit, control, reset } = form;
+  const { handleSubmit, control, setError } = form;
 
   const onSubmit = (data) => {
-    console.log(data);
+    sendPasswordResetEmail(data.email);
   };
 
   useEffect(() => {
     if (isError) {
-      reset();
+      const errorMessage =
+        error.status === 404
+          ? "ანგარიში ამ ელფოსტით არ მოიძებნა."
+          : "ბმულის გამოგზავნა ვერ მოხერხდა, ცადეთ კიდე.";
+
+      setError("email", {
+        message: errorMessage,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError]);
@@ -67,11 +73,20 @@ const ForgotPasswordForm = () => {
                   />
                 </FormControl>
                 <FormMessage />
+                <FormMessageSuccess isSuccess={isSuccess}>
+                  მოთხოვნა წარმატებულია, რამოდენიმე წუთში მეილზე მიიღებთ პაროლის
+                  აღდგენის ბმულს.
+                </FormMessageSuccess>
               </FormItem>
             )}
           />
         </div>
-        <LoadingButton type="submit" className="w-full" loading={isLoading}>
+        <LoadingButton
+          type="submit"
+          className="w-full"
+          loading={isLoading}
+          disabled={isSuccess}
+        >
           გაგრძელება
         </LoadingButton>
       </form>

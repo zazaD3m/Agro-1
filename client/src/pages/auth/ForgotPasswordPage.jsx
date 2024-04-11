@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ForgotPasswordForm from "./components/ForgotPasswordForm";
 
-const ForgotPassword = () => {
+const ForgotPasswordPage = () => {
   return (
     <Card>
       <CardHeader className="flex-row items-center gap-x-4">
@@ -30,4 +30,4 @@ const ForgotPassword = () => {
     </Card>
   );
 };
-export default ForgotPassword;
+export default ForgotPasswordPage;

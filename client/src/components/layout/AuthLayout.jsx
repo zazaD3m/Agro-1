@@ -1,14 +1,6 @@
-import { Link, Outlet, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "@/features/auth/authSlice";
-import { selectCurrentUser } from "@/features/user/userSlice";
+import { Link, Outlet } from "react-router-dom";
 
 const AuthLayout = () => {
-  const token = useSelector(selectCurrentToken);
-  const userInfo = useSelector(selectCurrentUser);
-
-  if (token && userInfo) return <Navigate to="/" />;
-
   return (
     <main className="flex px-4 lg:px-28 ">
       <section className="flex-1 py-10 lg:basis-1/2">

@@ -6,6 +6,9 @@ import {
   registerUser,
   updateUserProfile,
   loginAdmin,
+  sendEmail,
+  resetPasswordCheck,
+  resetPassword,
 } from "../controllers/authController.js";
 import { authenticateUser } from "../middleware/authMiddleware.js";
 import {
@@ -17,6 +20,7 @@ import {
   validate,
   validateRegister,
 } from "../middleware/validationMiddleware.js";
+import { sendResetPasswordEmailMiddleware } from "../middleware/sendMailMiddleware.js";
 
 // /api/auth
 const router = Router();
@@ -41,5 +45,12 @@ router.put(
 );
 
 router.get("/refresh-token", refreshToken);
+
+// @desc Create and send email to use for reseting password
+router.post("/send-email", [sendResetPasswordEmailMiddleware], sendEmail);
+
+router.post("/reset-password-check", resetPasswordCheck);
+
+router.post("/reset-password", resetPassword);
 
 export default router;

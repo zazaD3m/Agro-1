@@ -13,7 +13,7 @@ const LoadingButton = React.forwardRef(
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
-        disabled={loading}
+        disabled={loading || props.disabled}
         ref={ref}
         {...props}
       >

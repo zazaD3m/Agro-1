@@ -1,12 +1,16 @@
 import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
+import nodemailer from "nodemailer";
 import User from "../models/userModel.js";
+import UserToken from "../models/userTokenModel.js";
 import {
   clearRefreshToken,
   generateRefreshToken,
   generateAccessToken,
+  generateForgotPasswordToken,
 } from "../services/jwt.js";
-import { ThrowErr } from "../utils/CustomError.js";
+import { CustomError, ThrowErr } from "../utils/CustomError.js";
+import { isProduction } from "../utils/helpers.js";
 
 // @desc    Register a new user
 // route    POST /api/auth/register
@@ -140,4 +144,79 @@ export const refreshToken = asyncHandler(async (req, res) => {
   const accessToken = generateAccessToken(userId);
 
   return res.status(201).json({ accessToken });
+});
+
+// @desc send mail to users email for reseting password
+// @route POST /api/auth/send-email
+export const sendEmail = asyncHandler(async (req, res) => {
+  res.status(201).json({ message: "Password reset email sent" });
+});
+
+// @desc
+// route POST /api/auth/reset-password-check
+export const resetPasswordCheck = asyncHandler(async (req, res) => {
+  const { token } = req.body;
+  let email;
+
+  jwt.verify(
+    token,
+    process.env.FORGOT_PASSWORD_TOKEN_SECRET,
+    function (err, decoded) {
+      if (err) {
+        console.log(err.name);
+        if (err.name === "TokenExpiredError") {
+          ThrowErr.BadRequest("Token Expired");
+        }
+        ThrowErr.ServerError();
+      } else {
+        email = decoded.email;
+      }
+    }
+  );
+  const user = await User.findOne({ email, "resetPassword.token": token });
+
+  if (!user) {
+    ThrowErr.ServerError();
+  }
+
+  res.status(200).json({ message: "Success" });
+});
+
+// @desc
+// route POST /api/auth/reset-password
+export const resetPassword = asyncHandler(async (req, res) => {
+  const { newPassword, token } = req.body;
+  let email;
+
+  jwt.verify(
+    token,
+    process.env.FORGOT_PASSWORD_TOKEN_SECRET,
+    function (err, decoded) {
+      if (err) {
+        console.log(err.name);
+        if (err.name === "TokenExpiredError") {
+          ThrowErr.BadRequest("Token Expired");
+        }
+        ThrowErr.ServerError();
+      } else {
+        email = decoded.email;
+      }
+    }
+  );
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    ThrowErr.ServerError();
+  }
+
+  user.password = newPassword;
+  user.resetPassword = undefined;
+
+  const newUser = await user.save();
+
+  if (!newUser) {
+    ThrowErr.ServerError();
+  }
+
+  res.status(201).json({ email });
 });

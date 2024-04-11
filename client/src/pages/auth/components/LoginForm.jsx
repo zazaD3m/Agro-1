@@ -16,6 +16,8 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { LoadingButton } from "@/components/ui/loading-button";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "@/features/user/userSlice";
 
 const loginSchema = yup.object({
   password: yup.string().required("ჩაწერე პაროლი"),
@@ -26,6 +28,7 @@ const loginSchema = yup.object({
 });
 
 const LoginForm = () => {
+  const userInfo = useSelector(selectCurrentUser);
   const [loginMutation, { isError, isLoading }] = useLoginMutation();
 
   const form = useForm({
@@ -38,7 +41,7 @@ const LoginForm = () => {
     reValidateMode: "onSubmit",
   });
 
-  const { handleSubmit, control, reset } = form;
+  const { handleSubmit, control, reset, setValue, setFocus } = form;
 
   const onSubmit = (data) => {
     loginMutation(data);
@@ -49,7 +52,18 @@ const LoginForm = () => {
       reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError]);
+  }, [isError, userInfo]);
+
+  useEffect(() => {
+    if (userInfo) {
+      if (userInfo.email) {
+        const { email } = userInfo;
+        setValue("email", email, { shouldDirty: true, shouldTouch: true });
+        setFocus("password", { shouldSelect: true });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInfo]);
 
   return (
     <Form {...form}>

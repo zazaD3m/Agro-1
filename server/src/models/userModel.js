@@ -1,7 +1,6 @@
 import mongoose, { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
-
-const { ObjectId } = mongoose.Schema.Types;
+import { generateForgotPasswordToken } from "../services/jwt.js";
 
 const userSchema = new Schema(
   {
@@ -44,9 +43,10 @@ const userSchema = new Schema(
     agreePrivacyPolicy: {
       type: Boolean,
     },
-    passwordChangedAt: Date,
-    passwordResetToken: String,
-    passwordResetExpires: Date,
+    resetPassword: {
+      token: String,
+      expiresIn: Date,
+    },
   },
   {
     timestamps: true,
@@ -58,26 +58,27 @@ userSchema.pre("save", async function (next) {
     this.fullName = this.firstName + " " + this.lastName;
   }
 
-  try {
-    if (!this.isModified("password")) {
-      return next();
-    }
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-  } catch (error) {
-    next(error);
+  if (!this.isModified("password")) {
+    return next();
   }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+
+  next();
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
-  try {
-    if (!this.password) {
-      return null;
-    }
-    return await bcrypt.compare(enteredPassword, this.password);
-  } catch (error) {
-    return error;
+  if (!this.password) {
+    return null;
   }
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+userSchema.methods.createPasswordResetToken = async function () {
+  const resetToken = generateForgotPasswordToken({ email: this.email }, 300); // 5 minutes
+  this.resetPassword.expiresIn = Date.now() + 5 * 60 * 1000; // 5 minutes
+  this.resetPassword.token = resetToken;
+  return resetToken;
 };
 
 const User = model("User", userSchema, "users");

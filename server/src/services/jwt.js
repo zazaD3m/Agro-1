@@ -8,6 +8,15 @@ export const generateAccessToken = (userId) => {
   return accessToken;
 };
 
+export const generateForgotPasswordToken = (payload, expiryTime) => {
+  const forgotPasswordToken = jwt.sign(
+    payload,
+    process.env.FORGOT_PASSWORD_TOKEN_SECRET,
+    { expiresIn: expiryTime }
+  );
+  return forgotPasswordToken;
+};
+
 export const generateRefreshToken = (res, userId) => {
   const refreshToken = jwt.sign({ userId }, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: "7d",

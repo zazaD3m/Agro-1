@@ -119,6 +119,22 @@ const FormMessage = React.forwardRef(
 );
 FormMessage.displayName = "FormMessage";
 
+const FormMessageSuccess = React.forwardRef(
+  ({ isSuccess, className, ...props }, ref) => {
+    if (!isSuccess) return null;
+    return (
+      <p
+        ref={ref}
+        className={cn("text-sm font-medium text-primary", className)}
+        {...props}
+      >
+        {props.children}
+      </p>
+    );
+  },
+);
+FormMessageSuccess.displayName = "FormMessageSuccess";
+
 const FormSubmitError = React.forwardRef(
   ({ className, isError, error, ...props }, ref) => {
     return isError ? (
@@ -142,6 +158,7 @@ export {
   FormControl,
   FormDescription,
   FormMessage,
+  FormMessageSuccess,
   FormField,
   FormSubmitError,
 };

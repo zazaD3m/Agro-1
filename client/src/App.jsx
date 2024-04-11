@@ -17,6 +17,7 @@ import PageNotFound from "./components/errors/PageNotFound";
 
 // COMPONENTS START
 import FullScreenLoader from "./components/FullScreenLoader";
+import RejectAuthenticatedUser from "./components/RejectAuthenticatedUser";
 // COMPONENTS END
 
 // LAYOUTS START
@@ -26,7 +27,8 @@ import AuthLayout from "./components/layout/AuthLayout";
 
 // PAGES START
 const HomePage = lazy(() => import("./pages/home/HomePage"));
-import ForgotPassword from "./pages/auth/ForgotPassword";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 // PAGES END
@@ -36,9 +38,15 @@ const router = createBrowserRouter(
     <Route path="/" errorElement={<GlobalError />}>
       <Route path="auth" element={<AuthLayout />}>
         <Route index element={<Navigate replace to="login" />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route element={<RejectAuthenticatedUser />}>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+        </Route>
+        <Route path="forgot-password" element={<ForgotPasswordPage />} />
+        <Route
+          path="reset-password/:resetToken"
+          element={<ResetPasswordPage />}
+        />
       </Route>
       <Route element={<RootLayout />}>
         <Route

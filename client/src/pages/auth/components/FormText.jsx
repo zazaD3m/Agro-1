@@ -13,6 +13,7 @@ const FormText = ({
   name,
   label,
   isLoading,
+  disabled,
   placeholder,
   password,
   passwordShowDefault,
@@ -28,14 +29,14 @@ const FormText = ({
           <FormControl>
             {password ? (
               <PasswordInput
-                disabled={isLoading}
+                disabled={isLoading || disabled}
                 showDefault={passwordShowDefault}
                 {...props}
                 {...field}
               />
             ) : (
               <Input
-                disabled={isLoading}
+                disabled={isLoading || disabled}
                 placeholder={placeholder}
                 {...props}
                 {...field}
