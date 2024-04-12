@@ -8,6 +8,7 @@ import {
   generateRefreshToken,
   generateAccessToken,
   generateForgotPasswordToken,
+  verifyForgotPasswordToken,
 } from "../services/jwt.js";
 import { CustomError, ThrowErr } from "../utils/CustomError.js";
 import { isProduction } from "../utils/helpers.js";
@@ -156,61 +157,34 @@ export const sendEmail = asyncHandler(async (req, res) => {
 // route POST /api/auth/reset-password-check
 export const resetPasswordCheck = asyncHandler(async (req, res) => {
   const { token } = req.body;
-  let email;
+  const email = verifyForgotPasswordToken(token);
 
-  jwt.verify(
-    token,
-    process.env.FORGOT_PASSWORD_TOKEN_SECRET,
-    function (err, decoded) {
-      if (err) {
-        console.log(err.name);
-        if (err.name === "TokenExpiredError") {
-          ThrowErr.BadRequest("Token Expired");
-        }
-        ThrowErr.ServerError();
-      } else {
-        email = decoded.email;
-      }
-    }
-  );
-  const user = await User.findOne({ email, "resetPassword.token": token });
+  if (!email) {
+    ThrowErr.ServerError();
+  }
+
+  const user = await User.findOne({ email, resetPasswordToken: token });
 
   if (!user) {
     ThrowErr.ServerError();
   }
 
-  res.status(200).json({ message: "Success" });
+  res.status(201).json({ email });
 });
 
 // @desc
 // route POST /api/auth/reset-password
 export const resetPassword = asyncHandler(async (req, res) => {
-  const { newPassword, token } = req.body;
-  let email;
+  const { newPassword, token, email } = req.body;
 
-  jwt.verify(
-    token,
-    process.env.FORGOT_PASSWORD_TOKEN_SECRET,
-    function (err, decoded) {
-      if (err) {
-        console.log(err.name);
-        if (err.name === "TokenExpiredError") {
-          ThrowErr.BadRequest("Token Expired");
-        }
-        ThrowErr.ServerError();
-      } else {
-        email = decoded.email;
-      }
-    }
-  );
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email, resetPasswordToken: token });
 
   if (!user) {
-    ThrowErr.ServerError();
+    ThrowErr.NotFound();
   }
 
   user.password = newPassword;
-  user.resetPassword = undefined;
+  user.resetPasswordToken = undefined;
 
   const newUser = await user.save();
 

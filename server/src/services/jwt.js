@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { isProduction } from "../utils/helpers.js";
+import { ThrowErr } from "../utils/CustomError.js";
 
 export const generateAccessToken = (userId) => {
   const accessToken = jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
@@ -15,6 +16,25 @@ export const generateForgotPasswordToken = (payload, expiryTime) => {
     { expiresIn: expiryTime }
   );
   return forgotPasswordToken;
+};
+
+export const verifyForgotPasswordToken = (token) => {
+  let email = undefined;
+  jwt.verify(
+    token,
+    process.env.FORGOT_PASSWORD_TOKEN_SECRET,
+    function (err, decoded) {
+      if (err) {
+        if (err.name === "TokenExpiredError") {
+          ThrowErr.BadRequest("Token Expired");
+        }
+        ThrowErr.ServerError();
+      } else {
+        email = decoded.email;
+      }
+    }
+  );
+  return email;
 };
 
 export const generateRefreshToken = (res, userId) => {

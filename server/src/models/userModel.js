@@ -43,9 +43,8 @@ const userSchema = new Schema(
     agreePrivacyPolicy: {
       type: Boolean,
     },
-    resetPassword: {
-      token: String,
-      expiresIn: Date,
+    resetPasswordToken: {
+      type: String,
     },
   },
   {
@@ -76,8 +75,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 
 userSchema.methods.createPasswordResetToken = async function () {
   const resetToken = generateForgotPasswordToken({ email: this.email }, 300); // 5 minutes
-  this.resetPassword.expiresIn = Date.now() + 5 * 60 * 1000; // 5 minutes
-  this.resetPassword.token = resetToken;
+  this.resetPasswordToken = resetToken;
   return resetToken;
 };
 

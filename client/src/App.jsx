@@ -41,12 +41,12 @@ const router = createBrowserRouter(
         <Route element={<RejectAuthenticatedUser />}>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route
+            path="reset-password/:resetToken"
+            element={<ResetPasswordPage />}
+          />
         </Route>
-        <Route path="forgot-password" element={<ForgotPasswordPage />} />
-        <Route
-          path="reset-password/:resetToken"
-          element={<ResetPasswordPage />}
-        />
       </Route>
       <Route element={<RootLayout />}>
         <Route

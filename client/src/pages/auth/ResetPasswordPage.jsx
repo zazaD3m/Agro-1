@@ -1,18 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ResetPasswordForm from "./components/ResetPasswordForm";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { useResetPasswordCheckMutation } from "@/features/auth/authApiSlice";
 import { useEffect } from "react";
 import FullScreenLoader from "@/components/FullScreenLoader";
 import { Button } from "@/components/ui/button";
 
 const ResetPasswordPage = () => {
-  const navigate = useNavigate();
   const { resetToken } = useParams();
 
   const [
     resetPasswordCheck,
-    { isError, error, isLoading, isSuccess, isUninitialized },
+    { isError, error, isLoading, isSuccess, isUninitialized, data },
   ] = useResetPasswordCheckMutation();
 
   useEffect(() => {
@@ -22,17 +21,11 @@ const ResetPasswordPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (isError) {
-      if (error.status !== 400) {
-        navigate("/", { replace: true });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError]);
-
   if (isUninitialized || isLoading) {
     return <FullScreenLoader />;
+  }
+  if (isError && error.status !== 400) {
+    return <Navigate to="/" replace />;
   }
 
   return (
@@ -44,7 +37,7 @@ const ResetPasswordPage = () => {
         {isSuccess ? (
           <>
             <p className="mb-8 mt-2">შეიყვანეთ ახალი პაროლი</p>
-            <ResetPasswordForm token={resetToken} />
+            <ResetPasswordForm token={resetToken} email={data.email} />
           </>
         ) : null}
         {isError && error?.status === 400 ? (

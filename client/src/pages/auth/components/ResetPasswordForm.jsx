@@ -20,12 +20,10 @@ const newPasswordSchema = yup.object({
   confirmNewPassword: yup
     .string()
     .required("ჩაწერე პაროლი")
-    .oneOf([yup.ref("newPassword")], "პაროლები ერთმანეთს არ ემთხვევა")
-    .min(8, "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს და ციფრ(ებ)ს")
-    .matches(/\d/, "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს და ციფრ(ებ)ს"),
+    .oneOf([yup.ref("newPassword")], "პაროლები ერთმანეთს არ ემთხვევა"),
 });
 
-const ResetPasswordForm = ({ token }) => {
+const ResetPasswordForm = ({ token, email }) => {
   const dispatch = useDispatch();
   const [
     resetPassword,
@@ -48,6 +46,7 @@ const ResetPasswordForm = ({ token }) => {
     resetPassword({
       token: token,
       newPassword: data.newPassword,
+      email: email,
     });
   };
 
