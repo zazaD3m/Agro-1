@@ -100,21 +100,21 @@ const authApiSlice = apiSlice.injectEndpoints({
     }),
     sendPasswordResetEmail: builder.mutation({
       query: (email) => ({
-        url: `${AUTH_URL}/send-email`,
+        url: `${AUTH_URL}/forgot-password/send-email`,
         method: "POST",
         body: { email },
       }),
     }),
     resetPassword: builder.mutation({
       query: ({ token, newPassword, email }) => ({
-        url: `${AUTH_URL}/reset-password`,
+        url: `${AUTH_URL}/forgot-password/reset-password`,
         method: "POST",
         body: { token, newPassword, email },
       }),
     }),
     resetPasswordCheck: builder.mutation({
       query: ({ token }) => ({
-        url: `${AUTH_URL}/reset-password-check`,
+        url: `${AUTH_URL}/forgot-password/check`,
         method: "POST",
         body: { token },
       }),

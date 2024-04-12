@@ -15,6 +15,8 @@ import {
   loginValidator,
   registerValidator,
   updateUserValidator,
+  sendResetPasswordEmailValidator,
+  resetPasswordValidator,
 } from "../validations/authValidation.js";
 import {
   validate,
@@ -25,11 +27,7 @@ import { sendResetPasswordEmailMiddleware } from "../middleware/sendMailMiddlewa
 // /api/auth
 const router = Router();
 
-router.post(
-  "/register",
-  //  [registerValidator, validateRegister],
-  registerUser
-);
+router.post("/register", [registerValidator, validateRegister], registerUser);
 
 router.post("/login", [loginValidator, validate], loginUser);
 
@@ -47,10 +45,19 @@ router.put(
 router.get("/refresh-token", refreshToken);
 
 // @desc Create and send email to use for reseting password
-router.post("/send-email", [sendResetPasswordEmailMiddleware], sendEmail);
+router.post(
+  "/forgot-password/send-email",
+  [sendResetPasswordEmailValidator, validate],
+  [sendResetPasswordEmailMiddleware],
+  sendEmail
+);
 
-router.post("/reset-password-check", resetPasswordCheck);
+router.post("/forgot-password/check", resetPasswordCheck);
 
-router.post("/reset-password", resetPassword);
+router.post(
+  "/forgot-password/reset-password",
+  [resetPasswordValidator, validate],
+  resetPassword
+);
 
 export default router;

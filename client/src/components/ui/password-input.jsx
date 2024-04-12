@@ -2,7 +2,6 @@ import * as React from "react";
 
 import { Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "./button";
 
 const PasswordInput = React.forwardRef(
   ({ className, showDefault = false, ...props }, ref) => {
@@ -18,9 +17,8 @@ const PasswordInput = React.forwardRef(
           ref={ref}
           {...props}
         />
-        <Button
-          variant="icon"
-          className="absolute end-2 top-0 aspect-square  rounded-e-md p-0 text-muted-foreground hover:text-secondary-foreground"
+        <span
+          className="absolute end-0 top-0 flex aspect-square h-full cursor-pointer select-none items-center justify-center p-0 text-muted-foreground transition-all hover:text-secondary-foreground"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -28,7 +26,7 @@ const PasswordInput = React.forwardRef(
           }}
         >
           {showPassword ? <Eye /> : <EyeOff />}
-        </Button>
+        </span>
       </div>
     );
   },
