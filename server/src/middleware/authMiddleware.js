@@ -56,39 +56,18 @@ export const isAdmin = (req, res, next) => {
 };
 
 export const checkGoogleAuth = asyncHandler(async (req, res, next) => {
-  let token;
+  const { googleToken } = req.body;
 
-  token = req.cookies.googleAuthToken;
-
-  if (!token) {
-    ThrowErr.Unauthorized();
+  if (!googleToken) {
+    ThrowErr.BadRequest();
   }
 
-  let userId;
-
-  const decoded = jwt.verify(
-    token,
-    GOOGLE_TOKEN_SECRET,
-    function (err, decoded) {
-      if (err) {
-        ThrowErr.Unauthorized();
-      } else {
-        userId = decoded.userId;
-      }
+  jwt.verify(googleToken, GOOGLE_TOKEN_SECRET, function (err, decoded) {
+    if (err) {
+      ThrowErr.BadRequest();
+    } else {
+      req.user = { userId: decoded.userId };
     }
-  );
-
-  const user = await User.findById(id).lean();
-
-  if (!user) {
-    ThrowErr.NotFound();
-  }
-
-  req.user = user;
-  res.clearCookie("googleAuthToken", {
-    httpOnly: true,
-    secure: isProduction,
-    sameSite: "strict",
   });
 
   next();

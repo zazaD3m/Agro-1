@@ -149,7 +149,6 @@ const RegisterForm = () => {
           redirectLink="/privacy-agreement"
           redirectLinkText="კონფიდენციალობის პოლიტიკას"
         />
-        {/*  */}
         <FormSubmitError
           isError={isError && error?.status !== 409 ? isError : false}
           error="მოხდა შეფერხება, სცადეთ ხელმეორედ."

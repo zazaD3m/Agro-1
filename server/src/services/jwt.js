@@ -50,17 +50,11 @@ export const generateRefreshToken = (res, userId) => {
   });
 };
 
-export const generateGoogleToken = (res, userId) => {
+export const generateGoogleToken = (userId) => {
   const googleToken = jwt.sign({ userId }, GOOGLE_TOKEN_SECRET, {
     expiresIn: "1m",
   });
-
-  res.cookie("googleAuthToken", googleToken, {
-    httpOnly: true,
-    secure: isProduction,
-    sameSite: "strict",
-    maxAge: 60 * 1000,
-  });
+  return googleToken;
 };
 
 export const clearRefreshToken = (res) => {

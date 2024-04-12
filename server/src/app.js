@@ -5,11 +5,17 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import rootRoutes from "./routes/index.js";
 import globalErrorHandler from "./controllers/errorController.js";
-import { isProduction } from "./config/config.js";
+import { CLIENT_URL, isProduction } from "./config/config.js";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: CLIENT_URL,
+    methods: "GET, POST, PUT, DELETE",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));

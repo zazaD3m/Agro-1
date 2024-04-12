@@ -119,6 +119,25 @@ const authApiSlice = apiSlice.injectEndpoints({
         body: { token },
       }),
     }),
+    verifyGoogleLogin: builder.mutation({
+      query: (token) => ({
+        url: `${AUTH_URL}/google/verify`,
+        method: "POST",
+        body: { googleToken: token },
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const res = await queryFulfilled;
+          const { accessToken } = res.data;
+          dispatch(setToken({ accessToken }));
+          dispatch(userApiSlice.endpoints.getMe.initiate());
+        } catch (err) {
+          console.log("devERR:", err);
+          dispatch(clearToken());
+          dispatch(clearUser());
+        }
+      },
+    }),
   }),
 });
 
@@ -131,4 +150,5 @@ export const {
   useResetPasswordMutation,
   useResetPasswordCheckMutation,
   useSendPasswordResetEmailMutation,
+  useVerifyGoogleLoginMutation,
 } = authApiSlice;

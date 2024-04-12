@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Icons } from "@/components/icons";
 import RegisterForm from "./components/RegisterForm";
+import GoogleLoginButton from "./components/GoogleLoginButton";
+import FacebookLoginButton from "./components/FacebookLoginButton";
 
 const RegisterPage = () => {
   return (
@@ -25,14 +26,8 @@ const RegisterPage = () => {
             </div>
           </div>
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Button variant="outline" className="w-full rounded px-0">
-              <Icons.google className="mr-2 size-5 sm:mr-4 sm:size-6" />
-              Google
-            </Button>
-            <Button variant="outline" className="w-full rounded px-0">
-              <Icons.facebook className="mr-2 size-5 sm:mr-4 sm:size-6" />
-              Facebook
-            </Button>
+            <GoogleLoginButton />
+            <FacebookLoginButton />
           </div>
         </div>
         <div className="mt-4 text-center text-sm">

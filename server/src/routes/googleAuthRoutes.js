@@ -1,31 +1,106 @@
 import { Router } from "express";
 import passport from "passport";
-import { CLIENT_URL } from "../utils/constants.js";
-import { checkGoogleAuth } from "../middleware/authMiddleware.js";
+import { googleVerifyUser } from "../controllers/authController.js";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import {
-  googleGetUser,
-  googleLoginCallback,
-} from "../controllers/authController.js";
+  API_URL,
+  CLIENT_URL,
+  GOOGLE_CALLBACK_URL,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  GOOGLE_TOKEN_SECRET,
+} from "../config/config.js";
+import User from "../models/userModel.js";
+import { generateGoogleToken } from "../services/jwt.js";
+import { checkGoogleAuth } from "../middleware/authMiddleware.js";
+import jwt from "jsonwebtoken";
 
-// /auth/google
+// /api/auth/google
 const router = Router();
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      callbackURL: `${API_URL}${GOOGLE_CALLBACK_URL}`,
+      session: false,
+    },
+    async function (accessToken, refreshToken, profile, done) {
+      try {
+        const { sub: googleId, given_name, family_name, email } = profile._json;
+        // Find or create a user based on the Google profile
+        let user = await User.findOne({ email });
+
+        if (user) {
+          if (!user.googleId) {
+            user.googleId = googleId;
+          }
+          if (!user.strategy.includes("google")) {
+            if (user.strategy.length > 0) {
+              const strategy = user.strategy;
+              user.strategy = [...strategy, "google"];
+            } else {
+              user.strategy = ["google"];
+            }
+          }
+          await user.save();
+          return done(null, { userId: user._id });
+        }
+
+        user = new User({
+          googleId: googleId,
+          firstName: given_name,
+          lastName: family_name,
+          strategy: ["google"],
+          email,
+        });
+        await user.save();
+
+        // Return the user object to Passport
+        return done(null, { userId: user._id });
+      } catch (err) {
+        return done(err, null);
+      }
+    }
+  )
+);
 
 router.get(
   "/",
   passport.authenticate("google", {
     scope: ["profile", "email"],
+    session: false,
   })
 );
 
 router.get(
   "/callback",
   passport.authenticate("google", {
+    failureRedirect: `${CLIENT_URL}/auth/login`,
     session: false,
-    failureRedirect: CLIENT_URL,
   }),
-  googleLoginCallback
+  (req, res) => {
+    const { userId } = req.user;
+
+    // Generate a google token, send to client to then receive it back for verification
+    const token = generateGoogleToken(userId);
+
+    // Send the JWT token back to the main window
+    // where there is listener set up waiting for a message
+    res.send(`
+    <html>
+      <body>
+        <script>
+          window.opener.postMessage({ token: '${token}' }, '${CLIENT_URL}');
+          window.close();
+        </script>
+      </body>
+    </html>
+  `);
+  }
 );
 
-router.get("/google/getuser", checkGoogleAuth, googleGetUser);
+router.post("/verify", checkGoogleAuth, googleVerifyUser);
 
 export default router;

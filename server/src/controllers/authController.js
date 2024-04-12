@@ -187,3 +187,20 @@ export const resetPassword = asyncHandler(async (req, res) => {
 
   res.status(201).json({ email });
 });
+
+// @desc
+// route /api/auth/google/verify
+export const googleVerifyUser = asyncHandler(async (req, res) => {
+  const { userId } = req.user;
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    ThrowErr.BadRequest();
+  }
+
+  generateRefreshToken(res, user._id);
+  const accessToken = generateAccessToken(user._id);
+
+  return res.status(201).json({ accessToken });
+});

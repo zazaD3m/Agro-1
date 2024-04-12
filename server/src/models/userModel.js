@@ -46,6 +46,8 @@ const userSchema = new Schema(
     resetPasswordToken: {
       type: String,
     },
+    googleId: { type: String },
+    strategy: [{ type: String }],
   },
   {
     timestamps: true,
