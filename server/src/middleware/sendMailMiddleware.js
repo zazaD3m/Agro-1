@@ -1,8 +1,12 @@
 import asyncHanlder from "express-async-handler";
 import User from "../models/userModel.js";
-import { generateForgotPasswordToken } from "../services/jwt.js";
-import { CustomError, ThrowErr } from "../utils/CustomError.js";
+import { ThrowErr } from "../utils/CustomError.js";
 import nodemailer from "nodemailer";
+import {
+  CLIENT_URL,
+  MAIL_SERVICE_PASS,
+  MAIL_SERVICE_USER,
+} from "../config/config.js";
 
 const resetPasswordMailResponseBody = ({ fullName, token }) => `<html>
       <head>
@@ -12,7 +16,7 @@ const resetPasswordMailResponseBody = ({ fullName, token }) => `<html>
         <h1>გამარჯობათ ${fullName}!</h1>
         <div style="background:#fff;border:solid 1px #d8dce1;padding:24px;font-size:16px">
         <p>თქვენ მიიღეთ პაროლის შესაცვლელი ბმული</p>
-        <p>დადასტურება - <a style="color:#0097d9" href=${process.env.CLIENT_URL_DEV}/auth/reset-password/${token}>პაროლის შეცვლა</a></p>
+        <p>დადასტურება - <a style="color:#0097d9" href=${CLIENT_URL}/auth/reset-password/${token}>პაროლის შეცვლა</a></p>
         <p>თუ თქვენ ეს არ მოგითხოვიათ, გთხოვთ დააიგნორეთ მეილი.</p>
         <p>თქვენი პაროლი არ შიცველება თუ არ დაადასტურებთ ბმულს და არ შექმნით ახალს.</p>
         </div>
@@ -39,8 +43,8 @@ export const sendResetPasswordEmailMiddleware = asyncHanlder(
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: process.env.MAIL_SERVICE_USER,
-        pass: process.env.MAIL_SERVICE_PASS,
+        user: MAIL_SERVICE_USER,
+        pass: MAIL_SERVICE_PASS,
       },
     });
 

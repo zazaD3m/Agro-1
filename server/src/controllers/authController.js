@@ -1,17 +1,14 @@
 import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
-import nodemailer from "nodemailer";
 import User from "../models/userModel.js";
-import UserToken from "../models/userTokenModel.js";
 import {
   clearRefreshToken,
   generateRefreshToken,
   generateAccessToken,
-  generateForgotPasswordToken,
   verifyForgotPasswordToken,
 } from "../services/jwt.js";
-import { CustomError, ThrowErr } from "../utils/CustomError.js";
-import { isProduction } from "../utils/helpers.js";
+import { ThrowErr } from "../utils/CustomError.js";
+import { REFRESH_TOKEN_SECRET } from "../config/config.js";
 
 // @desc    Register a new user
 // route    POST /api/auth/register
@@ -129,18 +126,14 @@ export const refreshToken = asyncHandler(async (req, res) => {
   let userId;
 
   const refreshToken = cookies.jwt;
-  jwt.verify(
-    refreshToken,
-    process.env.REFRESH_TOKEN_SECRET,
-    function (err, decoded) {
-      if (err || !decoded?.userId) {
-        clearRefreshToken(res);
-        ThrowErr.Unauthorized();
-      } else {
-        userId = decoded.userId;
-      }
+  jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, function (err, decoded) {
+    if (err || !decoded?.userId) {
+      clearRefreshToken(res);
+      ThrowErr.Unauthorized();
+    } else {
+      userId = decoded.userId;
     }
-  );
+  });
 
   const accessToken = generateAccessToken(userId);
 

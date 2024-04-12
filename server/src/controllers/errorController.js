@@ -1,5 +1,5 @@
+import { isProduction } from "../config/config.js";
 import { CustomError } from "../utils/CustomError.js";
-import { isProduction } from "../utils/helpers.js";
 
 const devErrors = (res, error) => {
   res.status(error.statusCode).json({

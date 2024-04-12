@@ -73,7 +73,7 @@ const RegisterForm = () => {
     if (isError) {
       const status = error.status;
       const message = error.data.message;
-      if (status === 409 && message === "Email already in use") {
+      if (status === 409 && message === "Email is already taken") {
         setError(
           "email",
           {

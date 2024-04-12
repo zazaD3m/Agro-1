@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { validationResult } from "express-validator";
 import { CustomError } from "../utils/CustomError.js";
-import { isProduction } from "../utils/helpers.js";
+import { isProduction } from "../config/config.js";
 
 export const validate = asyncHandler(async (req, res, next) => {
   const errors = validationResult(req);

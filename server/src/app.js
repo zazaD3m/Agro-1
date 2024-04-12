@@ -1,4 +1,3 @@
-import "dotenv/config.js";
 import express from "express";
 import cors from "cors";
 import path from "path";
@@ -6,8 +5,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import rootRoutes from "./routes/index.js";
 import globalErrorHandler from "./controllers/errorController.js";
-
-const isProduction = process.env.NODE_ENV === "production";
+import { isProduction } from "./config/config.js";
 
 const app = express();
 
@@ -35,4 +33,4 @@ if (isProduction) {
 
 app.use(globalErrorHandler);
 
-export { app };
+export default app;

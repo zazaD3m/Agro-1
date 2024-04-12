@@ -1,9 +1,13 @@
 import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
-import { isProduction } from "../utils/helpers.js";
 import { clearRefreshToken } from "../services/jwt.js";
 import { ThrowErr } from "../utils/CustomError.js";
+import {
+  ACCESS_TOKEN_SECRET,
+  GOOGLE_TOKEN_SECRET,
+  isProduction,
+} from "../config/config.js";
 
 export const authenticateUser = asyncHandler(async (req, res, next) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
@@ -20,21 +24,17 @@ export const authenticateUser = asyncHandler(async (req, res, next) => {
 
   let userId;
 
-  jwt.verify(
-    accessToken,
-    process.env.ACCESS_TOKEN_SECRET,
-    function (err, decoded) {
-      if (err) {
-        if (err.name === "TokenExpiredError") {
-          ThrowErr.Unauthorized("accessToken expired");
-        } else {
-          ThrowErr.Unauthorized();
-        }
+  jwt.verify(accessToken, ACCESS_TOKEN_SECRET, function (err, decoded) {
+    if (err) {
+      if (err.name === "TokenExpiredError") {
+        ThrowErr.Unauthorized("accessToken expired");
       } else {
-        userId = decoded.userId;
+        ThrowErr.Unauthorized();
       }
+    } else {
+      userId = decoded.userId;
     }
-  );
+  });
 
   const user = await User.findById(userId);
 
@@ -68,7 +68,7 @@ export const checkGoogleAuth = asyncHandler(async (req, res, next) => {
 
   const decoded = jwt.verify(
     token,
-    process.env.GOOGLE_TOKEN_SECRET,
+    GOOGLE_TOKEN_SECRET,
     function (err, decoded) {
       if (err) {
         ThrowErr.Unauthorized();

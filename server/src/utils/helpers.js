@@ -1,5 +1,3 @@
-export const isProduction = process.env.NODE_ENV === "production";
-
 export const slugify = (string) => {
   return String(string)
     .normalize("NFKD")
