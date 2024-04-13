@@ -23,6 +23,14 @@ app.use(express.static("public"));
 app.use(cookieParser());
 if (isDevelopment) {
   app.use(morgan("dev"));
+} else {
+  app.use(
+    morgan("combined", {
+      skip: function (req, res) {
+        return res.statusCode < 400;
+      },
+    })
+  );
 }
 
 const __dirname = path.resolve();
