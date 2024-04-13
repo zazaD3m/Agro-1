@@ -43,10 +43,15 @@ const ResetPasswordPage = () => {
         {isError && error?.status === 400 ? (
           <div className="space-y-4">
             <p className="text-destructive">
-              პაროლის განახლების ბმულს დრო გაუვიდა
+              {error.data.message === "Token Expired"
+                ? "პაროლის განახლების ბმულს დრო გაუვიდა"
+                : null}
+              {error.data.message === "Token already claimed"
+                ? "პაროლის განახლების ეს ბმული უკვე გამოიყენეთ"
+                : null}
             </p>
             <Button className="w-full" asChild>
-              <Link to="/auth/forgot-password">ბმულის ხელახლა გამოგზავნა</Link>
+              <Link to="/auth/forgot-password">ახალი ბმულის გამოგზავნა</Link>
             </Button>
           </div>
         ) : null}

@@ -156,10 +156,14 @@ export const resetPasswordCheck = asyncHandler(async (req, res) => {
     ThrowErr.ServerError();
   }
 
-  const user = await User.findOne({ email, resetPasswordToken: token });
+  const user = await User.findOne({ email });
 
   if (!user) {
-    ThrowErr.ServerError();
+    ThrowErr.BadRequest();
+  }
+
+  if (!user.resetPasswordToken) {
+    ThrowErr.BadRequest("Token already claimed");
   }
 
   res.status(201).json({ email });
@@ -191,6 +195,23 @@ export const resetPassword = asyncHandler(async (req, res) => {
 // @desc
 // route /api/auth/google/verify
 export const googleVerifyUser = asyncHandler(async (req, res) => {
+  const { userId } = req.user;
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    ThrowErr.BadRequest();
+  }
+
+  generateRefreshToken(res, user._id);
+  const accessToken = generateAccessToken(user._id);
+
+  return res.status(201).json({ accessToken });
+});
+
+// @desc
+// route /api/auth/facebook/verify
+export const facebookVerifyUser = asyncHandler(async (req, res) => {
   const { userId } = req.user;
 
   const user = await User.findById(userId);

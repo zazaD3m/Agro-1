@@ -30,6 +30,8 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import PrivacyPolicy from "./pages/siteinfo/PrivacyPolicy";
+import TermsOfService from "./pages/siteinfo/TermsOfService";
 // PAGES END
 
 const router = createBrowserRouter(
@@ -44,6 +46,8 @@ const router = createBrowserRouter(
             </Suspense>
           }
         />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="terms-of-use" element={<TermsOfService />} />
       </Route>
       {/* == AUTH PATHS START */}
       <Route element={<RejectAuthenticatedUser />}>
@@ -57,6 +61,7 @@ const router = createBrowserRouter(
           />
         </Route>
       </Route>
+
       {/* == AUTH PATHS END */}
       <Route path="*" element={<PageNotFound />} />
     </Route>,

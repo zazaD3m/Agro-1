@@ -16,7 +16,7 @@ const resetPasswordMailResponseBody = ({ fullName, token }) => `<html>
         <h1>გამარჯობათ ${fullName}!</h1>
         <div style="background:#fff;border:solid 1px #d8dce1;padding:24px;font-size:16px">
         <p>თქვენ მიიღეთ პაროლის შესაცვლელი ბმული</p>
-        <p>დადასტურება - <a style="color:#0097d9" href=${CLIENT_URL}/auth/reset-password/${token}>პაროლის შეცვლა</a></p>
+        <p>დადასტურება - <a style="color:#0097d9" target="_blank" href=${CLIENT_URL}/auth/reset-password/${token} >პაროლის შეცვლა</a></p>
         <p>თუ თქვენ ეს არ მოგითხოვიათ, გთხოვთ დააიგნორეთ მეილი.</p>
         <p>თქვენი პაროლი არ შიცველება თუ არ დაადასტურებთ ბმულს და არ შექმნით ახალს.</p>
         </div>

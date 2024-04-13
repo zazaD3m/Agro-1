@@ -17,6 +17,7 @@ import {
   updateUserValidator,
   sendResetPasswordEmailValidator,
   resetPasswordValidator,
+  resetPasswordCheckValidator,
 } from "../validations/authValidation.js";
 import {
   validate,
@@ -52,7 +53,11 @@ router.post(
   sendEmail
 );
 
-router.post("/forgot-password/check", resetPasswordCheck);
+router.post(
+  "/forgot-password/check",
+  [resetPasswordCheckValidator, validate],
+  resetPasswordCheck
+);
 
 router.post(
   "/forgot-password/reset-password",

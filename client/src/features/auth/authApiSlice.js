@@ -138,6 +138,25 @@ const authApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    verifyFacebookLogin: builder.mutation({
+      query: (token) => ({
+        url: `${AUTH_URL}/facebook/verify`,
+        method: "POST",
+        body: { facebookToken: token },
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const res = await queryFulfilled;
+          const { accessToken } = res.data;
+          dispatch(setToken({ accessToken }));
+          dispatch(userApiSlice.endpoints.getMe.initiate());
+        } catch (err) {
+          console.log("devERR:", err);
+          dispatch(clearToken());
+          dispatch(clearUser());
+        }
+      },
+    }),
   }),
 });
 
@@ -151,4 +170,5 @@ export const {
   useResetPasswordCheckMutation,
   useSendPasswordResetEmailMutation,
   useVerifyGoogleLoginMutation,
+  useVerifyFacebookLoginMutation,
 } = authApiSlice;

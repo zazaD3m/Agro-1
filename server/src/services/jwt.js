@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { ThrowErr } from "../utils/CustomError.js";
 import {
   ACCESS_TOKEN_SECRET,
+  FACEBOOK_TOKEN_SECRET,
   FORGOT_PASSWORD_TOKEN_SECRET,
   GOOGLE_TOKEN_SECRET,
   REFRESH_TOKEN_SECRET,
@@ -55,6 +56,13 @@ export const generateGoogleToken = (userId) => {
     expiresIn: "1m",
   });
   return googleToken;
+};
+
+export const generateFacebookToken = (userId) => {
+  const facebookToken = jwt.sign({ userId }, FACEBOOK_TOKEN_SECRET, {
+    expiresIn: "1m",
+  });
+  return facebookToken;
 };
 
 export const clearRefreshToken = (res) => {

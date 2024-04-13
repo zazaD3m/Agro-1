@@ -1,47 +1,51 @@
 import { Router } from "express";
 import passport from "passport";
-import { googleVerifyUser } from "../controllers/authController.js";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+// import { googleVerifyUser } from "../controllers/authController.js";
+import { Strategy as FacebookStrategy } from "passport-facebook";
 import {
   API_URL,
   CLIENT_URL,
-  GOOGLE_CALLBACK_URL,
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
+  FACEBOOK_APP_ID,
+  FACEBOOK_APP_SECRET,
+  FACEBOOK_CALLBACK_URL,
 } from "../config/config.js";
 import User from "../models/userModel.js";
-import { generateGoogleToken } from "../services/jwt.js";
-import { checkGoogleAuth } from "../middleware/authMiddleware.js";
-import { validate } from "../middleware/validationMiddleware.js";
-import { checkGoogleAuthValidator } from "../validations/authValidation.js";
+import { generateFacebookToken } from "../services/jwt.js";
+import { checkFacebookAuth } from "../middleware/authMiddleware.js";
+import { facebookVerifyUser } from "../controllers/authController.js";
+// import { generateGoogleToken } from "../services/jwt.js";
+// import { checkGoogleAuth } from "../middleware/authMiddleware.js";
+// import { validate } from "../middleware/validationMiddleware.js";
+// import { checkGoogleAuthValidator } from "../validations/authValidation.js";
 
-// /api/auth/google
 const router = Router();
 
 passport.use(
-  new GoogleStrategy(
+  new FacebookStrategy(
     {
-      clientID: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: `${API_URL}${GOOGLE_CALLBACK_URL}`,
+      clientID: FACEBOOK_APP_ID,
+      clientSecret: FACEBOOK_APP_SECRET,
+      callbackURL: `${API_URL}${FACEBOOK_CALLBACK_URL}`,
+      profileFields: ["id", "displayName", "email"],
       session: false,
     },
     async function (accessToken, refreshToken, profile, done) {
       try {
-        const { sub: googleId, given_name, family_name, email } = profile._json;
+        console.log(profile);
+        const { id, displayName, email } = profile;
         // Find or create a user based on the Google profile
         let user = await User.findOne({ email });
 
         if (user) {
-          if (!user.googleId) {
-            user.googleId = googleId;
+          if (!user.facebookId) {
+            user.facebookId = facebookId;
           }
-          if (!user.loginStrategy.includes("google")) {
+          if (!user.loginStrategy.includes("facebook")) {
             if (user.loginStrategy.length > 0) {
               const strategy = user.loginStrategy;
-              user.loginStrategy = [...strategy, "google"];
+              user.loginStrategy = [...strategy, "facebook"];
             } else {
-              user.loginStrategy = ["google"];
+              user.loginStrategy = ["facebook"];
             }
           }
           await user.save();
@@ -49,11 +53,10 @@ passport.use(
         }
 
         user = new User({
-          googleId: googleId,
-          firstName: given_name,
-          lastName: family_name,
-          loginStrategy: ["google"],
-          email,
+          facebookId: id,
+          firstName: displayName,
+          loginStrategy: ["facebook"],
+          email: email,
         });
         await user.save();
 
@@ -68,15 +71,14 @@ passport.use(
 
 router.get(
   "/",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
+  passport.authenticate("facebook", {
     session: false,
   })
 );
 
 router.get(
   "/callback",
-  passport.authenticate("google", {
+  passport.authenticate("facebook", {
     failureRedirect: `${CLIENT_URL}/auth/login`,
     session: false,
   }),
@@ -84,7 +86,7 @@ router.get(
     const { userId } = req.user;
 
     // Generate a google token, send to client to then receive it back for verification
-    const token = generateGoogleToken(userId);
+    const token = generateFacebookToken(userId);
 
     // Send the JWT token back to the main window
     // where there is listener set up waiting for a message
@@ -103,9 +105,9 @@ router.get(
 
 router.post(
   "/verify",
-  [checkGoogleAuthValidator, validate],
-  checkGoogleAuth,
-  googleVerifyUser
+  // [checkGoogleAuthValidator, validate],
+  checkFacebookAuth,
+  facebookVerifyUser
 );
 
 export default router;

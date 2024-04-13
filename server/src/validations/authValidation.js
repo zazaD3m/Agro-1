@@ -89,8 +89,14 @@ export const sendResetPasswordEmailValidator = [
   checkExact(),
 ];
 
+export const resetPasswordCheckValidator = [
+  body("token").exists().isJWT(),
+  checkExact(),
+];
+
 export const resetPasswordValidator = [
   body("email").isString().notEmpty().trim().escape().isEmail(),
+  body("token").exists().isJWT(),
   body("newPassword").isString().notEmpty().trim().escape().isStrongPassword({
     minLength: 7,
     minNumbers: 0,
@@ -98,4 +104,10 @@ export const resetPasswordValidator = [
     minLowercase: 0,
     minUppercase: 0,
   }),
+  checkExact(),
+];
+
+export const checkGoogleAuthValidator = [
+  body("googleToken").exists().isJWT(),
+  checkExact(),
 ];

@@ -25,6 +25,7 @@ export const MAIL_SERVICE_PASS = process.env.MAIL_SERVICE_PASS;
 export const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
 export const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
 export const GOOGLE_TOKEN_SECRET = process.env.GOOGLE_TOKEN_SECRET;
+export const FACEBOOK_TOKEN_SECRET = process.env.FACEBOOK_TOKEN_SECRET;
 export const FORGOT_PASSWORD_TOKEN_SECRET =
   process.env.FORGOT_PASSWORD_TOKEN_SECRET;
 
@@ -32,3 +33,8 @@ export const FORGOT_PASSWORD_TOKEN_SECRET =
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 export const GOOGLE_CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL;
+
+// FACEBOOK auth
+export const FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID;
+export const FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;
+export const FACEBOOK_CALLBACK_URL = process.env.FACEBOOK_CALLBACK_URL;

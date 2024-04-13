@@ -41,7 +41,7 @@ const LoginForm = () => {
     reValidateMode: "onSubmit",
   });
 
-  const { handleSubmit, control, reset, setValue, setFocus } = form;
+  const { handleSubmit, control, resetField, setValue, setFocus } = form;
 
   const onSubmit = (data) => {
     loginMutation(data);
@@ -49,10 +49,10 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isError) {
-      reset();
+      resetField("password", { keepDirty: true, keepTouched: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError, userInfo]);
+  }, [isError]);
 
   useEffect(() => {
     if (userInfo) {
@@ -63,7 +63,7 @@ const LoginForm = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfo]);
+  }, []);
 
   return (
     <Form {...form}>
