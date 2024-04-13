@@ -11,7 +11,8 @@
     "admin": "npm run dev --prefix ../admin",
     "dev-client": "concurrently \"npm run dev\" \"npm run client\" ",
     "dev-admin": "concurrently \"npm run dev\" \"npm run admin\" ",
-    "dev-all": "concurrently \"npm run dev\" \"npm run client\" \"npm run admin\" "
+    "dev-all": "concurrently \"npm run dev\" \"npm run client\" \"npm run admin\" ",
+    "build": "npm install && cd .. && cd client && npm install && npm run build && cd .. && cd server"
   },
   "author": "",
   "license": "ISC",
