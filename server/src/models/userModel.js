@@ -47,7 +47,7 @@ const userSchema = new Schema(
       type: String,
     },
     googleId: { type: String },
-    strategy: [{ type: String }],
+    loginStrategy: [{ type: String }],
   },
   {
     timestamps: true,

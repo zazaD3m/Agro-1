@@ -16,7 +16,7 @@ import { REFRESH_TOKEN_SECRET } from "../config/config.js";
 export const registerUser = asyncHandler(async (req, res) => {
   const inputData = req.body;
 
-  const newUser = await User.create(inputData);
+  const newUser = await User.create({ ...inputData, loginStrategy: ["local"] });
 
   if (!newUser) {
     ThrowErr.ServerError();

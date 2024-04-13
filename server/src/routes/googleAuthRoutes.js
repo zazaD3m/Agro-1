@@ -36,12 +36,12 @@ passport.use(
           if (!user.googleId) {
             user.googleId = googleId;
           }
-          if (!user.strategy.includes("google")) {
-            if (user.strategy.length > 0) {
-              const strategy = user.strategy;
-              user.strategy = [...strategy, "google"];
+          if (!user.loginStrategy.includes("google")) {
+            if (user.loginStrategy.length > 0) {
+              const strategy = user.loginStrategy;
+              user.loginStrategy = [...strategy, "google"];
             } else {
-              user.strategy = ["google"];
+              user.loginStrategy = ["google"];
             }
           }
           await user.save();
@@ -52,7 +52,7 @@ passport.use(
           googleId: googleId,
           firstName: given_name,
           lastName: family_name,
-          strategy: ["google"],
+          loginStrategy: ["google"],
           email,
         });
         await user.save();

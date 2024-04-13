@@ -4,7 +4,6 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
-  Navigate,
 } from "react-router-dom";
 
 import { rehydrateState } from "./app/actions";
@@ -36,18 +35,6 @@ import RegisterPage from "./pages/auth/RegisterPage";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" errorElement={<GlobalError />}>
-      <Route path="auth" element={<AuthLayout />}>
-        <Route index element={<Navigate replace to="login" />} />
-        <Route element={<RejectAuthenticatedUser />}>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
-          <Route path="forgot-password" element={<ForgotPasswordPage />} />
-          <Route
-            path="reset-password/:resetToken"
-            element={<ResetPasswordPage />}
-          />
-        </Route>
-      </Route>
       <Route element={<RootLayout />}>
         <Route
           index
@@ -58,6 +45,19 @@ const router = createBrowserRouter(
           }
         />
       </Route>
+      {/* == AUTH PATHS START */}
+      <Route element={<RejectAuthenticatedUser />}>
+        <Route element={<AuthLayout />}>
+          <Route path="auth/login" element={<LoginPage />} />
+          <Route path="auth/register" element={<RegisterPage />} />
+          <Route path="auth/forgot-password" element={<ForgotPasswordPage />} />
+          <Route
+            path="auth/reset-password/:resetToken"
+            element={<ResetPasswordPage />}
+          />
+        </Route>
+      </Route>
+      {/* == AUTH PATHS END */}
       <Route path="*" element={<PageNotFound />} />
     </Route>,
   ),
