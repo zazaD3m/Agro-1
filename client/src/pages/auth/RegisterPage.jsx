@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import RegisterForm from "./components/RegisterForm";
 import GoogleLoginButton from "./components/GoogleLoginButton";
-import FacebookLoginButton from "./components/FacebookLoginButton";
+// import FacebookLoginButton from "./components/FacebookLoginButton";
 
 const RegisterPage = () => {
   return (
@@ -27,7 +27,7 @@ const RegisterPage = () => {
           </div>
           <div className="flex flex-col gap-4 sm:flex-row">
             <GoogleLoginButton />
-            <FacebookLoginButton />
+            {/* <FacebookLoginButton /> */}
           </div>
         </div>
         <div className="mt-4 text-center text-sm">

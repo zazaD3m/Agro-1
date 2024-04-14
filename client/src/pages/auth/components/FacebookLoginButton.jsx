@@ -10,7 +10,11 @@ const FacebookLoginButton = () => {
 
   useEffect(() => {
     const handleMessage = (event) => {
-      if (event.origin === API_URL && event.data.token) {
+      if (
+        event.origin === API_URL &&
+        event.data.token &&
+        event.data.strategy === "facebook"
+      ) {
         const { token } = event.data;
         verifyFacebookLogin(token);
       }

@@ -13,10 +13,6 @@ import User from "../models/userModel.js";
 import { generateFacebookToken } from "../services/jwt.js";
 import { checkFacebookAuth } from "../middleware/authMiddleware.js";
 import { facebookVerifyUser } from "../controllers/authController.js";
-// import { generateGoogleToken } from "../services/jwt.js";
-// import { checkGoogleAuth } from "../middleware/authMiddleware.js";
-// import { validate } from "../middleware/validationMiddleware.js";
-// import { checkGoogleAuthValidator } from "../validations/authValidation.js";
 
 const router = Router();
 

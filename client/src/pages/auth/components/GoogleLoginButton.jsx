@@ -10,7 +10,12 @@ const GoogleLoginButton = () => {
 
   useEffect(() => {
     const handleMessage = (event) => {
-      if (event.origin === API_URL && event.data.token) {
+      console.log(event);
+      if (
+        event.origin === API_URL &&
+        event.data.token &&
+        event.data.strategy === "google"
+      ) {
         const { token } = event.data;
         verifyGoogleLogin(token);
       }

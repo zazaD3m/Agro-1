@@ -92,7 +92,7 @@ router.get(
     <html>
       <body>
         <script>
-          window.opener.postMessage({ token: '${token}' }, '${CLIENT_URL}');
+          window.opener.postMessage({ token: '${token}', strategy: 'google' }, '${CLIENT_URL}');
           window.close();
         </script>
       </body>
