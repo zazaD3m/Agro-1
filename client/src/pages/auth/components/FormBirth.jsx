@@ -31,18 +31,17 @@ const FormBirth = ({ control, setValue }) => {
       name="birthYear"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel className="w-[200px] text-lg font-semibold">
-            დაბადების წელი
-          </FormLabel>
+          <FormLabel className="text-lg">დაბადების წელი</FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
-                  variant="outline"
+                  size="lg"
+                  variant="secondary"
                   role="combobox"
                   aria-expanded={open}
                   className={cn(
-                    "w-[200px]  justify-between",
+                    "w-64 justify-between px-4 text-foreground",
                     !field.value && "text-muted-foreground",
                   )}
                 >
@@ -53,7 +52,7 @@ const FormBirth = ({ control, setValue }) => {
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] rounded-sm p-0">
+            <PopoverContent align="start" className="w-64 rounded-sm p-0">
               <Command
                 filter={(value, search) => {
                   if (value.includes(search)) return 1;

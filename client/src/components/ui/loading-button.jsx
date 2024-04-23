@@ -20,7 +20,11 @@ const LoadingButton = React.forwardRef(
         <>
           {loading && (
             <Loader2
-              className={cn("h-4 w-4 animate-spin", children && "mr-2")}
+              className={cn(
+                "size-4 animate-spin",
+                size === "lg" && "size-6",
+                children && "mr-2",
+              )}
             />
           )}
           {children}

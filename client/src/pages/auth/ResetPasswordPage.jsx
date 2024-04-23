@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ResetPasswordForm from "./components/ResetPasswordForm";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { useResetPasswordCheckMutation } from "@/features/auth/authApiSlice";
@@ -27,36 +26,39 @@ const ResetPasswordPage = () => {
   if (isError && error.status !== 400) {
     return <Navigate to="/" replace />;
   }
+  if (
+    isError &&
+    error.status === 400 &&
+    error.data.message === "Bad request!"
+  ) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-lg sm:text-2xl">პაროლის აღდგენა</CardTitle>
-      </CardHeader>
-      <CardContent>
-        {isSuccess ? (
-          <>
-            <p className="mb-8 mt-2">შეიყვანეთ ახალი პაროლი</p>
-            <ResetPasswordForm token={resetToken} email={data.email} />
-          </>
-        ) : null}
-        {isError && error?.status === 400 ? (
-          <div className="space-y-4">
-            <p className="text-destructive">
-              {error.data.message === "Token Expired"
-                ? "პაროლის განახლების ბმულს დრო გაუვიდა"
-                : null}
-              {error.data.message === "Token already claimed"
-                ? "პაროლის განახლების ეს ბმული უკვე გამოიყენეთ"
-                : null}
-            </p>
-            <Button className="w-full" asChild>
-              <Link to="/auth/forgot-password">ახალი ბმულის გამოგზავნა</Link>
-            </Button>
-          </div>
-        ) : null}
-      </CardContent>
-    </Card>
+    <>
+      <h1 className="text-xl font-semibold sm:text-3xl">პაროლის აღდგენა</h1>
+      {isSuccess ? (
+        <>
+          <p className="py-2">შეიყვანეთ ახალი პაროლი</p>
+          <ResetPasswordForm token={resetToken} email={data.email} />
+        </>
+      ) : null}
+      {isError && error?.status === 400 ? (
+        <>
+          <p className="pb-4 text-destructive">
+            {error.data.message === "Token Expired"
+              ? "პაროლის განახლების ბმულს დრო გაუვიდა"
+              : null}
+            {error.data.message === "Token already claimed"
+              ? "პაროლის განახლების ეს ბმული უკვე გამოიყენეთ"
+              : null}
+          </p>
+          <Button className="w-full" variant="primary" size="lg" asChild>
+            <Link to="/auth/forgot-password">ახალი ბმულის გამოგზავნა</Link>
+          </Button>
+        </>
+      ) : null}
+    </>
   );
 };
 export default ResetPasswordPage;

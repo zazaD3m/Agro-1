@@ -125,7 +125,7 @@ const FormMessageSuccess = React.forwardRef(
     return (
       <p
         ref={ref}
-        className={cn("text-sm font-medium text-primary", className)}
+        className={cn("text-base font-medium text-primary", className)}
         {...props}
       >
         {props.children}

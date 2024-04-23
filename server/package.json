@@ -8,8 +8,10 @@
     "dev": "nodemon -r dotenv/config src/server.js",
     "start": "node -r dotenv/config src/server.js",
     "client": "npm run dev --prefix ../client",
+    "client-m": "npm run dev-m --prefix ../client",
     "admin": "npm run dev --prefix ../admin",
     "dev-client": "concurrently \"npm run dev\" \"npm run client\" ",
+    "dev-client-m": "concurrently \"npm run dev\" \"npm run client-m\" ",
     "dev-admin": "concurrently \"npm run dev\" \"npm run admin\" ",
     "dev-all": "concurrently \"npm run dev\" \"npm run client\" \"npm run admin\" ",
     "build": "npm install && cd .. && cd client && npm install && npm run build && cd .. && cd server"

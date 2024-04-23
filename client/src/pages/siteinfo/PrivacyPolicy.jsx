@@ -1,4 +1,11 @@
+import Seo from "@/components/Seo";
+
 const PrivacyPolicy = () => {
-  return <div>PrivacyPolicy</div>;
+  return (
+    <>
+      <Seo description="privacy info" />
+      <div>PrivacyPolicy</div>;
+    </>
+  );
 };
 export default PrivacyPolicy;

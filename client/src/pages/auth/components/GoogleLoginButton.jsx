@@ -10,7 +10,6 @@ const GoogleLoginButton = () => {
 
   useEffect(() => {
     const handleMessage = (event) => {
-      console.log(event);
       if (
         event.origin === API_URL &&
         event.data.token &&
@@ -45,7 +44,8 @@ const GoogleLoginButton = () => {
   return (
     <Button
       onClick={loginWithGoogle}
-      variant="outline"
+      variant="secondary"
+      size="lg"
       className="w-full rounded px-0"
     >
       <Icons.google className="mr-2 size-5 sm:mr-4 sm:size-6" />

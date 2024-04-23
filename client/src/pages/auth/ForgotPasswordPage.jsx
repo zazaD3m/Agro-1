@@ -2,13 +2,12 @@ import { Link } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ForgotPasswordForm from "./components/ForgotPasswordForm";
 
 const ForgotPasswordPage = () => {
   return (
-    <Card>
-      <CardHeader className="flex-row items-center gap-x-4">
+    <>
+      <div className="flex items-center gap-x-4">
         <Button
           asChild
           size="icon"
@@ -19,15 +18,13 @@ const ForgotPasswordPage = () => {
             <ChevronLeft />
           </Link>
         </Button>
-        <CardTitle className="text-lg sm:text-2xl">პაროლის აღდგენა</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="mb-8 mt-2">
-          შეიყვანეთ ელფოსტა და პაროლის აღდგენის ინსტრუქციას გამოგიგზავნით.
-        </p>
-        <ForgotPasswordForm />
-      </CardContent>
-    </Card>
+        <h1 className="text-xl font-semibold sm:text-3xl">პაროლის აღდგენა</h1>
+      </div>
+      <p className="py-2">
+        შეიყვანეთ ელფოსტა და პაროლის აღდგენის ინსტრუქციას გამოგიგზავნით.
+      </p>
+      <ForgotPasswordForm />
+    </>
   );
 };
 export default ForgotPasswordPage;

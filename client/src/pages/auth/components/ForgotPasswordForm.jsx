@@ -58,36 +58,37 @@ const ForgotPasswordForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid gap-2">
-          <FormField
-            control={control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg font-semibold">ელფოსტა</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled={isLoading}
-                    placeholder="example@gmail.com"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-                <FormMessageSuccess isSuccess={isSuccess}>
-                  მოთხოვნა წარმატებულია, რამოდენიმე წუთში მეილზე მიიღებთ პაროლის
-                  აღდგენის ბმულს.
-                </FormMessageSuccess>
-              </FormItem>
-            )}
-          />
-        </div>
+        <FormField
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-lg">ელფოსტა</FormLabel>
+              <FormControl>
+                <Input
+                  disabled={isLoading}
+                  size="lg"
+                  placeholder="m@example.com"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+              <FormMessageSuccess isSuccess={isSuccess}>
+                მოთხოვნა წარმატებულია, რამოდენიმე წუთში მეილზე მიიღებთ პაროლის
+                აღდგენის ბმულს.
+              </FormMessageSuccess>
+            </FormItem>
+          )}
+        />
         <LoadingButton
           type="submit"
+          variant="primary"
+          size="lg"
           className="w-full"
           loading={isLoading}
-          disabled={isSuccess}
+          disabled={isSuccess || isLoading}
         >
-          გაგრძელება
+          დადასტურება
         </LoadingButton>
       </form>
     </Form>

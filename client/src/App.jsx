@@ -26,6 +26,7 @@ import AuthLayout from "./components/layout/AuthLayout";
 
 // PAGES START
 const HomePage = lazy(() => import("./pages/home/HomePage"));
+const CatalogPage = lazy(() => import("./pages/catalog/CatalogPage"));
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import LoginPage from "./pages/auth/LoginPage";
@@ -46,6 +47,16 @@ const router = createBrowserRouter(
             </Suspense>
           }
         />
+        <Route path="catalog">
+          <Route
+            index
+            element={
+              <Suspense fallback={<FullScreenLoader />}>
+                <CatalogPage />
+              </Suspense>
+            }
+          />
+        </Route>
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="terms-of-use" element={<TermsOfService />} />
       </Route>

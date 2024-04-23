@@ -1,12 +1,14 @@
 import { Outlet } from "react-router-dom";
-import Header from "../header/Header";
+import MainNavigation from "../navigation/MainNavigation";
 import { Toaster } from "../ui/toaster";
+import Breadcrumbs from "../Breadcrumbs";
 
 const RootLayout = () => {
   return (
     <>
-      <Header />
-      <main>
+      <MainNavigation />
+      {/* <Breadcrumbs /> */}
+      <main className="bg-accent pb-16">
         <Outlet />
       </main>
       <Toaster />

@@ -92,19 +92,25 @@ const ResetPasswordForm = ({ token, email }) => {
                 ? "პაროლის განახლების ბმულს დრო გაუვიდა"
                 : "მოხდა შეფერხებაა გთხოვთ თავიდან ცადოთ"}
             </p>
-            <Button className="w-full" asChild>
+            <Button className="w-full" variant="primary" size="lg" asChild>
               <Link to="/auth/forgot-password">ბმულის ხელახლა გამოგზავნა</Link>
             </Button>
           </div>
         ) : isSuccess ? (
           <div className="space-y-4">
             <p className="text-primary">პაროლი წარმატებით შეიცვალა</p>
-            <Button className="w-full" asChild>
+            <Button className="w-full" variant="primary" size="lg" asChild>
               <Link to="/auth/login">ანგარიშში შესვლა</Link>
             </Button>
           </div>
         ) : (
-          <LoadingButton type="submit" className="w-full" loading={isLoading}>
+          <LoadingButton
+            type="submit"
+            variant="primary"
+            size="lg"
+            className="w-full"
+            loading={isLoading}
+          >
             დადასტურება
           </LoadingButton>
         )}

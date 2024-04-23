@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Link } from "react-router-dom";
 import {
@@ -18,6 +17,7 @@ import { useEffect } from "react";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/userSlice";
+import FormText from "./FormText";
 
 const loginSchema = yup.object({
   password: yup.string().required("ჩაწერე პაროლი"),
@@ -68,55 +68,46 @@ const LoginForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid gap-2">
-          <FormField
-            control={control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg font-semibold">ელფოსტა</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled={isLoading}
-                    placeholder="example@gmail.com"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="grid gap-2">
-          <FormField
-            control={control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center">
-                  <FormLabel className="text-lg font-semibold">
-                    პაროლი
-                  </FormLabel>
-                  <Link
-                    to="/auth/forgot-password"
-                    className="ml-auto inline-block text-sm underline"
-                  >
-                    პაროლის აღდგენა
-                  </Link>
-                </div>
-                <FormControl>
-                  <PasswordInput disabled={isLoading} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <FormText
+          control={control}
+          name="email"
+          label="ელფოსტა"
+          isLoading={isLoading}
+          placeholder="m@example.com"
+          autoComplete="email"
+        />
+        <FormField
+          control={control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center">
+                <FormLabel className="text-lg font-semibold">პაროლი</FormLabel>
+                <Link
+                  to="/auth/forgot-password"
+                  className="ml-auto inline-block text-sm underline"
+                >
+                  პაროლის აღდგენა
+                </Link>
+              </div>
+              <FormControl>
+                <PasswordInput size="lg" disabled={isLoading} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormSubmitError
           isError={isError}
           error="მომხმარებელი ან პაროლი არასწორია"
         />
-        <LoadingButton type="submit" className="w-full" loading={isLoading}>
+        <LoadingButton
+          variant="primary"
+          size="lg"
+          type="submit"
+          className="w-full"
+          loading={isLoading}
+        >
           შესვლა
         </LoadingButton>
       </form>

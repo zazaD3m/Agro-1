@@ -21,13 +21,13 @@ const ErrorWrapper = ({ title, desc }) => {
           <CardDescription>{desc}</CardDescription>
         </CardHeader>
         <CardFooter className="flex flex-col justify-center gap-2">
-          <Button asChild className="">
+          <Button asChild>
             <Link to="/">
               <Home className="mr-2 size-5 sm:size-6" />
               საწყისი გვერდი
             </Link>
           </Button>
-          <Button className="" onClick={() => navigate(-1)} variant="outline">
+          <Button onClick={() => navigate(-1)} variant="outline">
             <Undo2 className="mr-2 size-5 sm:size-6" />
             უკან დაბრუნება
           </Button>

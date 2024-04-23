@@ -5,7 +5,6 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     userInfo: null,
-    siteInfo: null,
   },
   reducers: {
     setUser: (state, action) => {
@@ -23,4 +22,3 @@ export const { setUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;
 
 export const selectCurrentUser = (state) => state.user.userInfo;
-export const selectSiteInfo = (state) => state.user.siteInfo;

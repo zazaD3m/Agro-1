@@ -1,4 +1,11 @@
+import Seo from "@/components/Seo";
+
 const TermsOfService = () => {
-  return <div>TermsOfService</div>;
+  return (
+    <>
+      <Seo description="terms of service" />
+      <div>TermsOfService</div>;
+    </>
+  );
 };
 export default TermsOfService;

@@ -14,7 +14,7 @@ const FormGender = ({ control }) => {
       name="gender"
       render={({ field }) => (
         <FormItem className="space-y-3">
-          <FormLabel asChild className="text-lg font-semibold">
+          <FormLabel asChild className="text-lg">
             <legend>სქესი</legend>
           </FormLabel>
           <FormControl>
@@ -27,13 +27,17 @@ const FormGender = ({ control }) => {
                 <FormControl>
                   <RadioGroupItem value="მამრობითი" />
                 </FormControl>
-                <FormLabel className="font-normal">მამრობითი</FormLabel>
+                <FormLabel className="text-base font-normal">
+                  მამრობითი
+                </FormLabel>
               </FormItem>
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
                   <RadioGroupItem value="მდედრობითი" />
                 </FormControl>
-                <FormLabel className="font-normal">მდედრობითი</FormLabel>
+                <FormLabel className="text-base font-normal">
+                  მდედრობითი
+                </FormLabel>
               </FormItem>
             </RadioGroup>
           </FormControl>

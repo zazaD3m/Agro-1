@@ -97,7 +97,7 @@ const RegisterForm = () => {
           name="email"
           label="ელფოსტა"
           isLoading={isLoading}
-          placeholder="example@gmail.com"
+          placeholder="m@example.com"
           autoComplete="email"
         />
         <FormText
@@ -155,7 +155,13 @@ const RegisterForm = () => {
           isError={isError && error?.status !== 409 ? isError : false}
           error="მოხდა შეფერხება, სცადეთ ხელმეორედ."
         />
-        <LoadingButton type="submit" className="w-full" loading={isLoading}>
+        <LoadingButton
+          variant="primary"
+          size="lg"
+          type="submit"
+          className="w-full"
+          loading={isLoading}
+        >
           დადასტურება
         </LoadingButton>
       </form>
