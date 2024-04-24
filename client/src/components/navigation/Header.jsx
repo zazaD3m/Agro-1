@@ -7,7 +7,7 @@ import HeaderDesktopTop from "./HeaderDesktopTop";
 import HeaderDesktopBottom from "./HeaderDesktopBottom";
 import { Separator } from "../ui/separator";
 
-const MainNavigation = () => {
+const Header = () => {
   const scrollDirection = useScrollDirection();
   const { width } = useWindowSize();
 
@@ -39,4 +39,4 @@ const MainNavigation = () => {
     </>
   );
 };
-export default MainNavigation;
+export default Header;

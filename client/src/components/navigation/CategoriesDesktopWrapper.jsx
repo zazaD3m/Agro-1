@@ -1,41 +1,12 @@
-import { AlignLeft, X } from "lucide-react";
+import { AlignLeft } from "lucide-react";
 import { Button } from "../ui/button";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectDesktopCatInfo,
-  toggleDesktopCat,
-} from "@/features/site/siteSlice";
-import { cn } from "@/lib/utils";
-import CategoriesDesktop from "./CategoriesDesktop";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogPortal,
-  DialogTrigger,
-} from "../ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import MainCategoriesDesktop from "./MainCategoriesDesktop";
 
 const CategoriesDesktopWrapper = () => {
-  const isMainCatOpen = useSelector(selectDesktopCatInfo);
-  const dispatch = useDispatch();
-
-  const handleClickOutside = (e) => {
-    if (e.target.id === "mainCatOverlay") {
-      dispatch(toggleDesktopCat());
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   return (
     <>
-      <Dialog className="">
+      <Dialog>
         <DialogTrigger asChild>
           <Button
             size="lg"
@@ -47,7 +18,7 @@ const CategoriesDesktopWrapper = () => {
           </Button>
         </DialogTrigger>
         <DialogContent className="h-[95%] max-h-[680px] w-[95%] max-w-[1280px] p-6">
-          <CategoriesDesktop />
+          <MainCategoriesDesktop />
         </DialogContent>
       </Dialog>
     </>
