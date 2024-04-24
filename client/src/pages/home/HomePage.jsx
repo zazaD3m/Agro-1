@@ -19,7 +19,9 @@ import HomePageHero from "./sections/HomePageHero";
 const HomePage = () => {
   return (
     <>
-      <HomePageHero className="container px-4" />
+      <div className="h-[2000px]">
+        <HomePageHero className="container px-4" />
+      </div>
     </>
   );
 };

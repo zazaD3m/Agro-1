@@ -15,7 +15,7 @@ const MainNavigation = () => {
     <>
       <header
         className={cn(
-          "sticky z-[999] h-[109px]  bg-white shadow-md transition-all  duration-300 lg:h-[120px] lg:rounded-b-lg lg:shadow-lg",
+          "sticky z-40 h-[109px]  bg-white shadow-md transition-all  duration-300 lg:h-[120px] lg:rounded-b-lg lg:shadow-lg",
           scrollDirection === "down"
             ? "-top-[109px] lg:-top-[120px]"
             : "-top-[45px] lg:-top-[41px]",

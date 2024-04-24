@@ -8,6 +8,13 @@ import {
 } from "@/features/site/siteSlice";
 import { cn } from "@/lib/utils";
 import CategoriesDesktop from "./CategoriesDesktop";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogPortal,
+  DialogTrigger,
+} from "../ui/dialog";
 
 const CategoriesDesktopWrapper = () => {
   const isMainCatOpen = useSelector(selectDesktopCatInfo);
@@ -28,33 +35,21 @@ const CategoriesDesktopWrapper = () => {
 
   return (
     <>
-      <Button
-        size="lg"
-        variant="primary"
-        className="shrink-0 gap-x-2 px-2 text-xs xl:text-sm"
-        onClick={() => dispatch(toggleDesktopCat())}
-      >
-        {isMainCatOpen ? <X /> : <AlignLeft />}
-        კატეგორიები
-      </Button>
-      <div
-        className={cn(
-          "absolute left-0 right-0 top-[110px] z-[999] rounded-b-lg bg-white py-10",
-          isMainCatOpen ? "animate-slideDown block" : "hidden",
-        )}
-      >
-        <nav className="container px-4">
+      <Dialog className="">
+        <DialogTrigger asChild>
+          <Button
+            size="lg"
+            variant="primary"
+            className="shrink-0 gap-x-2 px-2 text-xs xl:text-sm"
+          >
+            <AlignLeft />
+            კატეგორიები
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="h-[95%] max-h-[680px] w-[95%] max-w-[1280px] p-6">
           <CategoriesDesktop />
-        </nav>
-      </div>
-      <div
-        id="mainCatOverlay"
-        className={cn(
-          "hidden",
-          isMainCatOpen &&
-            "fixed inset-0 top-[120px] z-[900] block h-full w-full bg-black opacity-30",
-        )}
-      />
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
