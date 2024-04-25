@@ -28,7 +28,7 @@ const MainCategoriesDesktop = () => {
                   "border-l-2 border-primary bg-muted",
               )}
             >
-              <img src={mainCat.icon} className="h-auto w-10" />
+              <img src={"/" + mainCat.icon} className="h-auto w-10" />
               {mainCat.name}
             </li>
           ))}

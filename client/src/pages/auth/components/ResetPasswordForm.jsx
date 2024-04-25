@@ -3,13 +3,10 @@ import { useResetPasswordMutation } from "@/features/auth/authApiSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import { LoadingButton } from "@/components/ui/loading-button";
 import FormText from "./FormText";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "@/features/user/userSlice";
 
 const newPasswordSchema = yup.object({
   newPassword: yup
@@ -28,7 +25,6 @@ const newPasswordSchema = yup.object({
 });
 
 const ResetPasswordForm = ({ token, email }) => {
-  const dispatch = useDispatch();
   const [
     resetPassword,
     { isError, error, isLoading, isSuccess, data: resetPasswordResponse },
@@ -53,14 +49,6 @@ const ResetPasswordForm = ({ token, email }) => {
       email: email,
     });
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      const { email } = resetPasswordResponse;
-      dispatch(setUser({ userInfo: { email } }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess]);
 
   return (
     <Form {...form}>
@@ -100,7 +88,12 @@ const ResetPasswordForm = ({ token, email }) => {
           <div className="space-y-4">
             <p className="text-primary">პაროლი წარმატებით შეიცვალა</p>
             <Button className="w-full" variant="primary" size="lg" asChild>
-              <Link to="/auth/login">ანგარიშში შესვლა</Link>
+              <Link
+                to="/auth/login"
+                state={{ email: resetPasswordResponse?.email }}
+              >
+                ანგარიშში შესვლა
+              </Link>
             </Button>
           </div>
         ) : (

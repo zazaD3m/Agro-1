@@ -57,6 +57,38 @@ const router = createBrowserRouter(
               </Suspense>
             }
           />
+          <Route
+            path="/catalog/*"
+            element={
+              <Suspense fallback={<FullScreenLoader />}>
+                <CatalogPage />
+              </Suspense>
+            }
+          />
+          {/* <Route
+            path=":mainCat/:subCat/:subCatItem"
+            element={
+              <Suspense fallback={<FullScreenLoader />}>
+                <CatalogPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path=":mainCat/:subCat"
+            element={
+              <Suspense fallback={<FullScreenLoader />}>
+                <CatalogPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path=":mainCat"
+            element={
+              <Suspense fallback={<FullScreenLoader />}>
+                <CatalogPage />
+              </Suspense>
+            }
+          /> */}
         </Route>
         <Route path="account">
           <Route
@@ -86,7 +118,6 @@ const router = createBrowserRouter(
           />
         </Route>
       </Route>
-
       {/* == AUTH PATHS END */}
       <Route path="*" element={<PageNotFound />} />
     </Route>,

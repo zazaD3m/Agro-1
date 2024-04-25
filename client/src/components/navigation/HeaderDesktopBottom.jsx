@@ -4,18 +4,7 @@ import { Button } from "../ui/button";
 import CategoriesDesktopWrapper from "./CategoriesDesktopWrapper";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/userSlice";
-import {
-  ChevronDown,
-  CircleUser,
-  CircleUserRound,
-  DoorClosed,
-  Heart,
-  LogOut,
-  ScrollText,
-  Settings,
-  Star,
-  User,
-} from "lucide-react";
+import { Heart, LogOut, ScrollText, Settings, User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -25,13 +14,11 @@ import {
 } from "../ui/dropdown-menu";
 import { Icons } from "../icons";
 import { useLogoutMutation } from "@/features/auth/authApiSlice";
-import { LoadingButton } from "../ui/loading-button";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "../ui/sheet";
-import { TooltipComp } from "../ui/tooltip";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 
 const HeaderDesktopBottom = () => {
   const userInfo = useSelector(selectCurrentUser);
-  const [logout, { isLoading }] = useLogoutMutation();
+  const [logout] = useLogoutMutation();
 
   return (
     <div className="container flex h-20 gap-x-8 px-4">
@@ -63,10 +50,11 @@ const HeaderDesktopBottom = () => {
                   <Heart />
                 </Button>
               </SheetTrigger>
-              <SheetContent>
+              <SheetContent className="max-w-sm p-6">
                 <h2 className="cursor-default border-b-2 border-primary pb-2 text-lg">
                   შენახული განცხადებები
                 </h2>
+                <SheetClose />
               </SheetContent>
             </Sheet>
             <DropdownMenu>

@@ -1,5 +1,5 @@
 import { PasswordInput } from "@/components/ui/password-input";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -15,8 +15,6 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { LoadingButton } from "@/components/ui/loading-button";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "@/features/user/userSlice";
 import FormText from "./FormText";
 
 const loginSchema = yup.object({
@@ -28,20 +26,20 @@ const loginSchema = yup.object({
 });
 
 const LoginForm = () => {
-  const userInfo = useSelector(selectCurrentUser);
+  const { state } = useLocation();
   const [loginMutation, { isError, isLoading }] = useLoginMutation();
 
   const form = useForm({
     defaultValues: {
       password: "",
-      email: "",
+      email: state?.email || "",
     },
     resolver: yupResolver(loginSchema),
     mode: "onSubmit",
     reValidateMode: "onSubmit",
   });
 
-  const { handleSubmit, control, resetField, setValue, setFocus } = form;
+  const { handleSubmit, control, resetField } = form;
 
   const onSubmit = (data) => {
     loginMutation(data);
@@ -53,17 +51,6 @@ const LoginForm = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError]);
-
-  useEffect(() => {
-    if (userInfo) {
-      if (userInfo.email) {
-        const { email } = userInfo;
-        setValue("email", email, { shouldDirty: true, shouldTouch: true });
-        setFocus("password", { shouldSelect: true });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Form {...form}>
