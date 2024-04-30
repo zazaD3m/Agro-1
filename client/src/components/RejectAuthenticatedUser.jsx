@@ -1,14 +1,11 @@
-import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
-import { selectCurrentToken } from "@/features/auth/authSlice";
-import { selectCurrentUser } from "@/features/user/userSlice";
+import useUserInfo from "@/hooks/useUserInfo";
 
 const RejectAuthenticatedUser = () => {
-  const token = useSelector(selectCurrentToken);
-  const userInfo = useSelector(selectCurrentUser);
+  const { isLoggedIn } = useUserInfo();
 
-  if (token && userInfo) {
+  if (isLoggedIn) {
     return <Navigate replace to="/" />;
   } else {
     return <Outlet />;

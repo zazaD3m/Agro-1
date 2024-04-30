@@ -2,13 +2,17 @@ import { selectCurrentToken } from "@/features/auth/authSlice";
 import { selectCurrentUser } from "@/features/user/userSlice";
 import { useSelector } from "react-redux";
 
-const useIsUserLoggedIn = () => {
+const useUserInfo = () => {
   const token = useSelector(selectCurrentToken);
   const userInfo = useSelector(selectCurrentUser);
+  let isLoggedIn = false;
+
   if (token && userInfo) {
-    return true;
+    isLoggedIn = true;
   } else {
-    return false;
+    isLoggedIn = false;
   }
+
+  return { isLoggedIn, token, userInfo };
 };
-export default useIsUserLoggedIn;
+export default useUserInfo;

@@ -34,6 +34,11 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import PrivacyPolicy from "./pages/siteinfo/PrivacyPolicy";
 import TermsOfService from "./pages/siteinfo/TermsOfService";
+import AccountLayout from "./components/layout/AccountLayout";
+import PrivateRoute from "./components/PrivateRoute";
+import MyProductsPage from "./pages/account/MyProductsPage";
+import EditAccountPage from "./pages/account/EditAccountPage";
+import AddNewProductPage from "./pages/account/AddNewProductPage";
 // PAGES END
 
 const router = createBrowserRouter(
@@ -90,19 +95,25 @@ const router = createBrowserRouter(
             }
           /> */}
         </Route>
-        <Route path="account">
-          <Route
-            index
-            element={
-              <Suspense fallback={<FullScreenLoader />}>
-                <AccountPage />
-              </Suspense>
-            }
-          />
-          <Route path="my-products" element={<AccountPage />} />
-          <Route path="edit" element={<AccountPage />} />
-          <Route path="add-new-product" element={<AccountPage />} />
+        {/* == ACCOUNT PATHS START */}
+        <Route element={<PrivateRoute />}>
+          <Route element={<AccountLayout />}>
+            <Route path="account">
+              <Route
+                index
+                element={
+                  <Suspense fallback={<FullScreenLoader />}>
+                    <AccountPage />
+                  </Suspense>
+                }
+              />
+              <Route path="my-products" element={<MyProductsPage />} />
+              <Route path="edit" element={<EditAccountPage />} />
+              <Route path="add-new-product" element={<AddNewProductPage />} />
+            </Route>
+          </Route>
         </Route>
+        {/* == ACCOUNT PATHS END */}
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="terms-of-use" element={<TermsOfService />} />
       </Route>

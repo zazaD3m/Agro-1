@@ -12,7 +12,7 @@ const MainCategory = ({
 }) => {
   return (
     <div className="border-b py-5 first:pt-8 last:border-none">
-      <div className="flex w-full items-center justify-between">
+      <div className="flex w-full items-center">
         <SheetCloseChild asChild>
           <Link
             to={`catalog/${mainCat.link}`}
@@ -23,7 +23,7 @@ const MainCategory = ({
           </Link>
         </SheetCloseChild>
         <button
-          className="rounded-md bg-background-green p-1"
+          className="ml-auto w-auto rounded-md bg-background-green p-1"
           onClick={() => {
             setSelectedMainCatLink(mainCat.link);
             setSelectedMainCat(mainCat.name);

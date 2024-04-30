@@ -362,6 +362,92 @@ export const SUB_CATEGORIES = [
   },
   {
     mainCatName: "ცხოველები და ფრინველები1",
+    name: "ზღვის თევზი3",
+    link: "zRvis-Tevzi",
+    items: [
+      {
+        link: "oraguli",
+        name: "ორაგული",
+      },
+      {
+        link: "skumbria",
+        name: "სკუმბრია",
+      },
+      {
+        link: "tuna",
+        name: "ტუნა",
+      },
+      {
+        link: "qaSayi",
+        name: "ქაშაყი",
+      },
+      {
+        link: "loqo",
+        name: "ლოქო",
+      },
+      {
+        link: "kefali",
+        name: "კეფალი",
+      },
+      {
+        link: "sardini",
+        name: "სარდინი",
+      },
+      {
+        link: "saira",
+        name: "საირა",
+      },
+      {
+        link: "sxva",
+        name: "სხვა",
+      },
+    ],
+  },
+  {
+    mainCatName: "ცხოველები და ფრინველები1",
+    name: "ზღვის თევზი2",
+    link: "zRvis-Tevzi",
+    items: [
+      {
+        link: "oraguli",
+        name: "ორაგული",
+      },
+      {
+        link: "skumbria",
+        name: "სკუმბრია",
+      },
+      {
+        link: "tuna",
+        name: "ტუნა",
+      },
+      {
+        link: "qaSayi",
+        name: "ქაშაყი",
+      },
+      {
+        link: "loqo",
+        name: "ლოქო",
+      },
+      {
+        link: "kefali",
+        name: "კეფალი",
+      },
+      {
+        link: "sardini",
+        name: "სარდინი",
+      },
+      {
+        link: "saira",
+        name: "საირა",
+      },
+      {
+        link: "sxva",
+        name: "სხვა",
+      },
+    ],
+  },
+  {
+    mainCatName: "ცხოველები და ფრინველები1",
     name: "ზღვის თევზი",
     link: "zRvis-Tevzi",
     items: [
