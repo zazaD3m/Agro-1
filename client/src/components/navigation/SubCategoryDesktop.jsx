@@ -4,20 +4,16 @@ import { DialogClose } from "../ui/dialog";
 import { useState } from "react";
 import { ChevronDown, ChevronRight, ChevronUp } from "lucide-react";
 
-const SubCategoryItems = ({ subCat, mainCat, mainCatLink }) => {
+const SubCategoryItems = ({ subCat, mainCatLink }) => {
   const [showAll, setShowAll] = useState(false);
-  const visibleItems = subCat.items
-    ? showAll
-      ? subCat.items
-      : subCat.items.slice(0, 7)
-    : null;
+  const visibleItems = showAll ? subCat.items : subCat.items.slice(0, 7);
 
   const toggleShowAll = () => {
     setShowAll((p) => !p);
   };
 
-  return subCat.mainCatName === mainCat ? (
-    <li key={subCat.name} className="space-y-4">
+  return (
+    <li className="space-y-4">
       <DialogClose asChild>
         <Link
           to={`catalog/${mainCatLink}/${subCat.link}`}
@@ -36,7 +32,7 @@ const SubCategoryItems = ({ subCat, mainCat, mainCatLink }) => {
               <DialogClose asChild>
                 <Link
                   to={`catalog/${mainCatLink}/${subCat.link}/${item.link}`}
-                  className="text-sm hover:text-primary"
+                  className="block w-full text-sm hover:text-primary"
                 >
                   {item.name}
                 </Link>
@@ -63,7 +59,7 @@ const SubCategoryItems = ({ subCat, mainCat, mainCatLink }) => {
         </ul>
       ) : null}
     </li>
-  ) : null;
+  );
 };
 
 const SubCategoryDesktop = ({ mainCat, mainCatLink }) => {
@@ -84,14 +80,38 @@ const SubCategoryDesktop = ({ mainCat, mainCatLink }) => {
       </div>
       <nav className="h-full overflow-y-auto">
         <ul className="grid grid-cols-2 gap-x-16 gap-y-8 lg:grid-cols-3">
-          {SUB_CATEGORIES.map((subCat) => (
-            <SubCategoryItems
-              key={subCat.mainCatName + subCat.name}
-              subCat={subCat}
-              mainCat={mainCat}
-              mainCatLink={mainCatLink}
-            />
-          ))}
+          {SUB_CATEGORIES.map(
+            (subCat, i) =>
+              subCat.mainCatName === mainCat &&
+              (subCat.name ? (
+                <SubCategoryItems
+                  key={subCat.mainCatName + subCat.name}
+                  subCat={subCat}
+                  mainCat={mainCat}
+                  mainCatLink={mainCatLink}
+                />
+              ) : (
+                <li key={subCat.mainCatName + i}>
+                  <ul className="space-y-3">
+                    {subCat.items.map((item) => (
+                      <li
+                        key={item.name}
+                        className="font-semibold hover:text-primary"
+                      >
+                        <DialogClose asChild>
+                          <Link
+                            to={`catalog/${mainCatLink}/${item.link}`}
+                            className="block w-full text-sm"
+                          >
+                            {item.name}
+                          </Link>
+                        </DialogClose>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              )),
+          )}
         </ul>
       </nav>
     </>

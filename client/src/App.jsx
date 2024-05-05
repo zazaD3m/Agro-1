@@ -32,14 +32,22 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
-import PrivacyPolicy from "./pages/siteinfo/PrivacyPolicy";
-import TermsOfService from "./pages/siteinfo/TermsOfService";
 import AccountLayout from "./components/layout/AccountLayout";
 import PrivateRoute from "./components/PrivateRoute";
 import MyProductsPage from "./pages/account/MyProductsPage";
 import EditAccountPage from "./pages/account/EditAccountPage";
 import AddNewProductPage from "./pages/account/AddNewProductPage";
 // PAGES END
+
+// INFO START
+import PrivacyPolicy from "./pages/siteinfo/PrivacyPolicy";
+import TermsOfService from "./pages/siteinfo/TermsOfService";
+import InfoAddProduct from "./pages/siteinfo/InfoAddProduct";
+// INFO END
+
+// BLOG START
+import BlogPage from "./pages/blog/BlogPage";
+// BLOG END
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -63,37 +71,13 @@ const router = createBrowserRouter(
             }
           />
           <Route
-            path="/catalog/*"
+            path="*"
             element={
               <Suspense fallback={<FullScreenLoader />}>
                 <CatalogPage />
               </Suspense>
             }
           />
-          {/* <Route
-            path=":mainCat/:subCat/:subCatItem"
-            element={
-              <Suspense fallback={<FullScreenLoader />}>
-                <CatalogPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path=":mainCat/:subCat"
-            element={
-              <Suspense fallback={<FullScreenLoader />}>
-                <CatalogPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path=":mainCat"
-            element={
-              <Suspense fallback={<FullScreenLoader />}>
-                <CatalogPage />
-              </Suspense>
-            }
-          /> */}
         </Route>
         {/* == ACCOUNT PATHS START */}
         <Route element={<PrivateRoute />}>
@@ -114,8 +98,18 @@ const router = createBrowserRouter(
           </Route>
         </Route>
         {/* == ACCOUNT PATHS END */}
-        <Route path="privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="terms-of-use" element={<TermsOfService />} />
+        {/* == INFO PATHS END */}
+        <Route path="info">
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="terms-of-use" element={<TermsOfService />} />
+          <Route path="add-product" element={<InfoAddProduct />} />
+        </Route>
+        {/* == INFO PATHS END */}
+        {/* == BLOG PATHS END */}
+        <Route path="blog">
+          <Route index element={<BlogPage />} />
+        </Route>
+        {/* == BLOG PATHS END */}
       </Route>
       {/* == AUTH PATHS START */}
       <Route element={<RejectAuthenticatedUser />}>

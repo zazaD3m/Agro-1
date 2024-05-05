@@ -13,6 +13,7 @@ import { Input } from "../ui/input";
 import { useState } from "react";
 import { Check, ChevronDown, Search } from "lucide-react";
 import { Button } from "../ui/button";
+import { MAIN_CATEGORIES } from "./categories-data";
 
 const HeaderSearch = () => {
   const [category, setCategory] = useState("ყველა");
@@ -25,21 +26,21 @@ const HeaderSearch = () => {
             variant="accent"
             className="group/searchCat h-12 w-min shrink-0 gap-x-1 rounded-r-none border-2 px-1 py-0"
           >
-            <span>{category}</span>
+            <span className="max-w-20 overflow-hidden overflow-ellipsis">
+              {category}
+            </span>
             <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/searchCat:rotate-180" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="z-[999] w-56">
-          <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+          <DropdownMenuLabel>კატეგორია</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup value={category} onValueChange={setCategory}>
-            {["ყველა", "ნერგები", "ყვავილები", "ცხოველები", "ტექნიკა"].map(
-              (el) => (
-                <DropdownMenuRadioItem value={el} key={el}>
-                  {el}
-                </DropdownMenuRadioItem>
-              ),
-            )}
+            {MAIN_CATEGORIES.map((el) => (
+              <DropdownMenuRadioItem value={el.name} key={el.link}>
+                {el.name}
+              </DropdownMenuRadioItem>
+            ))}
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>

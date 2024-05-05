@@ -67,6 +67,9 @@ module.exports = {
         sans: ["Noto Sans Georgian", ...fontFamily.sans],
         // mono: ["var(--font-mono)", ...fontFamily.mono],
       },
+      fontSize: {
+        xxs: ["0.625rem", "0.8rem"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

@@ -1,14 +1,23 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../navigation/Header";
 import { Toaster } from "../ui/toaster";
 import Breadcrumbs from "../Breadcrumbs";
 
 const RootLayout = () => {
+  const location = useLocation();
+
+  const breadCrumbsPages = ["/catalog"];
+  const shouldBreadCrumbsRender = breadCrumbsPages.some((page) =>
+    location.pathname.includes(page),
+  );
+
   return (
     <>
       <Header />
-      {/* <Breadcrumbs /> */}
-      <main className="bg-accent pb-16">
+      {shouldBreadCrumbsRender ? (
+        <Breadcrumbs pathname={location.pathname} />
+      ) : null}
+      <main className="h-[3000px] bg-accent">
         <Outlet />
       </main>
       <Toaster />
