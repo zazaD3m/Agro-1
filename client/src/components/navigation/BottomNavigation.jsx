@@ -5,25 +5,158 @@ import MainCategoriesMobile from "./MainCategoriesMobile";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/userSlice";
 import ProfileSheetMobile from "./ProfileSheetMobile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BottomNavigation = () => {
   const [onCatalogOpen, setOnCatalogOpen] = useState(false);
   const userInfo = useSelector(selectCurrentUser);
+
+  // useEffect(() => {
+  //   // Function to log events
+  //   const logEvent = (event) => {
+  //     alert(String(event.type));
+  //     // You can also log additional event properties if needed
+  //     // console.log('Event Target:', event.target);
+  //     // console.log('Event Details:', event);
+  //   };
+
+  //   // Add event listeners for all possible events
+  //   const eventTypes = [
+  //     "abort",
+  //     "afterprint",
+  //     "animationend",
+  //     "animationiteration",
+  //     "animationstart",
+  //     "appinstalled",
+  //     "auxclick",
+  //     "beforeinstallprompt",
+  //     "beforeprint",
+  //     "beforeunload",
+  //     "blur",
+  //     "cancel",
+  //     "canplay",
+  //     "canplaythrough",
+  //     "change",
+  //     "click",
+  //     "close",
+  //     "contextmenu",
+  //     "cuechange",
+  //     "dblclick",
+  //     "drag",
+  //     "dragend",
+  //     "dragenter",
+  //     "dragleave",
+  //     "dragover",
+  //     "dragstart",
+  //     "drop",
+  //     "durationchange",
+  //     "emptied",
+  //     "ended",
+  //     "error",
+  //     "focus",
+  //     "focusin",
+  //     "focusout",
+  //     "formdata",
+  //     "gotpointercapture",
+  //     "hashchange",
+  //     "input",
+  //     "invalid",
+  //     "keydown",
+  //     "keypress",
+  //     "keyup",
+  //     "languagechange",
+  //     "levelchange",
+  //     "load",
+  //     "loadeddata",
+  //     "loadedmetadata",
+  //     "loadstart",
+  //     "lostpointercapture",
+  //     "mousedown",
+  //     "mouseenter",
+  //     "mouseleave",
+  //     "mousemove",
+  //     "mouseout",
+  //     "mouseover",
+  //     "mouseup",
+  //     "mousewheel",
+  //     "offline",
+  //     "online",
+  //     "pagehide",
+  //     "pageshow",
+  //     "paste",
+  //     "pause",
+  //     "play",
+  //     "playing",
+  //     "pointercancel",
+  //     "pointerdown",
+  //     "pointerenter",
+  //     "pointerleave",
+  //     "pointerlockchange",
+  //     "pointerlockerror",
+  //     "pointermove",
+  //     "pointerout",
+  //     "pointerover",
+  //     "pointerup",
+  //     "progress",
+  //     "ratechange",
+  //     "reset",
+  //     "resize",
+  //     "scroll",
+  //     "securitypolicyviolation",
+  //     "seeked",
+  //     "seeking",
+  //     "selectionchange",
+  //     "selectstart",
+  //     "stalled",
+  //     "submit",
+  //     "suspend",
+  //     "timeupdate",
+  //     "toggle",
+  //     "touchcancel",
+  //     "touchend",
+  //     "touchmove",
+  //     "touchstart",
+  //     "transitioncancel",
+  //     "transitionend",
+  //     "transitionrun",
+  //     "transitionstart",
+  //     "unload",
+  //     "volumechange",
+  //     "waiting",
+  //     "webkitanimationend",
+  //     "webkitanimationiteration",
+  //     "webkitanimationstart",
+  //     "webkitfullscreenchange",
+  //     "webkitfullscreenerror",
+  //     "webkittransitionend",
+  //     "wheel",
+  //   ];
+
+  //   eventTypes.forEach((eventType) => {
+  //     window.addEventListener(eventType, logEvent);
+  //   });
+
+  //   // Clean up the event listeners when the component unmounts
+  //   return () => {
+  //     eventTypes.forEach((eventType) => {
+  //       window.removeEventListener(eventType, logEvent);
+  //     });
+  //   };
+  // }, []);
 
   return (
     <nav className="relative grid h-full grid-cols-5 text-[#717171]">
       <NavLink
         to="/"
         end
-        className="text-xxs flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap font-medium transition-colors duration-200 active:bg-accent aria-[current=page]:text-primary sm:text-xs md:text-sm"
+        className="flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap text-xxs font-medium transition-colors duration-200 active:bg-accent aria-[current=page]:text-primary sm:text-xs md:text-sm"
       >
         <Home strokeWidth={1.5} />
         <span>მთავარი</span>
       </NavLink>
       <Sheet open={onCatalogOpen} onOpenChange={setOnCatalogOpen}>
         <SheetTrigger asChild>
-          <button className="text-xxs flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm">
+          <button className="flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap text-xxs font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm">
             <List strokeWidth={1.5} />
             <span>კატალოგი</span>
           </button>
@@ -38,7 +171,7 @@ const BottomNavigation = () => {
       </Sheet>
       <Link
         to="account/add-new-product"
-        className="text-xxs flex h-full flex-col items-center justify-center gap-1 whitespace-nowrap font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm"
+        className="flex h-full flex-col items-center justify-center gap-1 whitespace-nowrap text-xxs font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm"
       >
         <div className="absolute -top-5 flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
           <Plus strokeWidth={1.5} size={30} className="animate-pulse" />
@@ -48,7 +181,7 @@ const BottomNavigation = () => {
       </Link>
       <Sheet>
         <SheetTrigger asChild>
-          <button className="text-xxs flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm">
+          <button className="flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap text-xxs font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm">
             <Heart strokeWidth={1.5} />
             <span>რჩეულები</span>
           </button>
@@ -63,7 +196,7 @@ const BottomNavigation = () => {
       {userInfo ? (
         <Sheet>
           <SheetTrigger asChild>
-            <button className="text-xxs flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm">
+            <button className="flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap text-xxs font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm">
               <User strokeWidth={1.5} />
               <span>პროფილი</span>
             </button>
@@ -75,7 +208,7 @@ const BottomNavigation = () => {
       ) : (
         <Link
           to="auth/login"
-          className="text-xxs flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap font-medium transition-colors duration-200 active:bg-accent aria-[current=page]:text-primary sm:text-xs md:text-sm"
+          className="flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap text-xxs font-medium transition-colors duration-200 active:bg-accent aria-[current=page]:text-primary sm:text-xs md:text-sm"
         >
           <User strokeWidth={1.5} />
           <span>შესვლა</span>
