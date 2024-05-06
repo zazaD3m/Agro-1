@@ -9,9 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { useEffect } from "react";
 
 const ErrorWrapper = ({ title, desc }) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   return (
     <div className="flex h-screen items-center justify-center bg-blue-600">
