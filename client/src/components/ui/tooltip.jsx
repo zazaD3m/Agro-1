@@ -24,12 +24,12 @@ const TooltipContent = React.forwardRef(
 );
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-const TooltipComp = ({ children, message }) => {
+const TooltipComp = ({ children, message, side }) => {
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent>
+        <TooltipContent side={side}>
           <p className="cursor-default">{message}</p>
         </TooltipContent>
       </Tooltip>

@@ -62,7 +62,7 @@ const HOME_PAGE_CONTENT = [
 
 const HomePageHeroCarousel = () => {
   return (
-    <div className="relative overflow-hidden rounded-b-md">
+    <div className="overflow-hidden rounded-b-md">
       <Carousel
         opts={{ loop: true }}
         // plugins={[
@@ -114,7 +114,7 @@ const HomePageHeroCarousel = () => {
         <div className="absolute bottom-20 left-1/2 -translate-x-1/2 md:bottom-24">
           <CarouselThumbContent className="gap-x-2">
             {HOME_PAGE_CONTENT.map((_, i) => (
-              <CarouselIndicator key={i} index={i} className="" />
+              <CarouselIndicator key={i} index={i} />
             ))}
           </CarouselThumbContent>
         </div>

@@ -5,144 +5,25 @@ import MainCategoriesMobile from "./MainCategoriesMobile";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/userSlice";
 import ProfileSheetMobile from "./ProfileSheetMobile";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 const BottomNavigation = () => {
   const [onCatalogOpen, setOnCatalogOpen] = useState(false);
+  const [onFavoritesOpen, setOnFavoritesOpen] = useState(false);
   const userInfo = useSelector(selectCurrentUser);
 
-  // useEffect(() => {
-  //   // Function to log events
-  //   const logEvent = (event) => {
-  //     alert(String(event.type));
-  //     // You can also log additional event properties if needed
-  //     // console.log('Event Target:', event.target);
-  //     // console.log('Event Details:', event);
-  //   };
-
-  //   // Add event listeners for all possible events
-  //   const eventTypes = [
-  //     "abort",
-  //     "afterprint",
-  //     "animationend",
-  //     "animationiteration",
-  //     "animationstart",
-  //     "appinstalled",
-  //     "auxclick",
-  //     "beforeinstallprompt",
-  //     "beforeprint",
-  //     "beforeunload",
-  //     "blur",
-  //     "cancel",
-  //     "canplay",
-  //     "canplaythrough",
-  //     "change",
-  //     "click",
-  //     "close",
-  //     "contextmenu",
-  //     "cuechange",
-  //     "dblclick",
-  //     "drag",
-  //     "dragend",
-  //     "dragenter",
-  //     "dragleave",
-  //     "dragover",
-  //     "dragstart",
-  //     "drop",
-  //     "durationchange",
-  //     "emptied",
-  //     "ended",
-  //     "error",
-  //     "focus",
-  //     "focusin",
-  //     "focusout",
-  //     "formdata",
-  //     "gotpointercapture",
-  //     "hashchange",
-  //     "input",
-  //     "invalid",
-  //     "keydown",
-  //     "keypress",
-  //     "keyup",
-  //     "languagechange",
-  //     "levelchange",
-  //     "load",
-  //     "loadeddata",
-  //     "loadedmetadata",
-  //     "loadstart",
-  //     "lostpointercapture",
-  //     "mousedown",
-  //     "mouseenter",
-  //     "mouseleave",
-  //     "mousemove",
-  //     "mouseout",
-  //     "mouseover",
-  //     "mouseup",
-  //     "mousewheel",
-  //     "offline",
-  //     "online",
-  //     "pagehide",
-  //     "pageshow",
-  //     "paste",
-  //     "pause",
-  //     "play",
-  //     "playing",
-  //     "pointercancel",
-  //     "pointerdown",
-  //     "pointerenter",
-  //     "pointerleave",
-  //     "pointerlockchange",
-  //     "pointerlockerror",
-  //     "pointermove",
-  //     "pointerout",
-  //     "pointerover",
-  //     "pointerup",
-  //     "progress",
-  //     "ratechange",
-  //     "reset",
-  //     "resize",
-  //     "scroll",
-  //     "securitypolicyviolation",
-  //     "seeked",
-  //     "seeking",
-  //     "selectionchange",
-  //     "selectstart",
-  //     "stalled",
-  //     "submit",
-  //     "suspend",
-  //     "timeupdate",
-  //     "toggle",
-  //     "touchcancel",
-  //     "touchend",
-  //     "touchmove",
-  //     "touchstart",
-  //     "transitioncancel",
-  //     "transitionend",
-  //     "transitionrun",
-  //     "transitionstart",
-  //     "unload",
-  //     "volumechange",
-  //     "waiting",
-  //     "webkitanimationend",
-  //     "webkitanimationiteration",
-  //     "webkitanimationstart",
-  //     "webkitfullscreenchange",
-  //     "webkitfullscreenerror",
-  //     "webkittransitionend",
-  //     "wheel",
-  //   ];
-
-  //   eventTypes.forEach((eventType) => {
-  //     window.addEventListener(eventType, logEvent);
-  //   });
-
-  //   // Clean up the event listeners when the component unmounts
-  //   return () => {
-  //     eventTypes.forEach((eventType) => {
-  //       window.removeEventListener(eventType, logEvent);
-  //     });
-  //   };
-  // }, []);
+  useLayoutEffect(() => {
+    const handleBackButton = () => {
+      setOnCatalogOpen(false);
+      setOnFavoritesOpen(false);
+    };
+    window.addEventListener("popstate", handleBackButton, false);
+    window.addEventListener("hashchange", handleBackButton, false);
+    return () => {
+      window.removeEventListener("popstate", handleBackButton, false);
+      window.removeEventListener("hashchange", handleBackButton, false);
+    };
+  }, []);
 
   return (
     <nav className="relative grid h-full grid-cols-5 text-[#717171]">
@@ -179,7 +60,7 @@ const BottomNavigation = () => {
         <span className="size-6" />
         <span>დამატება</span>
       </Link>
-      <Sheet>
+      <Sheet open={onFavoritesOpen} onOpenChange={setOnFavoritesOpen}>
         <SheetTrigger asChild>
           <button className="flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap text-xxs font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm">
             <Heart strokeWidth={1.5} />

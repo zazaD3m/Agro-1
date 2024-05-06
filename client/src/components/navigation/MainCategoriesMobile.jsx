@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { MAIN_CATEGORIES } from "./categories-data";
 import { Link } from "react-router-dom";
 import SubCategoryMobile from "./SubCategoryMobile";
@@ -36,21 +36,9 @@ const MainCategory = ({
   );
 };
 
-const MainCategoriesMobile = ({ setOnCatalogOpen }) => {
+const MainCategoriesMobile = () => {
   const [selectedMainCat, setSelectedMainCat] = useState("");
   const [selectedMainCatLink, setSelectedMainCatLink] = useState("");
-
-  useEffect(() => {
-    const handleBackButton = () => {
-      setOnCatalogOpen(false);
-    };
-    window.addEventListener("popstate", handleBackButton, false);
-    window.addEventListener("hashchange", handleBackButton, false);
-    return () => {
-      window.removeEventListener("popstate", handleBackButton, false);
-      window.removeEventListener("hashchange", handleBackButton, false);
-    };
-  }, []);
 
   return (
     <nav className="h-full overflow-auto px-4 pb-12">

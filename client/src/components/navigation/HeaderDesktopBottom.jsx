@@ -39,24 +39,24 @@ const HeaderDesktopBottom = () => {
         </div>
       </div>
       <div className="flex items-center justify-end gap-x-8">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              className="size-12 shrink-0 rounded-full bg-background-green p-0  text-action data-[state=open]:border-2 data-[state=open]:border-primary"
+            >
+              <Heart />
+            </Button>
+          </SheetTrigger>
+          <SheetContent className="max-w-sm p-6">
+            <h2 className="cursor-default border-b-2 border-primary pb-2 text-lg">
+              შენახული განცხადებები
+            </h2>
+            <SheetClose />
+          </SheetContent>
+        </Sheet>
         {userInfo ? (
           <>
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="size-12 shrink-0 rounded-full bg-background-green p-0  text-action data-[state=open]:border-2 data-[state=open]:border-primary"
-                >
-                  <Heart />
-                </Button>
-              </SheetTrigger>
-              <SheetContent className="max-w-sm p-6">
-                <h2 className="cursor-default border-b-2 border-primary pb-2 text-lg">
-                  შენახული განცხადებები
-                </h2>
-                <SheetClose />
-              </SheetContent>
-            </Sheet>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
