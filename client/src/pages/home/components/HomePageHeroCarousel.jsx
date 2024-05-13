@@ -77,13 +77,13 @@ const HomePageHeroCarousel = () => {
               <div className="relative">
                 <img
                   src={data.img}
-                  className="h-96 w-full cursor-grab object-cover brightness-[.7] sm:h-[450px] "
+                  className="h-96 w-full object-cover brightness-[.7] sm:h-[450px] "
                 />
                 <div className="absolute left-0 top-0 w-full space-y-4 p-4 pt-3 sm:p-6 sm:pl-8 xl:p-8 xl:pl-12">
-                  <h1 className="text-pretty break-words font-semibold tracking-wide text-white sm:max-w-md sm:text-lg md:max-w-lg lg:text-xl xl:max-w-2xl xl:text-2xl">
+                  <h1 className="cursor-default text-pretty break-words font-semibold tracking-wide text-white sm:max-w-md sm:text-lg md:max-w-lg lg:text-xl xl:max-w-2xl xl:text-2xl">
                     {data.heading}
                   </h1>
-                  <p className="rounded-md bg-transparent/60 p-2 text-sm font-medium text-white sm:max-w-md sm:text-base md:max-w-lg lg:text-lg xl:max-w-2xl xl:text-xl">
+                  <p className="cursor-default rounded-md bg-transparent/60 p-2 text-sm font-medium text-white sm:max-w-md sm:text-base md:max-w-lg lg:text-lg xl:max-w-2xl xl:text-xl">
                     {data.p}
                   </p>
                 </div>

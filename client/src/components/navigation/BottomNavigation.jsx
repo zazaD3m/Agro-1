@@ -5,7 +5,7 @@ import MainCategoriesMobile from "./MainCategoriesMobile";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/userSlice";
 import ProfileSheetMobile from "./ProfileSheetMobile";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 const BottomNavigation = () => {
   const [onCatalogOpen, setOnCatalogOpen] = useState(false);
@@ -64,7 +64,7 @@ const BottomNavigation = () => {
         <SheetTrigger asChild>
           <button className="flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap text-xxs font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm">
             <Heart strokeWidth={1.5} />
-            <span>რჩეულები</span>
+            <span>შენახული</span>
           </button>
         </SheetTrigger>
         <SheetContent side="bottom" className="h-full max-h-screen py-4">

@@ -4,11 +4,15 @@ import {
   selectFavoriteListings,
 } from "@/features/user/userSlice";
 import { cn } from "@/lib/utils";
-import { Heart, MapPin } from "lucide-react";
+import { Heart, MapPin, Phone } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useToast } from "./ui/use-toast";
+import { useState } from "react";
 
 const ListingCard = ({ listing, isMobile }) => {
+  const [showNumber, setShowNumber] = useState(false);
+  const { toast } = useToast();
   const dispatch = useDispatch();
   const favoriteListings = useSelector(selectFavoriteListings);
   const isFavorite = favoriteListings.includes(listing.id);
@@ -17,8 +21,20 @@ const ListingCard = ({ listing, isMobile }) => {
     const { id } = listing;
     if (isFavorite) {
       dispatch(removeFromFavorites(id));
+      toast({
+        title: `${listing.title}, წაშლილია ფავორიტებიდან!`,
+      });
     } else {
       dispatch(addToFavorites(id));
+      toast({
+        title: `${listing.title}, შენახულია ფავორიტებში!`,
+      });
+    }
+  };
+
+  const handlePhoneNumberClick = () => {
+    if (!showNumber) {
+      setShowNumber(true);
     }
   };
 
@@ -61,12 +77,21 @@ const ListingCard = ({ listing, isMobile }) => {
         </div>
       </Link>
       <div className="flex items-center justify-between rounded-full border-2 border-action p-1 font-medium">
-        <h2 className="pl-2 text-sm sm:pl-1 sm:text-xs">
+        <h2 className="line-clamp-1 break-words pl-2 text-sm sm:pl-1 sm:text-xs">
           {listing.author.firstName}
         </h2>
-        <button className="rounded-full bg-primary/90 p-2 text-sm text-primary-foreground">
-          <a href={`tel:${listing.author.phoneNumber}`}>
-            {listing.author.phoneNumber}
+        <button
+          onClick={handlePhoneNumberClick}
+          className="shrink-0 rounded-full bg-primary/90 p-2 text-sm text-primary-foreground"
+        >
+          <a
+            href={`tel:${listing.author.phoneNumber}`}
+            className="flex items-center gap-x-1"
+          >
+            <Phone size={16} />
+            {showNumber
+              ? listing.author.phoneNumber
+              : `${listing.author.phoneNumber.slice(0, 6)}-**-**`}
           </a>
         </button>
       </div>

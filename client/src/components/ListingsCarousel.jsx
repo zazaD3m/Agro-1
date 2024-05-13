@@ -7,8 +7,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
+import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
-const ListingsCarousel = ({ listings }) => {
+const ListingsCarousel = ({ listings, title }) => {
   const { width } = useWindowSize();
   const isMobile = width < 640;
 
@@ -17,9 +19,7 @@ const ListingsCarousel = ({ listings }) => {
       opts={{ align: "start", slidesToScroll: "auto", dragFree: !isMobile }}
     >
       <div className="mb-8 flex items-center justify-between border-b-2 border-primary-light pb-1">
-        <h2 className="text-lg font-semibold  text-black sm:text-xl">
-          ახალი განცხადებები
-        </h2>
+        <h2 className="text-lg font-semibold text-black sm:text-xl">{title}</h2>
         <CarouselPrevious className="ml-auto mr-2" />
         <CarouselNext />
       </div>
@@ -47,6 +47,16 @@ const ListingsCarousel = ({ listings }) => {
               </CarouselItem>
             ))}
       </CarouselContent>
+      <div className="mx-auto w-min pt-8">
+        <Button
+          asChild
+          size="lg"
+          variant="blank"
+          className="border-2 border-black/30 text-black hover:border-black/50"
+        >
+          <Link to="/catalog">ყველა განცხადების ნახვა</Link>
+        </Button>
+      </div>
     </Carousel>
   );
 };

@@ -136,6 +136,48 @@ module.exports = {
           from: { opacity: "0", transform: "translateY(2px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        progress: {
+          from: {
+            right: "0%",
+          },
+          to: {
+            right: "100%",
+          },
+        },
+        width: {
+          "0%": {
+            width: "0%",
+          },
+          "25%": {
+            width: "25%",
+          },
+          "50%": {
+            width: "50%",
+          },
+          "75%": {
+            width: "75%",
+          },
+          "100%": {
+            width: "100%",
+          },
+        },
+        widthMobile: {
+          "0%": {
+            width: "0%",
+          },
+          "25%": {
+            width: "20%",
+          },
+          "50%": {
+            width: "40%",
+          },
+          "75%": {
+            width: "60%",
+          },
+          "100%": {
+            width: "80%",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -150,6 +192,9 @@ module.exports = {
         fadeOut: "fadeOut 200ms ease",
         slideDown: "slideDown 300ms linear both",
         slideUp: "slideUp 300ms linear both",
+        progress: "progress 5s linear forwards",
+        width: "width 5s linear infinite",
+        widthMobile: "widthMobile 5s linear infinite",
       },
     },
   },

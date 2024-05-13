@@ -20,7 +20,7 @@ const HeaderSearch = () => {
 
   return (
     <div className="flex w-full">
-      <DropdownMenu>
+      {/* <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="accent"
@@ -43,10 +43,10 @@ const HeaderSearch = () => {
             ))}
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
 
       <input
-        className="flex h-12 w-full border-2 border-l-0 border-r-0 border-input bg-background px-2 placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex h-12 w-full rounded-l-md border-2 border-r-0 border-input bg-background px-2 placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
         placeholder="მოძებნა"
       />
       <Button

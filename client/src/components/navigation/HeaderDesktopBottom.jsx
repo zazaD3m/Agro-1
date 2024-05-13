@@ -21,8 +21,8 @@ const HeaderDesktopBottom = () => {
   const [logout] = useLogoutMutation();
 
   return (
-    <div className="container flex h-20 gap-x-8 px-4">
-      <div className="flex grow gap-x-8">
+    <div className="container flex h-20 gap-x-4 px-4 xl:gap-x-8">
+      <div className="flex grow gap-x-4 xl:gap-x-8">
         <div className="flex items-center">
           <Link
             to="/"
@@ -38,12 +38,12 @@ const HeaderDesktopBottom = () => {
           <HeaderSearch />
         </div>
       </div>
-      <div className="flex items-center justify-end gap-x-8">
+      <div className="flex items-center justify-end gap-x-4 xl:gap-x-8">
         <Sheet>
           <SheetTrigger asChild>
             <Button
               variant="ghost"
-              className="size-12 shrink-0 rounded-full bg-background-green p-0  text-action data-[state=open]:border-2 data-[state=open]:border-primary"
+              className="relative size-12 shrink-0 rounded-full bg-background-green p-0  text-action data-[state=open]:border-2 data-[state=open]:border-primary"
             >
               <Heart />
             </Button>
