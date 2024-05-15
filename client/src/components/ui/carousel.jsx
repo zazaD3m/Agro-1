@@ -50,6 +50,7 @@ const Carousel = React.forwardRef(
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
     const [activeIndex, setActiveIndex] = React.useState(0);
+    const [scrollSnaps, setScrollSnaps] = React.useState([]);
 
     const onSelect = React.useCallback(() => {
       if (!api) {
@@ -64,12 +65,29 @@ const Carousel = React.forwardRef(
       setCanScrollNext(api.canScrollNext());
     }, [api, thumbsApi]);
 
+    const onInit = React.useCallback(() => {
+      if (!api) {
+        return;
+      }
+      setScrollSnaps(api.scrollSnapList());
+    }, [api]);
+
     const onThumbClick = React.useCallback(
       (index) => {
         if (!api || !thumbsApi) return;
         api.scrollTo(index);
       },
       [api, thumbsApi],
+    );
+
+    const onDotButtonClick = React.useCallback(
+      (index) => {
+        if (!api) return;
+        api.scrollTo(index);
+        const selected = api.selectedScrollSnap();
+        setActiveIndex(selected);
+      },
+      [api],
     );
 
     const scrollPrev = React.useCallback(() => {
@@ -106,19 +124,22 @@ const Carousel = React.forwardRef(
         return;
       }
 
+      onInit();
       onSelect();
+      api.on("reInit", onInit);
       api.on("reInit", onSelect);
       api.on("select", onSelect);
 
       return () => {
         api?.off("select", onSelect);
       };
-    }, [api, onSelect]);
+    }, [api, onSelect, onInit]);
 
     return (
       <CarouselContext.Provider
         value={{
           api: api,
+          thumbsApi: thumbsApi,
           carouselRef,
           thumbsRef,
           opts,
@@ -129,6 +150,8 @@ const Carousel = React.forwardRef(
           canScrollPrev,
           canScrollNext,
           onThumbClick,
+          onDotButtonClick,
+          scrollSnaps,
           activeIndex,
         }}
       >
@@ -320,6 +343,53 @@ const CarouselIndicator = React.forwardRef(
 
 CarouselIndicator.displayName = "CarouselIndicator";
 
+const CarouselDotButtons = React.forwardRef(
+  ({ className, wrapperClassName }, ref) => {
+    const { scrollSnaps } = useCarousel();
+
+    // console.log(scrollSnaps);
+
+    return (
+      <div ref={ref} className={cn("flex gap-x-1", wrapperClassName)}>
+        {scrollSnaps.map((_, index) => (
+          <CarouselDotButton key={index} index={index} className={className} />
+        ))}
+      </div>
+    );
+  },
+);
+
+CarouselDotButtons.displayName = "CarouselDotButtons";
+
+const CarouselDotButton = React.forwardRef(
+  ({ className, index, ...props }, ref) => {
+    const { activeIndex, onDotButtonClick } = useCarousel();
+    const isButtonSelected = activeIndex === index;
+
+    // console.log(activeIndex);
+    // console.log(isButtonSelected);
+
+    return (
+      <Button
+        ref={ref}
+        size="icon"
+        variant="blank"
+        className={cn(
+          "size-2 rounded-full bg-white opacity-50 data-[active='true']:opacity-100",
+          className,
+        )}
+        data-active={isButtonSelected}
+        onClick={() => onDotButtonClick(index)}
+        {...props}
+      >
+        <span className="sr-only">slide {index + 1} </span>
+      </Button>
+    );
+  },
+);
+
+CarouselDotButton.displayName = "CarouselDotButton";
+
 export {
   Carousel,
   CarouselContent,
@@ -329,4 +399,5 @@ export {
   CarouselPrevious,
   CarouselNext,
   CarouselIndicator,
+  CarouselDotButtons,
 };

@@ -145,37 +145,51 @@ module.exports = {
           },
         },
         width: {
+          from: {
+            width: "0%",
+          },
+          to: {
+            width: "100%",
+          },
+        },
+        widthMobile1: {
           "0%": {
             width: "0%",
           },
-          "25%": {
-            width: "25%",
+          "20%": {
+            width: "33%",
           },
-          "50%": {
-            width: "50%",
+          "40%": {
+            width: "66%",
           },
-          "75%": {
-            width: "75%",
+          "60%": {
+            width: "100%",
+          },
+          "80%": {
+            width: "100%",
           },
           "100%": {
             width: "100%",
           },
         },
-        widthMobile: {
+        widthMobile2: {
           "0%": {
             width: "0%",
           },
-          "25%": {
-            width: "20%",
+          "20%": {
+            width: "0%",
+          },
+          "40%": {
+            width: "0%",
           },
           "50%": {
-            width: "40%",
+            width: "0%",
           },
           "75%": {
-            width: "60%",
+            width: "50%",
           },
           "100%": {
-            width: "80%",
+            width: "100%",
           },
         },
       },
@@ -194,7 +208,16 @@ module.exports = {
         slideUp: "slideUp 300ms linear both",
         progress: "progress 5s linear forwards",
         width: "width 5s linear infinite",
-        widthMobile: "widthMobile 5s linear infinite",
+        widthMobile1: "widthMobile1 5s linear infinite",
+        widthMobile2: "widthMobile2 5s linear infinite",
+      },
+      transitionDuration: {
+        2000: "2000ms",
+        3000: "3000ms",
+      },
+      transitionDelay: {
+        3000: "3000ms",
+        5000: "5000ms",
       },
     },
   },

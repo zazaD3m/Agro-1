@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
+  CarouselDotButtons,
   CarouselIndicator,
   CarouselItem,
   CarouselNext,
@@ -65,11 +66,11 @@ const HomePageHeroCarousel = () => {
     <div className="overflow-hidden rounded-b-md">
       <Carousel
         opts={{ loop: true }}
-        // plugins={[
-        //   Autoplay({
-        //     delay: 2000,
-        //   }),
-        // ]}
+        plugins={[
+          Autoplay({
+            delay: 5000,
+          }),
+        ]}
       >
         <CarouselContent>
           {HOME_PAGE_CONTENT.map((data, i) => (
@@ -112,6 +113,7 @@ const HomePageHeroCarousel = () => {
           ))}
         </CarouselContent>
         <div className="absolute bottom-20 left-1/2 -translate-x-1/2 md:bottom-24">
+          {/* <CarouselDotButtons /> */}
           <CarouselThumbContent className="gap-x-2">
             {HOME_PAGE_CONTENT.map((_, i) => (
               <CarouselIndicator key={i} index={i} />

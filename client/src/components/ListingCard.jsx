@@ -63,16 +63,16 @@ const ListingCard = ({ listing, isMobile }) => {
           />
         </div>
         <div className={isMobile && "w-9/12"}>
-          <h2 className="mb-1 line-clamp-2 pr-9 font-semibold sm:text-lg">
+          <h2 className="mb-1 line-clamp-2 font-semibold sm:text-lg">
             {listing.title}
           </h2>
           <div className="mb-2 flex items-center gap-x-1 opacity-60">
             <MapPin size={18} strokeWidth={2} className="-ml-px" />
             <span className="text-sm font-semibold">{listing.city}</span>
           </div>
-          {/* <h2 className="">{listing.review}</h2> */}
-          <p className="line-clamp-2 text-sm font-normal sm:line-clamp-3">
-            {listing.description}
+          <p className="font-normal">
+            <span>₾ </span>
+            {listing.price}
           </p>
         </div>
       </Link>

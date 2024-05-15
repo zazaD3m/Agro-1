@@ -2,11 +2,18 @@ import { AlignLeft } from "lucide-react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import MainCategoriesDesktop from "./MainCategoriesDesktop";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDesktopCat, toggleDesktopCat } from "@/features/site/siteSlice";
 
 const CategoriesDesktopWrapper = () => {
+  const dispatch = useDispatch();
+  const desktopCat = useSelector(selectDesktopCat);
   return (
     <>
-      <Dialog>
+      <Dialog
+        open={desktopCat}
+        onOpenChange={() => dispatch(toggleDesktopCat())}
+      >
         <DialogTrigger asChild>
           <Button
             size="lg"
