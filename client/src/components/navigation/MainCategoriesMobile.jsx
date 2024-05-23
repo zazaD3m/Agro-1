@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import { MAIN_CATEGORIES } from "./categories-data";
 import { Link } from "react-router-dom";
 import SubCategoryMobile from "./SubCategoryMobile";

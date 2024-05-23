@@ -50,7 +50,7 @@ const ListingCard = ({ listing, isMobile }) => {
           className={cn(
             "w-full",
             isMobile
-              ? "flex w-3/12 items-center"
+              ? "flex w-1/4 items-center"
               : "mb-4 aspect-[3/2] overflow-hidden rounded-md",
           )}
         >
@@ -62,8 +62,8 @@ const ListingCard = ({ listing, isMobile }) => {
             )}
           />
         </div>
-        <div className={isMobile && "w-9/12"}>
-          <h2 className="mb-1 line-clamp-2 font-semibold sm:text-lg">
+        <div className={isMobile && "w-3/4"}>
+          <h2 className="mb-1 line-clamp-2 pr-10 font-semibold sm:pr-0 sm:text-lg">
             {listing.title}
           </h2>
           <div className="mb-2 flex items-center gap-x-1 opacity-60">

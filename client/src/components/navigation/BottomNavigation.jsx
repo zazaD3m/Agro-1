@@ -2,19 +2,25 @@ import { Heart, Home, List, Plus, User } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import MainCategoriesMobile from "./MainCategoriesMobile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/userSlice";
 import ProfileSheetMobile from "./ProfileSheetMobile";
 import { useLayoutEffect, useState } from "react";
+import {
+  closeMobileCat,
+  selectMobileCat,
+  toggleMobileCat,
+} from "@/features/site/siteSlice";
 
 const BottomNavigation = () => {
-  const [onCatalogOpen, setOnCatalogOpen] = useState(false);
+  const mobileCat = useSelector(selectMobileCat);
   const [onFavoritesOpen, setOnFavoritesOpen] = useState(false);
   const userInfo = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     const handleBackButton = () => {
-      setOnCatalogOpen(false);
+      dispatch(closeMobileCat());
       setOnFavoritesOpen(false);
     };
     window.addEventListener("popstate", handleBackButton, false);
@@ -35,7 +41,7 @@ const BottomNavigation = () => {
         <Home strokeWidth={1.5} />
         <span>მთავარი</span>
       </NavLink>
-      <Sheet open={onCatalogOpen} onOpenChange={setOnCatalogOpen}>
+      <Sheet open={mobileCat} onOpenChange={() => dispatch(toggleMobileCat())}>
         <SheetTrigger asChild>
           <button className="flex size-full flex-col items-center justify-center gap-1 whitespace-nowrap text-xxs font-medium transition-colors duration-200 active:bg-accent sm:text-xs md:text-sm">
             <List strokeWidth={1.5} />
@@ -46,7 +52,7 @@ const BottomNavigation = () => {
           <h2 className="mx-4 border-b-2 border-primary pb-4 text-lg font-medium">
             კატეგორიები
           </h2>
-          <MainCategoriesMobile setOnCatalogOpen={setOnCatalogOpen} />
+          <MainCategoriesMobile />
           <SheetClose className="right-3 top-3 size-10 p-2" />
         </SheetContent>
       </Sheet>

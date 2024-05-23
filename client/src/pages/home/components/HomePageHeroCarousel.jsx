@@ -2,13 +2,10 @@ import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
-  CarouselDotButtons,
-  CarouselIndicator,
+  // CarouselDotButtons,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  CarouselThumbContent,
 } from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
 import { Link } from "react-router-dom";
 
@@ -61,16 +58,16 @@ const HOME_PAGE_CONTENT = [
   },
 ];
 
-const HomePageHeroCarousel = () => {
+const HomePageHeroCarousel = ({ className }) => {
   return (
-    <div className="overflow-hidden rounded-b-md">
+    <div className={cn("overflow-hidden rounded-b-md", className)}>
       <Carousel
         opts={{ loop: true }}
-        plugins={[
-          Autoplay({
-            delay: 5000,
-          }),
-        ]}
+        // plugins={[
+        //   Autoplay({
+        //     delay: 10000,
+        //   }),
+        // ]}
       >
         <CarouselContent>
           {HOME_PAGE_CONTENT.map((data, i) => (
@@ -78,7 +75,7 @@ const HomePageHeroCarousel = () => {
               <div className="relative">
                 <img
                   src={data.img}
-                  className="h-96 w-full object-cover brightness-[.7] sm:h-[450px] "
+                  className="h-80 w-full object-cover brightness-[.7] sm:h-[450px] "
                 />
                 <div className="absolute left-0 top-0 w-full space-y-4 p-4 pt-3 sm:p-6 sm:pl-8 xl:p-8 xl:pl-12">
                   <h1 className="cursor-default text-pretty break-words font-semibold tracking-wide text-white sm:max-w-md sm:text-lg md:max-w-lg lg:text-xl xl:max-w-2xl xl:text-2xl">
@@ -88,13 +85,7 @@ const HomePageHeroCarousel = () => {
                     {data.p}
                   </p>
                 </div>
-                <div
-                  className="absolute bottom-0 left-0 flex h-16 w-full items-center gap-x-2 pl-4 sm:gap-x-4 md:h-20"
-                  style={{
-                    background: "rgba(255, 255, 255, 0.15)",
-                    backdropFilter: "blur(35px)",
-                  }}
-                >
+                <div className="absolute bottom-0 left-0 flex h-16 w-full items-center gap-x-2 bg-transparent/50 pl-4 sm:gap-x-4 md:h-20">
                   {data.buttons.map((button) => (
                     <Button
                       key={button.link}
@@ -112,14 +103,13 @@ const HomePageHeroCarousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 md:bottom-24">
-          {/* <CarouselDotButtons /> */}
+        {/* <div className="absolute bottom-20 left-1/2 -translate-x-1/2 md:bottom-24">
           <CarouselThumbContent className="gap-x-2">
             {HOME_PAGE_CONTENT.map((_, i) => (
               <CarouselIndicator key={i} index={i} />
             ))}
           </CarouselThumbContent>
-        </div>
+        </div> */}
         {/* <CarouselPrevious
           iconProps={{ size: 32 }}
           className="bottom-4 right-16 hidden size-12 border-white bg-transparent/10 text-white hover:border-white/50 hover:bg-transparent/10 sm:inline-flex"

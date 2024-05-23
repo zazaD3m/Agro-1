@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 const ListingsCarousel = ({ listings, title }) => {
   const { width } = useWindowSize();
-  const isMobile = width < 640;
+  const isMobile = width < 640 || false;
 
   return (
     <Carousel
@@ -31,9 +31,12 @@ const ListingsCarousel = ({ listings, title }) => {
                   key={i}
                   className="mb-4 basis-full space-y-4 py-1 pl-4 transition-all"
                 >
-                  <ListingCard isMobile listing={listing} />
+                  <ListingCard isMobile={isMobile} listing={listing} />
                   {listings[i + 1] && (
-                    <ListingCard isMobile listing={listings[i + 1]} />
+                    <ListingCard
+                      isMobile={isMobile}
+                      listing={listings[i + 1]}
+                    />
                   )}
                 </CarouselItem>
               ) : null,
