@@ -4,7 +4,7 @@ const PrivacyPolicy = () => {
   return (
     <>
       <Seo description="privacy info" />
-      <div>PrivacyPolicy</div>;
+      <div>PrivacyPolicy</div>
     </>
   );
 };

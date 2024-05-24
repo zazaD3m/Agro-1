@@ -41,8 +41,10 @@ import AddNewProductPage from "./pages/account/AddNewProductPage";
 
 // INFO START
 import PrivacyPolicy from "./pages/siteinfo/PrivacyPolicy";
-import TermsOfService from "./pages/siteinfo/TermsOfService";
+import TermsOfUse from "./pages/siteinfo/TermsOfUse";
 import InfoAddProduct from "./pages/siteinfo/InfoAddProduct";
+import Contact from "./pages/siteinfo/Contact";
+import Faq from "./pages/siteinfo/Faq";
 // INFO END
 
 // BLOG START
@@ -101,7 +103,9 @@ const router = createBrowserRouter(
         {/* == INFO PATHS END */}
         <Route path="info">
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="terms-of-use" element={<TermsOfService />} />
+          <Route path="terms-of-use" element={<TermsOfUse />} />
+          <Route path="faq" element={<Faq />} />
+          <Route path="contact" element={<Contact />} />
           <Route path="add-product" element={<InfoAddProduct />} />
         </Route>
         {/* == INFO PATHS END */}
