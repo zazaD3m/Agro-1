@@ -3,9 +3,10 @@ import { listings } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 
 const HomePageNewProducts = ({ className }) => {
+  const newListings = listings();
   return (
     <div className={cn("", className)}>
-      <ListingsCarousel listings={listings} title={"ახალი განცხადებები"} />
+      <ListingsCarousel listings={newListings} title={"ახალი განცხადებები"} />
     </div>
   );
 };

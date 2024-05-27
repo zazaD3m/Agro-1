@@ -63,11 +63,11 @@ const HomePageHeroCarousel = ({ className }) => {
     <div className={cn("overflow-hidden rounded-b-md", className)}>
       <Carousel
         opts={{ loop: true }}
-        // plugins={[
-        //   Autoplay({
-        //     delay: 10000,
-        //   }),
-        // ]}
+        plugins={[
+          Autoplay({
+            delay: 4000,
+          }),
+        ]}
       >
         <CarouselContent>
           {HOME_PAGE_CONTENT.map((data, i) => (

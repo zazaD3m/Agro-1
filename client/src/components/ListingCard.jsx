@@ -45,7 +45,13 @@ const ListingCard = ({ listing, isMobile }) => {
         isMobile && "h-1/2 p-2 pb-3",
       )}
     >
-      <Link className={cn("mb-4 grow", isMobile && "flex gap-x-2")} to={"/"}>
+      <Link
+        className={cn(
+          "mb-4 flex grow flex-col",
+          isMobile && " flex-row gap-x-2",
+        )}
+        to={"/"}
+      >
         <div
           className={cn(
             "w-full",
@@ -55,20 +61,20 @@ const ListingCard = ({ listing, isMobile }) => {
           )}
         >
           <img
-            src={"hero-sidebar-1.webp"}
+            src={"product_images/" + listing.img}
             className={cn(
-              "object-cover",
+              "border object-cover",
               isMobile ? "aspect-square rounded-md" : "size-full",
             )}
           />
         </div>
-        <div className="max-sm:w-3/4">
-          <h2 className="mb-1 line-clamp-2 pr-10 font-semibold sm:pr-0 sm:text-lg">
+        <div className="flex grow flex-col max-sm:w-3/4">
+          <h2 className="mb-1 line-clamp-2 pr-10 font-semibold sm:pr-0">
             {listing.title}
           </h2>
-          <div className="mb-2 flex items-center gap-x-1 opacity-60">
+          <div className="mb-2 flex grow items-start gap-x-1 opacity-60">
             <MapPin size={18} strokeWidth={2} className="-ml-px" />
-            <span className="text-sm font-semibold">{listing.city}</span>
+            <span className="text-xs font-semibold">{listing.city}</span>
           </div>
           <p className="font-normal">
             <span>₾ </span>
