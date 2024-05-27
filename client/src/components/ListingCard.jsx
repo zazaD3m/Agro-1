@@ -62,7 +62,7 @@ const ListingCard = ({ listing, isMobile }) => {
             )}
           />
         </div>
-        <div className={isMobile && "w-3/4"}>
+        <div className="max-sm:w-3/4">
           <h2 className="mb-1 line-clamp-2 pr-10 font-semibold sm:pr-0 sm:text-lg">
             {listing.title}
           </h2>
