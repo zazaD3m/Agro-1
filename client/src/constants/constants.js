@@ -10,6 +10,9 @@ export const listings = () => {
   return [
     {
       id: 1,
+      mainCategory: "wiwvovani-maradmwvane",
+      subCategory: "wiwvovani-maradmwvane",
+      category: "kviparosi",
       img: "product_1.webp",
       title: "კვიპაროსი და ტუია ცოცხალი ღობის გასაშენებლად",
       city: "თბილისი",
@@ -24,6 +27,9 @@ export const listings = () => {
     },
     {
       id: 2,
+      mainCategory: "yvavilebi",
+      subCategory: "qotnis-yvavilebi",
+      category: "aloe",
       img: "product_2.webp",
       title: "ალოე ვერა",
       city: "ქუთაისი",
@@ -39,6 +45,9 @@ export const listings = () => {
     },
     {
       id: 3,
+      mainCategory: "yvavilebi",
+      subCategory: "qotnis-yvavilebi",
+      category: "sxva",
       img: "product_3.webp",
       title: "ბარაქის ხე",
       city: "ბათუმი",
@@ -53,6 +62,9 @@ export const listings = () => {
     },
     {
       id: 4,
+      mainCategory: "wiwvovani-maradmwvane",
+      subCategory: "wiwvovani-maradmwvane",
+      category: "naZvi",
       img: "product_4.webp",
       title: "ნაძვის ნერგები",
       city: "მცხეთა",
@@ -67,6 +79,9 @@ export const listings = () => {
     },
     {
       id: 5,
+      mainCategory: "yvavilebi",
+      subCategory: "qotnis-yvavilebi",
+      category: "sxva",
       img: "product_5.webp",
       title: "მცენარეს ქოთანი",
       city: "თელავი",
@@ -80,6 +95,9 @@ export const listings = () => {
     },
     {
       id: 6,
+      mainCategory: "chiTilebi-da-saTesle-masala",
+      subCategory: "Tesli",
+      category: "simindi",
       img: "product_6.webp",
       title: "სიმინდის სათესლე მასალა",
       city: "ქუთაისი",
@@ -93,6 +111,9 @@ export const listings = () => {
     },
     {
       id: 7,
+      mainCategory: "chiTilebi-da-saTesle-masala",
+      subCategory: "Tesli",
+      category: "sxva",
       img: "product_7.webp",
       title: "ხორბალი",
       city: "გურია",
@@ -106,6 +127,9 @@ export const listings = () => {
     },
     {
       id: 8,
+      mainCategory: "sxvadasxva",
+      subCategory: "",
+      category: "qvevri",
       img: "product_8.webp",
       title: "ღვინის 500 ლიტრიანი ქვევრი",
       city: "თბილისი",
@@ -119,6 +143,9 @@ export const listings = () => {
     },
     {
       id: 9,
+      mainCategory: "mcenareebis-movlis-saSualebebi",
+      subCategory: "agro-inventari",
+      category: "eleqtronuli-motori",
       img: "product_9.webp",
       title: "წყლის ტუმბო/პომპა",
       city: "თელავი",
@@ -132,6 +159,9 @@ export const listings = () => {
     },
     {
       id: 10,
+      mainCategory: "cxovelebi-da-frinvelebi",
+      subCategory: "cxovelebi",
+      category: "Zroxa",
       img: "product_10.webp",
       title: "სახარე ხბოები",
       city: "სამეგრელო",
@@ -145,6 +175,9 @@ export const listings = () => {
     },
     {
       id: 11,
+      mainCategory: "cxovelebi-da-frinvelebi",
+      subCategory: "frinvelebi",
+      category: "qaTami",
       img: "product_11.webp",
       title: "ლიმონისფერი კოხინხინი",
       city: "სამეგრელო",
@@ -158,6 +191,9 @@ export const listings = () => {
     },
     {
       id: 12,
+      mainCategory: "cxovelebi-da-frinvelebi",
+      subCategory: "cxovelebi",
+      category: "Rori",
       img: "product_12.webp",
       title: "ბეკონის გოჭები",
       city: "სამეგრელო",

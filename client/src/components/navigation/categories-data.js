@@ -560,6 +560,10 @@ export const SUB_CATEGORIES = [
         name: "ტუია",
       },
       {
+        link: "naZvi",
+        name: "ნაძვი",
+      },
+      {
         link: "kavkasiuri-soWi",
         name: "კავკასიური სოჭი",
       },
@@ -1114,7 +1118,7 @@ export const SUB_CATEGORIES = [
         name: "მრავალწლიანი წვეთოვნები",
       },
       {
-        link: "erTwliani wveTovnebi",
+        link: "erTwliani-wveTovnebi",
         name: "ერთწლიანი წვეთოვნები",
       },
       {

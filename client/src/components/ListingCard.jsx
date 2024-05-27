@@ -9,8 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToast } from "./ui/use-toast";
 import { useState } from "react";
+import { convertToEnglish } from "@/helpers/translateString";
 
 const ListingCard = ({ listing, isMobile }) => {
+  const { id, mainCategory, subCategory, category, title } = listing;
   const [showNumber, setShowNumber] = useState(false);
   const { toast } = useToast();
   const dispatch = useDispatch();
@@ -18,7 +20,6 @@ const ListingCard = ({ listing, isMobile }) => {
   const isFavorite = favoriteListings.includes(listing.id);
 
   const handleFavoriteToggle = () => {
-    const { id } = listing;
     if (isFavorite) {
       dispatch(removeFromFavorites(id));
       toast({
@@ -50,7 +51,7 @@ const ListingCard = ({ listing, isMobile }) => {
           "mb-4 flex grow flex-col",
           isMobile && " flex-row gap-x-2",
         )}
-        to={"/"}
+        to={`/product/${id}/${mainCategory}${subCategory ? `/${subCategory}` : ""}/${category}/${convertToEnglish(title)}`}
       >
         <div
           className={cn(

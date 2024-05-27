@@ -28,6 +28,7 @@ import AuthLayout from "./components/layout/AuthLayout";
 const HomePage = lazy(() => import("./pages/home/HomePage"));
 const CatalogPage = lazy(() => import("./pages/catalog/CatalogPage"));
 const AccountPage = lazy(() => import("./pages/account/AccountPage"));
+const ProductPage = lazy(() => import("./pages/product/ProductPage"));
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import LoginPage from "./pages/auth/LoginPage";
@@ -81,6 +82,18 @@ const router = createBrowserRouter(
             }
           />
         </Route>
+        {/* == PRODUCT PATHS START */}
+        <Route path="product/:productId/:mainCategory/:subCategory?/:category/:productTitle">
+          <Route
+            index
+            element={
+              <Suspense fallback={<FullScreenLoader />}>
+                <ProductPage />
+              </Suspense>
+            }
+          />
+        </Route>
+        {/* == PRODUCT PATHS END */}
         {/* == ACCOUNT PATHS START */}
         <Route element={<PrivateRoute />}>
           <Route element={<AccountLayout />}>

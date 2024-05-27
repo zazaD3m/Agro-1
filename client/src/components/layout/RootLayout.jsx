@@ -7,7 +7,7 @@ import Breadcrumbs from "../Breadcrumbs";
 const RootLayout = () => {
   const location = useLocation();
 
-  const breadCrumbsPages = ["/catalog"];
+  const breadCrumbsPages = ["/catalog", "/product"];
   const shouldBreadCrumbsRender = breadCrumbsPages.some((page) =>
     location.pathname.includes(page),
   );

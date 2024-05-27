@@ -11,19 +11,37 @@ import { Fragment } from "react";
 import { getBreadCrumbs } from "@/helpers/getBreadCrumbs";
 
 const Breadcrumbs = ({ pathname }) => {
-  const crumbs = pathname.split("/").filter((str) => /\w+/.test(str));
-  const parentRouteMapping = {
-    catalog: "კატალოგი",
-  };
+  let crumbs = pathname.split("/");
+
+  if (crumbs[1] === "catalog") {
+    crumbs = crumbs.filter((str, i) => {
+      // remove / and catalog from crumbs list
+      if (i > 1) {
+        return /\w+/.test(str);
+      } else {
+        return false;
+      }
+    });
+  } else {
+    // if it's not catalog it is product/productId/*
+    crumbs = crumbs.filter((str, i) => {
+      // remove /, product and productId from crumbs list
+      if (i > 2 && i < 7) {
+        return /\w+/.test(str);
+      } else {
+        return false;
+      }
+    });
+  }
 
   const firstPage = {
-    name: parentRouteMapping[crumbs[0]],
-    link: crumbs[0],
+    name: "კატალოგი",
+    link: "catalog",
   };
 
   let pages = null;
 
-  if (crumbs.length > 1) {
+  if (crumbs.length) {
     pages = getBreadCrumbs(crumbs);
   }
 
