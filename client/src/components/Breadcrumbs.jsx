@@ -46,7 +46,7 @@ const Breadcrumbs = ({ pathname }) => {
   }
 
   return (
-    <div className="-mt-2 flex min-h-12 items-center bg-gradient-to-r from-primary-light to-primary pb-2 pt-4 lg:block lg:pt-[17px]">
+    <div className="-mt-2 flex min-h-12 items-center bg-gradient-to-r from-primary-light to-primary pb-2 pt-4 lg:block lg:pt-[20px]">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

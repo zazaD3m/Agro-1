@@ -9,8 +9,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-primary text-primary-foreground hover:bg-primary-light",
+        primary:
+          "bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300",
         action: "bg-action text-primary-foreground hover:bg-action/90",
+        actionOutline:
+          "border border-action text-action bg-background lg:hover:bg-action active:bg-action lg:hover:text-primary-foreground active:text-primary-foreground",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:

@@ -18,7 +18,7 @@ const RootLayout = () => {
       {shouldBreadCrumbsRender ? (
         <Breadcrumbs pathname={location.pathname} />
       ) : null}
-      <main className="bg-accent">
+      <main className="bg-background">
         <Outlet />
       </main>
       <Footer />
