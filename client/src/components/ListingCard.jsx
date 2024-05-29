@@ -1,37 +1,13 @@
-import {
-  addToFavorites,
-  removeFromFavorites,
-  selectFavoriteListings,
-} from "@/features/user/userSlice";
 import { cn } from "@/lib/utils";
 import { Heart, MapPin, Phone } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useToast } from "./ui/use-toast";
 import { useState } from "react";
 import { convertToEnglish } from "@/helpers/translateString";
+import FavoriteButton from "./FavoriteButton";
 
 const ListingCard = ({ listing, isMobile }) => {
   const { id, mainCategory, subCategory, category, title } = listing;
   const [showNumber, setShowNumber] = useState(false);
-  const { toast } = useToast();
-  const dispatch = useDispatch();
-  const favoriteListings = useSelector(selectFavoriteListings);
-  const isFavorite = favoriteListings.includes(listing.id);
-
-  const handleFavoriteToggle = () => {
-    if (isFavorite) {
-      dispatch(removeFromFavorites(id));
-      toast({
-        title: `${listing.title}, წაშლილია ფავორიტებიდან!`,
-      });
-    } else {
-      dispatch(addToFavorites(id));
-      toast({
-        title: `${listing.title}, შენახულია ფავორიტებში!`,
-      });
-    }
-  };
 
   const handlePhoneNumberClick = () => {
     if (!showNumber) {
@@ -42,7 +18,7 @@ const ListingCard = ({ listing, isMobile }) => {
   return (
     <div
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-md border-2 p-4 shadow-md transition-shadow hover:shadow-black/25",
+        "group relative flex h-full flex-col overflow-hidden rounded-md border-2 bg-background p-4 shadow-md transition-shadow hover:shadow-black/25",
         isMobile && "h-1/2 p-2 pb-3",
       )}
     >
@@ -62,7 +38,7 @@ const ListingCard = ({ listing, isMobile }) => {
           )}
         >
           <img
-            src={"product_images/" + listing.img}
+            src={"/product_images/" + listing.img}
             className={cn(
               "border object-cover",
               isMobile ? "aspect-square rounded-md" : "size-full",
@@ -102,22 +78,19 @@ const ListingCard = ({ listing, isMobile }) => {
           </a>
         </button>
       </div>
-      <button
-        className={cn(
-          "absolute -right-2  rounded-b-md border bg-background  p-1 pb-2 pl-2 pr-4 pt-4 transition-all duration-300 group-hover:-top-2",
-          isFavorite ? "-top-2" : "-top-16",
-          isMobile && "-top-2",
-        )}
-        onClick={handleFavoriteToggle}
-      >
-        <Heart
+      <FavoriteButton productId={listing.id} productTitle={listing.title}>
+        <button
           className={cn(
-            "text-action transition-all hover:scale-105",
-            isFavorite && "fill-action text-white",
+            "group absolute -right-2 -top-16 rounded-b-md border  bg-background p-1 pb-2 pl-2 pr-4 pt-4 transition-all duration-300 group-hover:-top-2 data-[isfavorite=true]:-top-2",
+            isMobile && "-top-2",
           )}
-          size={28}
-        />
-      </button>
+        >
+          <Heart
+            className="text-action transition-all hover:scale-105 group-data-[isfavorite=true]:fill-action group-data-[isfavorite=true]:text-white"
+            size={28}
+          />
+        </button>
+      </FavoriteButton>
     </div>
   );
 };

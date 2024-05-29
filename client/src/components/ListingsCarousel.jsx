@@ -10,7 +10,7 @@ import {
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
-const ListingsCarousel = ({ listings, title }) => {
+const ListingsCarousel = ({ listings, title, showAllListings = true }) => {
   const { width } = useWindowSize();
   const isMobile = width < 640 || false;
 
@@ -29,7 +29,7 @@ const ListingsCarousel = ({ listings, title }) => {
               i % 2 === 0 ? (
                 <CarouselItem
                   key={i}
-                  className="mb-4 basis-full space-y-4 py-1 pl-4 transition-all"
+                  className="mb-4 basis-11/12 space-y-4 py-1 pl-4 transition-all"
                 >
                   <ListingCard isMobile={isMobile} listing={listing} />
                   {listings[i + 1] && (
@@ -50,16 +50,18 @@ const ListingsCarousel = ({ listings, title }) => {
               </CarouselItem>
             ))}
       </CarouselContent>
-      <div className="mx-auto w-min pt-8">
-        <Button
-          asChild
-          size="lg"
-          variant="blank"
-          className="border-2 border-black/30 text-black hover:border-black/50"
-        >
-          <Link to="/catalog">ყველა განცხადების ნახვა</Link>
-        </Button>
-      </div>
+      {showAllListings && (
+        <div className="mx-auto w-min pt-8">
+          <Button
+            asChild
+            size="lg"
+            variant="blank"
+            className="border-2 border-black/30 text-black hover:border-black/50"
+          >
+            <Link to="/catalog">ყველა განცხადების ნახვა</Link>
+          </Button>
+        </div>
+      )}
     </Carousel>
   );
 };
