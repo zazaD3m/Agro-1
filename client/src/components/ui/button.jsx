@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300",
+          "bg-primary text-primary-foreground lg:hover:bg-primary/90 transition-all duration-300",
         action: "bg-action text-primary-foreground hover:bg-action/90",
         actionOutline:
           "border border-action text-action bg-background lg:hover:bg-action active:bg-action lg:hover:text-primary-foreground active:text-primary-foreground",

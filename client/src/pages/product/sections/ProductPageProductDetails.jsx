@@ -1,23 +1,16 @@
+import CallNumberButton from "@/components/CallNumberButton";
 import FavoriteButton from "@/components/FavoriteButton";
 import { Button } from "@/components/ui/button";
 import { listings } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { Clock, Eye, Heart, MapPin, Phone, Store, User } from "lucide-react";
-import { useState } from "react";
+import { Clock, Eye, Heart, MapPin, Store, User } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
 const ProductPageProductDetails = ({ className }) => {
-  const [showNumber, setShowNumber] = useState(false);
   let { productId } = useParams();
 
   const product = listings().find((listing) => listing.id == productId);
-
-  const handlePhoneNumberClick = () => {
-    if (!showNumber) {
-      setShowNumber(true);
-    }
-  };
 
   return (
     <section
@@ -84,25 +77,10 @@ const ProductPageProductDetails = ({ className }) => {
           <p>{product.description}</p>
         </div>
         <div className="mt-6 flex gap-x-4 border-t pt-3">
-          <Button
-            onClick={handlePhoneNumberClick}
-            className="w-full sm:w-auto"
-            variant="primary"
-            size="lg"
-          >
-            <a
-              href={`tel:${product.author.phoneNumber}`}
-              className="flex items-center gap-x-1 font-semibold"
-            >
-              <Phone size={16} />
-              <span className="">
-                {showNumber
-                  ? product.author.phoneNumber
-                  : `${product.author.phoneNumber.slice(0, 6)}-**-**`}
-              </span>
-              {!showNumber && <span className="text-[10px]">ნომრის ნახვა</span>}
-            </a>
-          </Button>
+          <CallNumberButton
+            phoneNumber={product.author.phoneNumber}
+            variant="productPage"
+          />
           <FavoriteButton productId={product.id} productTitle={product.title}>
             <Button
               variant="action"

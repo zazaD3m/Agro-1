@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,7 +10,16 @@ import {
 import { Fragment } from "react";
 import { getBreadCrumbs } from "@/helpers/getBreadCrumbs";
 
-const Breadcrumbs = ({ pathname }) => {
+const Breadcrumbs = () => {
+  const { pathname } = useLocation();
+
+  const breadCrumbsPages = ["/catalog", "/product"];
+  const shouldBreadCrumbsRender = breadCrumbsPages.some((page) =>
+    pathname.includes(page),
+  );
+
+  if (!shouldBreadCrumbsRender) return;
+
   let crumbs = pathname.split("/");
 
   if (crumbs[1] === "catalog") {

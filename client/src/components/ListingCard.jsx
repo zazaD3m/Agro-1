@@ -1,19 +1,12 @@
 import { cn } from "@/lib/utils";
-import { Heart, MapPin, Phone } from "lucide-react";
+import { Heart, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { convertToEnglish } from "@/helpers/translateString";
 import FavoriteButton from "./FavoriteButton";
+import CallNumberButton from "./CallNumberButton";
 
 const ListingCard = ({ listing, isMobile }) => {
   const { id, mainCategory, subCategory, category, title } = listing;
-  const [showNumber, setShowNumber] = useState(false);
-
-  const handlePhoneNumberClick = () => {
-    if (!showNumber) {
-      setShowNumber(true);
-    }
-  };
 
   return (
     <div
@@ -63,20 +56,10 @@ const ListingCard = ({ listing, isMobile }) => {
         <h2 className="line-clamp-1 break-words pl-2 text-sm sm:pl-1 sm:text-xs">
           {listing.author.firstName}
         </h2>
-        <button
-          onClick={handlePhoneNumberClick}
-          className="shrink-0 rounded-full bg-primary/90 p-2 text-sm text-primary-foreground"
-        >
-          <a
-            href={`tel:${listing.author.phoneNumber}`}
-            className="flex items-center gap-x-1"
-          >
-            <Phone size={16} />
-            {showNumber
-              ? listing.author.phoneNumber
-              : `${listing.author.phoneNumber.slice(0, 6)}-**-**`}
-          </a>
-        </button>
+        <CallNumberButton
+          phoneNumber={listing.author.phoneNumber}
+          variant="carousel"
+        />
       </div>
       <FavoriteButton productId={listing.id} productTitle={listing.title}>
         <button

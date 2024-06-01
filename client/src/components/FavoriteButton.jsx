@@ -34,8 +34,8 @@ const FavoriteButton = React.forwardRef(
       <Slot
         ref={ref}
         data-isfavorite={isFavorite}
-        {...props}
         onClick={handleFavoriteToggle}
+        {...props}
       />
     );
   },

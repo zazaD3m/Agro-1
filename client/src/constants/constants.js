@@ -24,7 +24,7 @@ export const listings = () => {
       author: {
         firstName: "გურანდუხტი",
         role: "ფიზიკური პირი",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-41",
       },
     },
     {
@@ -43,7 +43,7 @@ export const listings = () => {
       author: {
         firstName: "ბრენდა",
         role: "ფიზიკური პირი",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-42",
       },
       isFavorite: true,
     },
@@ -63,7 +63,7 @@ export const listings = () => {
       author: {
         firstName: "გიორგი",
         role: "ფიზიკური პირი",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-43",
       },
     },
     {
@@ -82,7 +82,7 @@ export const listings = () => {
       author: {
         firstName: "დათო",
         role: "ფიზიკური პირი",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-44",
       },
     },
     {
@@ -100,7 +100,7 @@ export const listings = () => {
       author: {
         firstName: "ელენე",
         role: "ფიზიკური პირი",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-45",
       },
     },
     {
@@ -118,7 +118,7 @@ export const listings = () => {
       author: {
         firstName: "ფრანგი",
         role: "ფიზიკური პირი",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-46",
       },
     },
     {
@@ -136,7 +136,7 @@ export const listings = () => {
       author: {
         firstName: "გრიგოლ",
         role: "მაღაზია",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-47",
       },
     },
     {
@@ -154,7 +154,7 @@ export const listings = () => {
       author: {
         firstName: "ჰენრი",
         role: "მაღაზია",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-48",
       },
     },
     {
@@ -172,7 +172,7 @@ export const listings = () => {
       author: {
         firstName: "ირაკლი",
         role: "მაღაზია",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-49",
       },
     },
     {
@@ -190,7 +190,7 @@ export const listings = () => {
       author: {
         firstName: "ჯაკო",
         role: "მაღაზია",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-40",
       },
     },
     {
@@ -208,7 +208,7 @@ export const listings = () => {
       author: {
         firstName: "ჯაკო",
         role: "მაღაზია",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-14",
       },
     },
     {
@@ -226,7 +226,7 @@ export const listings = () => {
       author: {
         firstName: "ჯაკო",
         role: "მაღაზია",
-        phoneNumber: "919-55-66-44",
+        phoneNumber: "+995-519-55-66-24",
       },
     },
   ].sort(() => Math.random() - 0.5);
