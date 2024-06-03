@@ -14,7 +14,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-background-green pb-20 pt-8 lg:pb-0">
-      <div className="container px-2 lg:px-4">
+      <div className="container px-2 sm:px-4">
         {width >= 1024 && (
           <div className="flex flex-wrap gap-y-16">
             <div className="basis-1/4">

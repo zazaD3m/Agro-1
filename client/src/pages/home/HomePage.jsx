@@ -9,22 +9,22 @@ const HomePage = () => {
   return (
     <>
       <section className="bg-background-green pb-8">
-        <HomePageHero className="container px-2 lg:px-4" />
+        <HomePageHero className="container px-2 sm:px-4" />
       </section>
       <section className="bg-background pb-12 pt-8">
-        <HomePageNewProducts className="container px-2 lg:px-4" />
+        <HomePageNewProducts className="container px-2 sm:px-4" />
       </section>
       <section className="bg-background-green py-8">
-        <HomePageSiteStats className="container px-2 lg:px-4" />
+        <HomePageSiteStats className="container px-2 sm:px-4" />
       </section>
       <section className="bg-background py-12">
-        <HomePageFeaturedProducts className="container px-2 lg:px-4" />
+        <HomePageFeaturedProducts className="container px-2 sm:px-4" />
       </section>
       <section className="bg-background-green py-8">
-        <HomePageSiteInfo className="container px-2 lg:px-4" />
+        <HomePageSiteInfo className="container px-2 sm:px-4" />
       </section>
       <section className="bg-background py-12">
-        <HomePageBlogPosts className="container px-2 lg:px-4" />
+        <HomePageBlogPosts className="container px-2 sm:px-4" />
       </section>
     </>
   );

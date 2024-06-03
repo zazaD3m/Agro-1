@@ -34,7 +34,7 @@ const HomePageHero = ({ className }) => {
                 key={i}
                 to={item.link}
                 className={cn(
-                  "group flex items-center gap-2 rounded-md border-2 border-white bg-white p-2 shadow transition-colors hover:border-primary lg:items-start lg:justify-between lg:px-4 lg:first:rounded-t-none",
+                  "group flex items-center gap-2 rounded-md border-2 border-white bg-white p-2 shadow transition-colors hover:border-primary sm:px-4 lg:items-start lg:justify-between lg:first:rounded-t-none",
                   i > 2 && "lg:hidden",
                 )}
               >

@@ -1,11 +1,11 @@
 import CallNumberButton from "@/components/CallNumberButton";
 import FavoriteButton from "@/components/FavoriteButton";
-import { Button } from "@/components/ui/button";
 import { listings } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { Clock, Eye, Heart, MapPin, Store, User } from "lucide-react";
+import { Clock, Eye, MapPin, Store, User } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import ImageGallery from "../components/ImageGallery";
 
 const ProductPageProductDetails = ({ className }) => {
   let { productId } = useParams();
@@ -17,40 +17,7 @@ const ProductPageProductDetails = ({ className }) => {
       className={cn("flex flex-col gap-x-4 gap-y-4 lg:flex-row", className)}
     >
       <section className="w-full space-y-4 lg:w-4/12">
-        <div className="flex flex-col gap-y-4">
-          <div className="aspect-[4/3] w-full rounded-md border-2">
-            <img
-              className="aspect-[4/3] w-full object-contain"
-              src={"/product_images/" + product.img}
-            />
-          </div>
-          <div className="flex w-full gap-x-2">
-            <div className="aspect-[4/3] w-1/4 overflow-hidden rounded-md border-2 border-action/50">
-              <img
-                className="size-full object-cover"
-                src={"/product_images/" + product.img}
-              />
-            </div>
-            <div className="aspect-[4/3] w-1/4 overflow-hidden rounded-md border-2">
-              <img
-                className="size-full object-cover"
-                src={"/product_images/" + product.img}
-              />
-            </div>
-            <div className="aspect-[4/3] w-1/4 overflow-hidden rounded-md border-2">
-              <img
-                className="size-full object-cover"
-                src={"/product_images/" + product.img}
-              />
-            </div>
-            <div className="aspect-[4/3] w-1/4 overflow-hidden rounded-md border-2">
-              <img
-                className="size-full object-cover"
-                src={"/product_images/" + product.img}
-              />
-            </div>
-          </div>
-        </div>
+        <ImageGallery images={product.images} title={product.title} />
         <ul className="flex gap-x-6 text-xs font-medium">
           <li className="flex items-center gap-x-2 ">
             <Clock strokeWidth={1.25} className="stroke size-4" />
@@ -81,14 +48,11 @@ const ProductPageProductDetails = ({ className }) => {
             phoneNumber={product.author.phoneNumber}
             variant="productPage"
           />
-          <FavoriteButton productId={product.id} productTitle={product.title}>
-            <Button
-              variant="action"
-              className="size-12 shrink-0 p-0 duration-300 data-[isfavorite=false]:border-2 data-[isfavorite=false]:border-action data-[isfavorite=false]:bg-background data-[isfavorite=false]:text-action data-[isfavorite=false]:active:bg-action data-[isfavorite=false]:active:text-primary-foreground data-[isfavorite=false]:lg:hover:bg-action data-[isfavorite=false]:lg:hover:text-primary-foreground"
-            >
-              <Heart />
-            </Button>
-          </FavoriteButton>
+          <FavoriteButton
+            productId={product.id}
+            productTitle={product.title}
+            variant="productPage"
+          />
         </div>
       </section>
       <section className="h-min w-full rounded-md border drop-shadow-md lg:w-3/12">

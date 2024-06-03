@@ -61,19 +61,12 @@ const ListingCard = ({ listing, isMobile }) => {
           variant="carousel"
         />
       </div>
-      <FavoriteButton productId={listing.id} productTitle={listing.title}>
-        <button
-          className={cn(
-            "group absolute -right-2 -top-16 rounded-b-md border  bg-background p-1 pb-2 pl-2 pr-4 pt-4 transition-all duration-300 group-hover:-top-2 data-[isfavorite=true]:-top-2",
-            isMobile && "-top-2",
-          )}
-        >
-          <Heart
-            className="text-action transition-all hover:scale-105 group-data-[isfavorite=true]:fill-action group-data-[isfavorite=true]:text-white"
-            size={28}
-          />
-        </button>
-      </FavoriteButton>
+      <FavoriteButton
+        productId={listing.id}
+        productTitle={listing.title}
+        variant="carousel"
+        isMobile={isMobile}
+      />
     </div>
   );
 };

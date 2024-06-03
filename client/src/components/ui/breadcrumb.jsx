@@ -8,7 +8,7 @@ const Breadcrumb = React.forwardRef(({ ...props }, ref) => (
   <nav
     ref={ref}
     aria-label="breadcrumb"
-    className="container h-full px-2 lg:px-4"
+    className="container h-full px-2 sm:px-4"
     {...props}
   />
 ));
