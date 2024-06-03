@@ -23,19 +23,19 @@ const ImageGalleryCarousel = React.forwardRef(
   ({ opts, plugins, className, children, ...props }, ref) => {
     const [mainRef, mainApi] = useEmblaCarousel(
       {
-        ...opts,
         axis: "x",
         startIndex: 0,
+        ...opts,
       },
       plugins,
     );
 
     const [thumbRef, thumbApi] = useEmblaCarousel(
       {
-        ...opts,
         axis: "x",
         containScroll: "keepSnaps",
         dragFree: true,
+        ...opts,
       },
       plugins,
     );
