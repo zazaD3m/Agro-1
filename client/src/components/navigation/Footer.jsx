@@ -1,5 +1,4 @@
 import useWindowSize from "@/hooks/useWindowSize";
-import { MAIN_CATEGORIES } from "./categories-data";
 import { Link } from "react-router-dom";
 import { Facebook, Instagram } from "lucide-react";
 import {
@@ -8,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import { MAIN_CATEGORIES } from "@/data/categories";
 
 const Footer = () => {
   const { width } = useWindowSize();
@@ -61,14 +61,14 @@ const Footer = () => {
             </div>
             <div className="basis-3/4">
               <h2 className="mb-6 font-medium">კატეგორიები</h2>
-              <ul className="grid grid-cols-3 gap-y-4 text-xs ">
-                {MAIN_CATEGORIES.map((cat) => (
-                  <li key={cat.name}>
+              <ul className="grid grid-cols-3 gap-y-4 text-xs">
+                {MAIN_CATEGORIES.map((mainCat) => (
+                  <li key={mainCat.id}>
                     <Link
-                      to={"/catalog/" + cat.link}
+                      to={`/catalog/${mainCat.id}/${mainCat.link}`}
                       className="opacity-80 hover:opacity-100"
                     >
-                      {cat.name}
+                      {mainCat.name}
                     </Link>
                   </li>
                 ))}
@@ -147,13 +147,13 @@ const Footer = () => {
               <AccordionTrigger>კატეგორიები</AccordionTrigger>
               <AccordionContent>
                 <ul className="space-y-6">
-                  {MAIN_CATEGORIES.map((cat) => (
-                    <li key={cat.name}>
+                  {MAIN_CATEGORIES.map((mainCat) => (
+                    <li key={mainCat.id}>
                       <Link
-                        to={"/catalog/" + cat.link}
+                        to={`/catalog/${mainCat.id}/${mainCat.link}`}
                         className="opacity-80 hover:opacity-100"
                       >
-                        {cat.name}
+                        {mainCat.name}
                       </Link>
                     </li>
                   ))}

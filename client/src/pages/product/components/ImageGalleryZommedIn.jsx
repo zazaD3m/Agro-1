@@ -9,15 +9,28 @@ import {
   ImageGalleryThumbContainer,
   ImageGalleryThumbItem,
 } from "./ImageGalleryCarousel";
+import { useLayoutEffect } from "react";
 
 const ImageGalleryZommedIn = ({ showModal, setShowModal, title, images }) => {
+  useLayoutEffect(() => {
+    const handleBackButton = () => {
+      setShowModal(false);
+    };
+    window.addEventListener("popstate", handleBackButton, false);
+    window.addEventListener("hashchange", handleBackButton, false);
+    return () => {
+      window.removeEventListener("popstate", handleBackButton, false);
+      window.removeEventListener("hashchange", handleBackButton, false);
+    };
+  }, []);
+
   return (
     <Dialog open={showModal} onOpenChange={setShowModal}>
       <DialogContent
         customClose={true}
         className="size-full border-0 pt-16 lg:h-[90%] lg:w-5/6 lg:px-4 lg:pb-4 2xl:pb-8"
       >
-        <DialogClose className="absolute right-4 top-4 hidden rounded-full bg-accent-dark/50 p-2 transition-opacity hover:bg-accent-dark  focus:outline-none lg:block">
+        <DialogClose className="absolute right-4 top-4 hidden rounded-full bg-accent-dark/50 p-2 transition-opacity hover:bg-accent-dark focus:outline-none lg:block">
           <X strokeWidth="2" className="size-6 text-black" />
           <span className="sr-only">Close</span>
         </DialogClose>

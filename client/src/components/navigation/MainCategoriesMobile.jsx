@@ -1,32 +1,27 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { MAIN_CATEGORIES } from "./categories-data";
 import { Link } from "react-router-dom";
 import SubCategoryMobile from "./SubCategoryMobile";
 import { SheetCloseChild } from "../ui/sheet";
+import { MAIN_CATEGORIES } from "@/data/categories";
 
-const MainCategory = ({
-  mainCat,
-  setSelectedMainCat,
-  setSelectedMainCatLink,
-}) => {
+const MainCategoryItem = ({ id, name, link, icon, setSelectedMainCatId }) => {
   return (
     <div className="border-b py-5 first:pt-8 last:border-none">
       <div className="flex w-full items-center">
         <SheetCloseChild asChild>
           <Link
-            to={`catalog/${mainCat.link}`}
+            to={`catalog/${id}/${link}`}
             className="flex items-center gap-x-4 text-sm font-medium"
           >
-            <img src={"/" + mainCat.icon} className="h-6" alt={mainCat.name} />
-            {mainCat.name}
+            <img src={"/" + icon} className="h-6" alt={name} />
+            {name}
           </Link>
         </SheetCloseChild>
         <button
           className="ml-auto w-auto rounded-md bg-background-green p-1"
           onClick={() => {
-            setSelectedMainCatLink(mainCat.link);
-            setSelectedMainCat(mainCat.name);
+            setSelectedMainCatId(id);
           }}
         >
           <ChevronDown className="ml-auto" />
@@ -37,25 +32,28 @@ const MainCategory = ({
 };
 
 const MainCategoriesMobile = () => {
-  const [selectedMainCat, setSelectedMainCat] = useState("");
-  const [selectedMainCatLink, setSelectedMainCatLink] = useState("");
+  const [selectedMainCatId, setSelectedMainCatId] = useState(null);
+
+  const mainCat = selectedMainCatId
+    ? MAIN_CATEGORIES.find((mainCat) => mainCat.id === selectedMainCatId)
+    : null;
 
   return (
     <nav className="h-full overflow-auto px-4 pb-12">
-      {selectedMainCat ? (
+      {selectedMainCatId ? (
         <SubCategoryMobile
-          selectedMainCat={selectedMainCat}
-          setSelectedMainCat={setSelectedMainCat}
-          setSelectedMainCatLink={setSelectedMainCatLink}
-          mainCatLink={selectedMainCatLink}
+          mainCat={mainCat}
+          setSelectedMainCatId={setSelectedMainCatId}
         />
       ) : (
         MAIN_CATEGORIES.map((mainCat) => (
-          <MainCategory
-            key={mainCat.name}
-            mainCat={mainCat}
-            setSelectedMainCat={setSelectedMainCat}
-            setSelectedMainCatLink={setSelectedMainCatLink}
+          <MainCategoryItem
+            key={mainCat.id}
+            id={mainCat.id}
+            name={mainCat.name}
+            link={mainCat.link}
+            icon={mainCat.icon}
+            setSelectedMainCatId={setSelectedMainCatId}
           />
         ))
       )}

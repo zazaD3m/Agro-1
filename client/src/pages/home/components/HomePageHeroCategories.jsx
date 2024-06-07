@@ -1,4 +1,3 @@
-import { MAIN_CATEGORIES } from "@/components/navigation/categories-data";
 import {
   Carousel,
   CarouselContent,
@@ -9,10 +8,11 @@ import {
 import useWindowSize from "@/hooks/useWindowSize";
 import { cn } from "@/lib/utils";
 import HomePageCategoryCard from "./HomePageCategoryCard";
+import { MAIN_CATEGORIES } from "@/data/categories";
 
 const HomePageHeroCategories = () => {
   const { width } = useWindowSize();
-  const isMobile = width < 640 || false;
+  const isMobile = width < 1024 || false;
 
   return (
     <div className="group/main mt-8">
@@ -26,22 +26,24 @@ const HomePageHeroCategories = () => {
         </div>
         <CarouselContent className="-ml-4">
           <CarouselItem
-            className={cn(
-              "basis-1/5 py-1 md:basis-1/6 lg:basis-[13%]",
-              isMobile && "basis-2/5",
-            )}
+            className={"max-w-40 basis-2/5 py-1 sm:basis-1/4 lg:basis-[13%]"}
           >
             <HomePageCategoryCard isMobile={isMobile} isAllCategories={true} />
           </CarouselItem>
-          {MAIN_CATEGORIES.map((category, i) => (
+          {MAIN_CATEGORIES.map((mainCat) => (
             <CarouselItem
-              key={i}
+              key={mainCat.id}
               className={cn(
-                "basis-1/4 py-1 md:basis-1/5 lg:basis-[15%]",
-                isMobile && "basis-[45%]",
+                "max-w-48 basis-[45%] py-1 md:basis-1/5 lg:basis-[15%]",
               )}
             >
-              <HomePageCategoryCard isMobile={isMobile} category={category} />
+              <HomePageCategoryCard
+                isMobile={isMobile}
+                id={mainCat.id}
+                name={mainCat.name}
+                link={mainCat.link}
+                icon={mainCat.icon}
+              />
             </CarouselItem>
           ))}
         </CarouselContent>

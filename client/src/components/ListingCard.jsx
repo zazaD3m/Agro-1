@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
-import { Heart, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { convertToEnglish } from "@/helpers/translateString";
 import FavoriteButton from "./FavoriteButton";
 import CallNumberButton from "./CallNumberButton";
 
-const ListingCard = ({ listing, isMobile }) => {
+const ListingCard = ({ listing, isMobile, className }) => {
   const { id, mainCategory, subCategory, category, title } = listing;
 
   return (
@@ -13,12 +13,13 @@ const ListingCard = ({ listing, isMobile }) => {
       className={cn(
         "group relative flex h-full flex-col overflow-hidden rounded-md border-2 bg-background p-4 shadow-md transition-shadow hover:shadow-black/25",
         isMobile && "h-1/2 p-2 pb-3",
+        className,
       )}
     >
       <Link
         className={cn(
           "mb-4 flex grow flex-col",
-          isMobile && " flex-row gap-x-2",
+          isMobile && "flex-row gap-x-2",
         )}
         to={`/product/${id}/${mainCategory}${subCategory ? `/${subCategory}` : ""}/${category}/${convertToEnglish(title)}`}
       >

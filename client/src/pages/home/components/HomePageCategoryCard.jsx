@@ -4,7 +4,14 @@ import { AlignLeft } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-const HomePageCategoryCard = ({ category, isMobile, isAllCategories }) => {
+const HomePageCategoryCard = ({
+  id,
+  link,
+  name,
+  icon,
+  isMobile,
+  isAllCategories,
+}) => {
   const dispatch = useDispatch();
   const handleCatOpen = () => {
     if (!isMobile) {
@@ -28,17 +35,17 @@ const HomePageCategoryCard = ({ category, isMobile, isAllCategories }) => {
     </button>
   ) : (
     <Link
-      to={`catalog/${category.link}`}
+      to={`catalog/${id}/${link}`}
       className={cn(
         "group relative block size-full overflow-hidden rounded-md border bg-background p-2 shadow-md transition-all hover:shadow-black/25",
       )}
     >
       <h2 className="break-words text-xs font-semibold tracking-wide sm:text-sm">
-        {category.name}
+        {name}
       </h2>
       <div className="absolute bottom-1 right-1">
         <img
-          src={category.icon}
+          src={icon}
           className="size-10 transition-all group-hover:scale-110"
         />
       </div>

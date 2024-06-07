@@ -4,25 +4,30 @@ import {
   ChevronRight,
   ChevronUp,
 } from "lucide-react";
-import { SUB_CATEGORIES } from "./categories-data";
 import { Link } from "react-router-dom";
 import { SheetCloseChild } from "../ui/sheet";
 import { useState } from "react";
+import { CATEGORIES, SUB_CATEGORIES } from "@/data/categories";
 
 const SubCategoryItems = ({ subCat, mainCatLink }) => {
   const [showAll, setShowAll] = useState(false);
-  const visibleItems = showAll ? subCat.items : subCat.items.slice(0, 7);
+  const filteredCategories = CATEGORIES.filter(
+    (cat) => cat.subCatId === subCat.id,
+  );
+  const visibleCategories = showAll
+    ? filteredCategories
+    : filteredCategories.slice(0, 7);
 
   const toggleShowAll = () => {
     setShowAll((p) => !p);
   };
 
   return (
-    <div className="flex flex-col gap-y-4 py-4 ">
+    <div className="flex flex-col gap-y-4 py-4">
       <SheetCloseChild asChild>
         <Link
-          to={`catalog/${mainCatLink}/${subCat.link}`}
-          className="flex w-min items-center gap-x-2 text-nowrap font-medium hover:text-primary "
+          to={`catalog/${subCat.id}/${mainCatLink}/${subCat.link}`}
+          className="flex w-min items-center gap-x-2 text-nowrap font-medium hover:text-primary"
         >
           {subCat.name}
           <span className="rounded-md bg-background-green">
@@ -30,17 +35,17 @@ const SubCategoryItems = ({ subCat, mainCatLink }) => {
           </span>
         </Link>
       </SheetCloseChild>
-      {visibleItems.map((item) => (
-        <SheetCloseChild key={item.name} asChild>
+      {visibleCategories.map((cat) => (
+        <SheetCloseChild key={cat.id} asChild>
           <Link
-            to={`catalog/${mainCatLink}/${subCat.link}/${item.link}`}
+            to={`catalog/${cat.id}/${mainCatLink}/${subCat.link}/${cat.link}`}
             className="border-b pb-4 pl-2 text-sm transition-colors last:border-none hover:text-primary"
           >
-            {item.name}
+            {cat.name}
           </Link>
         </SheetCloseChild>
       ))}
-      {subCat.items.length > 7 ? (
+      {filteredCategories.length > 7 ? (
         <button
           onClick={toggleShowAll}
           className="flex items-center gap-x-1 text-nowrap border-b pb-4 pl-2 text-sm font-medium hover:opacity-90"
@@ -59,51 +64,43 @@ const SubCategoryItems = ({ subCat, mainCatLink }) => {
   );
 };
 
-const SubCategoryMobile = ({
-  selectedMainCat,
-  mainCatLink,
-  setSelectedMainCat,
-  setSelectedMainCatLink,
-}) => {
+const SubCategoryMobile = ({ mainCat, setSelectedMainCatId }) => {
   return (
     <>
       <button
         className="flex w-full items-center gap-x-4 rounded-b-md border-2 border-t-0 border-primary bg-accent py-3 pl-2"
         onClick={() => {
-          setSelectedMainCatLink("");
-          setSelectedMainCat("");
+          setSelectedMainCatId(null);
         }}
       >
         <ChevronLeft className="size-8" />
-        <span>{selectedMainCat}</span>
+        <span>{mainCat.name}</span>
       </button>
-      {SUB_CATEGORIES.map(
-        (subCat, i) =>
-          subCat.mainCatName === selectedMainCat &&
-          (subCat.name ? (
+      {SUB_CATEGORIES.map((subCat) =>
+        subCat.mainCatId === mainCat.id ? (
+          subCat.name ? (
             <SubCategoryItems
-              key={subCat.mainCatName + subCat.name}
+              key={subCat.id}
               subCat={subCat}
-              mainCat={selectedMainCat}
-              mainCatLink={mainCatLink}
+              mainCatLink={mainCat.link}
             />
           ) : (
-            <div
-              key={subCat.mainCatName + i}
-              className="flex flex-col gap-y-4 py-4"
-            >
-              {subCat.items.map((item) => (
-                <SheetCloseChild key={item.name} asChild>
-                  <Link
-                    to={`catalog/${mainCatLink}/${item.link}`}
-                    className="flex items-center text-nowrap border-b pb-4 font-medium last:border-none hover:text-primary"
-                  >
-                    {item.name}
-                  </Link>
-                </SheetCloseChild>
-              ))}
+            <div key={subCat.id} className="flex flex-col gap-y-4 py-4">
+              {CATEGORIES.map((cat) =>
+                cat.subCatId === subCat.id ? (
+                  <SheetCloseChild key={cat.id} asChild>
+                    <Link
+                      to={`catalog/${cat.id}/${mainCat.link}/${cat.link}`}
+                      className="flex items-center text-nowrap border-b pb-4 font-medium last:border-none hover:text-primary"
+                    >
+                      {cat.name}
+                    </Link>
+                  </SheetCloseChild>
+                ) : null,
+              )}
             </div>
-          )),
+          )
+        ) : null,
       )}
     </>
   );

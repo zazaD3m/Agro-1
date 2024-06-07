@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,9 +12,12 @@ import { getBreadCrumbs } from "@/helpers/getBreadCrumbs";
 
 const Breadcrumbs = () => {
   const { pathname } = useLocation();
+  // console.log(useParams());
 
-  const breadCrumbsPages = ["/catalog", "/product"];
-  const shouldBreadCrumbsRender = breadCrumbsPages.some((page) =>
+  // console.log(pathname);
+
+  const allowedPages = ["/catalog", "/product"];
+  const shouldBreadCrumbsRender = allowedPages.some((page) =>
     pathname.includes(page),
   );
 

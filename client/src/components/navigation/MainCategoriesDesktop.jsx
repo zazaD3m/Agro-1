@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { MAIN_CATEGORIES } from "./categories-data";
 import { cn } from "@/lib/utils";
 import SubCategoryDesktop from "./SubCategoryDesktop";
+import { MAIN_CATEGORIES } from "@/data/categories";
 
 const MainCategoriesDesktop = () => {
-  const [selectedMainCat, setSelectedMainCat] = useState(
-    MAIN_CATEGORIES[0].name,
+  const [selectedMainCatId, setSelectedMainCatId] = useState(
+    MAIN_CATEGORIES[0].id,
   );
-  const [selectedMainCatLink, setSelectedMainCatLink] = useState(
-    MAIN_CATEGORIES[0].link,
-  );
+
+  const mainCat = MAIN_CATEGORIES.find((cat) => cat.id === selectedMainCatId);
+
   return (
     <div className="flex h-full w-full">
       <div className="h-full min-w-80 shrink-0 border-r border-muted pb-12">
@@ -18,13 +18,12 @@ const MainCategoriesDesktop = () => {
           {MAIN_CATEGORIES.map((mainCat) => (
             <li
               onClick={() => {
-                setSelectedMainCat(mainCat.name);
-                setSelectedMainCatLink(mainCat.link);
+                setSelectedMainCatId(mainCat.id);
               }}
-              key={mainCat.name}
+              key={mainCat.id}
               className={cn(
                 "flex h-16 w-full cursor-pointer items-center justify-start gap-x-4 whitespace-nowrap px-2 text-sm tracking-wide hover:bg-muted",
-                selectedMainCat === mainCat.name &&
+                selectedMainCatId === mainCat.id &&
                   "border-l-2 border-primary bg-muted",
               )}
             >
@@ -35,10 +34,7 @@ const MainCategoriesDesktop = () => {
         </ul>
       </div>
       <div className="h-full w-full pb-14 pl-8 pr-2">
-        <SubCategoryDesktop
-          mainCat={selectedMainCat}
-          mainCatLink={selectedMainCatLink}
-        />
+        <SubCategoryDesktop mainCat={mainCat} />
       </div>
     </div>
   );

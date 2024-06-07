@@ -13,7 +13,6 @@ import { Input } from "../ui/input";
 import { useState } from "react";
 import { Check, ChevronDown, Search } from "lucide-react";
 import { Button } from "../ui/button";
-import { MAIN_CATEGORIES } from "./categories-data";
 
 const HeaderSearch = () => {
   const [category, setCategory] = useState("ყველა");

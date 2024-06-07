@@ -64,17 +64,9 @@ const router = createBrowserRouter(
             </Suspense>
           }
         />
-        <Route path="catalog">
+        <Route path="catalog/:catId?/:mainCategory?/:subCategory?/:category?">
           <Route
             index
-            element={
-              <Suspense fallback={<FullScreenLoader />}>
-                <CatalogPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="*"
             element={
               <Suspense fallback={<FullScreenLoader />}>
                 <CatalogPage />

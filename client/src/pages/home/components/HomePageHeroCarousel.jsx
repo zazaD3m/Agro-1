@@ -63,11 +63,11 @@ const HomePageHeroCarousel = ({ className }) => {
     <div className={cn("overflow-hidden rounded-b-md", className)}>
       <Carousel
         opts={{ loop: true }}
-        plugins={[
-          Autoplay({
-            delay: 4000,
-          }),
-        ]}
+        // plugins={[
+        //   Autoplay({
+        //     delay: 4000,
+        //   }),
+        // ]}
       >
         <CarouselContent>
           {HOME_PAGE_CONTENT.map((data, i) => (
@@ -75,7 +75,7 @@ const HomePageHeroCarousel = ({ className }) => {
               <div className="relative">
                 <img
                   src={data.img}
-                  className="h-80 w-full object-cover brightness-[.7] sm:h-[450px] "
+                  className="h-80 w-full object-cover brightness-[.7] sm:h-[450px]"
                 />
                 <div className="absolute left-0 top-0 w-full space-y-4 p-4 pt-3 sm:p-6 sm:pl-8 xl:p-8 xl:pl-12">
                   <h1 className="cursor-default text-pretty break-words font-semibold tracking-wide text-white sm:max-w-md sm:text-lg md:max-w-lg lg:text-xl xl:max-w-2xl xl:text-2xl">
