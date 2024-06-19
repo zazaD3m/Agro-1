@@ -1530,44 +1530,44 @@ export const CATEGORIES = [
   {
     link: "baRis-movlis-iaraRi",
     name: "ბაღის მოვლის იარაღი",
-    id: 1051,
-    subCatId: 1050,
+    id: 10051,
+    subCatId: 10050,
   },
   {
     link: "irigacia",
     name: "ირიგაცია",
-    id: 1052,
-    subCatId: 1050,
+    id: 10052,
+    subCatId: 10050,
   },
   {
     link: "agro-teqnika",
     name: "აგრო ტექნიკა",
-    id: 1053,
-    subCatId: 1050,
+    id: 10053,
+    subCatId: 10050,
   },
   {
     link: "traqtori",
     name: "ტრაქტორი",
-    id: 1054,
-    subCatId: 1050,
+    id: 10054,
+    subCatId: 10050,
   },
   {
     link: "motobloki",
     name: "მოტობლოკი",
-    id: 1055,
-    subCatId: 1050,
+    id: 10055,
+    subCatId: 10050,
   },
   {
     link: "meRvineoba",
     name: "მეღვინეობა",
-    id: 1056,
-    subCatId: 1050,
+    id: 10056,
+    subCatId: 10050,
   },
   {
     link: "sxva",
     name: "სხვა",
-    id: 1057,
-    subCatId: 1050,
+    id: 10057,
+    subCatId: 10050,
   },
   {
     name: "აგრო სერვისი",
@@ -1625,56 +1625,67 @@ export const SUB_CATS_RANGE = [
   11650, 11700, 11750, 11800, 11850, 11900, 11950,
 ];
 
-// const getCatType = (catId) => {
-//   if (MAIN_CATS_RANGE.includes(catId)) return "mainCat";
-//   if (SUB_CATS_RANGE.includes(catId)) return "subCat";
-//   return "cat";
-// };
+const getCatType = (catId) => {
+  if (MAIN_CATS_RANGE.includes(catId)) return "mainCat";
+  if (SUB_CATS_RANGE.includes(catId)) return "subCat";
+  return "cat";
+};
 
-// const calcMainCatIdFromSubCatId = (subCatId) => {
-//   // finds subCats parent mainCat and returns mainCats id
-//   const index = Math.floor((subCatId - 1050) / 1000);
-//   return MAIN_CATS_RANGE[index];
-// };
+export const getBreadCrumbs1 = (catId) => {
+  const catType = getCatType(catId);
+  const breadCrumbs = {
+    mainCat: null,
+    subCat: null,
+    cat: null,
+  };
 
-// const findMainCatIndex = (catId) => {
-//   return CATEGORIES.findIndex((cat) => cat.id === catId);
-// };
-
-// const getMainCat = (catId) => {
-//   const mainCatIndex = findMainCatIndex(catId);
-//   return {
-//     name: CATEGORIES[mainCatIndex].name,
-//     link: CATEGORIES[mainCatIndex].link,
-//   };
-// };
-
-// const getSubCat = (catId) => {
-//   const mainCatId = calcMainCatIdFromSubCatId(catId);
-//   const mainCatIndex = findMainCatIndex(mainCatId);
-//   const tempSubCat = CATEGORIES[mainCatIndex].subCategories.find(
-//     (cat) => cat.id === catId,
-//   );
-//   return {
-//     mainCat: {
-//       name: CATEGORIES[mainCatIndex].name,
-//       link: CATEGORIES[mainCatIndex].link,
-//     },
-//     subCat: {},
-//   };
-// };
-
-// export const getBreadCrumbs = (catId) => {
-//   const catType = getCatType(catId);
-//   let breadCrumbs;
-//   if (catType === "mainCat") {
-//     breadCrumbs = {
-//       mainCat: getMainCat(catId),
-//     };
-//   } else if (catType === "subCat") {
-//   } else if (catType === "cat") {
-//   }
-//   console.log(breadCrumbs);
-// };
-
-// getBreadCrumbs(2000);
+  if (catType === "mainCat") {
+    const tempMainCat = MAIN_CATEGORIES.find((mainCat) => mainCat.id === catId);
+    breadCrumbs.mainCat = {
+      name: tempMainCat.name,
+      link: tempMainCat.link,
+      id: tempMainCat.id,
+    };
+  } else if (catType === "subCat") {
+    const tempSubCat = SUB_CATEGORIES.find((subCat) => subCat.id === catId);
+    const tempMainCat = MAIN_CATEGORIES.find(
+      (mainCat) => mainCat.id === tempSubCat.mainCatId,
+    );
+    breadCrumbs.mainCat = {
+      name: tempMainCat.name,
+      link: tempMainCat.link,
+      id: tempMainCat.id,
+    };
+    breadCrumbs.subCat = {
+      name: tempSubCat.name,
+      link: tempSubCat.link,
+      id: tempSubCat.id,
+    };
+  } else if (catType === "cat") {
+    const tempCat = CATEGORIES.find((Cat) => Cat.id === catId);
+    const tempSubCat = SUB_CATEGORIES.find(
+      (subCat) => subCat.id === tempCat.subCatId,
+    );
+    const tempMainCat = MAIN_CATEGORIES.find(
+      (mainCat) => mainCat.id === tempSubCat.mainCatId,
+    );
+    breadCrumbs.mainCat = {
+      name: tempMainCat.name,
+      link: tempMainCat.link,
+      id: tempMainCat.id,
+    };
+    if (tempSubCat.name) {
+      breadCrumbs.subCat = {
+        name: tempSubCat.name,
+        link: tempSubCat.link,
+        id: tempSubCat.id,
+      };
+    }
+    breadCrumbs.cat = {
+      name: tempCat.name,
+      link: tempCat.link,
+      id: tempCat.id,
+    };
+  }
+  return breadCrumbs;
+};

@@ -1,40 +1,42 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import SubCategoryDesktop from "./SubCategoryDesktop";
-import { MAIN_CATEGORIES } from "@/data/categories";
+// import { MAIN_CATEGORIES } from "@/data/categories";
+import { CATEGORIES, MAIN_CAT_IDS } from "@/data/testcat";
 
 const MainCategoriesDesktop = () => {
-  const [selectedMainCatId, setSelectedMainCatId] = useState(
-    MAIN_CATEGORIES[0].id,
-  );
+  const [mainCatId, setMainCatId] = useState(1000);
+  const [mainCat, setMainCat] = useState(CATEGORIES[1000]);
 
-  const mainCat = MAIN_CATEGORIES.find((cat) => cat.id === selectedMainCatId);
+  const handleMainCatChange = (id) => {
+    setMainCatId(id);
+    setMainCat(CATEGORIES[id]);
+  };
 
   return (
     <div className="flex h-full w-full">
       <div className="h-full min-w-80 shrink-0 border-r border-muted pb-12">
         <h2 className="cursor-default pb-4 text-xl font-semibold">კატეგორია</h2>
         <ul className="h-full min-w-80 shrink-0 overflow-y-scroll border-r border-muted">
-          {MAIN_CATEGORIES.map((mainCat) => (
+          {MAIN_CAT_IDS.map((id) => (
             <li
               onClick={() => {
-                setSelectedMainCatId(mainCat.id);
+                handleMainCatChange(id);
               }}
-              key={mainCat.id}
+              key={id}
               className={cn(
                 "flex h-16 w-full cursor-pointer items-center justify-start gap-x-4 whitespace-nowrap px-2 text-sm tracking-wide hover:bg-muted",
-                selectedMainCatId === mainCat.id &&
-                  "border-l-2 border-primary bg-muted",
+                id === mainCatId && "border-l-2 border-primary bg-muted",
               )}
             >
-              <img src={"/" + mainCat.icon} className="h-auto w-10" />
-              {mainCat.name}
+              <img src={"/" + CATEGORIES[id].icon} className="h-auto w-10" />
+              {CATEGORIES[id].name}
             </li>
           ))}
         </ul>
       </div>
       <div className="h-full w-full pb-14 pl-8 pr-2">
-        <SubCategoryDesktop mainCat={mainCat} />
+        <SubCategoryDesktop mainCat={mainCat} mainCatId={mainCatId} />
       </div>
     </div>
   );

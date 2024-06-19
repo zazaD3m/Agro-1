@@ -13,6 +13,8 @@ export const listings = () => {
       mainCategory: "wiwvovani-maradmwvane",
       subCategory: "wiwvovani-maradmwvane",
       category: "kviparosi",
+      catId: 5059,
+      slug: "/1/5059/",
       img: "product_1.webp",
       images: [
         "product_1.webp",
@@ -38,6 +40,8 @@ export const listings = () => {
       mainCategory: "yvavilebi",
       subCategory: "qotnis-yvavilebi",
       category: "aloe",
+      catId: 4103,
+      slug: "/2/4103/",
       img: "product_2.webp",
       images: [
         "product_2.webp",
@@ -64,6 +68,8 @@ export const listings = () => {
       mainCategory: "yvavilebi",
       subCategory: "qotnis-yvavilebi",
       category: "sxva",
+      catId: 4108,
+      slug: "/3/4108/",
       img: "product_3.webp",
       images: [
         "product_3.webp",
@@ -89,6 +95,8 @@ export const listings = () => {
       mainCategory: "wiwvovani-maradmwvane",
       subCategory: "wiwvovani-maradmwvane",
       category: "naZvi",
+      catId: 5052,
+      slug: "/4/5052/",
       img: "product_4.webp",
       images: [
         "product_4.webp",
@@ -114,6 +122,8 @@ export const listings = () => {
       mainCategory: "yvavilebi",
       subCategory: "qotnis-yvavilebi",
       category: "sxva",
+      catId: 4108,
+      slug: "/5/4108/",
       img: "product_5.webp",
       images: [
         "product_5.webp",
@@ -138,6 +148,8 @@ export const listings = () => {
       mainCategory: "chiTilebi-da-saTesle-masala",
       subCategory: "Tesli",
       category: "simindi",
+      catId: 6119,
+      slug: "/6/6119/",
       img: "product_6.webp",
       images: [
         "product_6.webp",
@@ -162,6 +174,8 @@ export const listings = () => {
       mainCategory: "chiTilebi-da-saTesle-masala",
       subCategory: "Tesli",
       category: "sxva",
+      catId: 6125,
+      slug: "/7/6125/",
       img: "product_7.webp",
       images: [
         "product_7.webp",
@@ -186,7 +200,9 @@ export const listings = () => {
       mainCategory: "sxvadasxva",
       subCategory: "",
       category: "qvevri",
-      img: "product_8.webp",
+      catId: 10056,
+      slug: "/8/",
+      img: "product_8.webp10056/",
       images: [
         "product_8.webp",
         "product_2.webp",
@@ -210,7 +226,9 @@ export const listings = () => {
       mainCategory: "mcenareebis-movlis-saSualebebi",
       subCategory: "agro-inventari",
       category: "eleqtronuli-motori",
-      img: "product_9.webp",
+      catId: 10052,
+      slug: "/9/",
+      img: "product_9.webp10052/",
       images: [
         "product_9.webp",
         "product_2.webp",
@@ -234,6 +252,8 @@ export const listings = () => {
       mainCategory: "cxovelebi-da-frinvelebi",
       subCategory: "cxovelebi",
       category: "Zroxa",
+      catId: 1052,
+      slug: "/10/1052/",
       img: "product_10.webp",
       images: [
         "product_10.webp",
@@ -258,6 +278,8 @@ export const listings = () => {
       mainCategory: "cxovelebi-da-frinvelebi",
       subCategory: "frinvelebi",
       category: "qaTami",
+      catId: 1101,
+      slug: "/11/1101/",
       img: "product_11.webp",
       images: [
         "product_11.webp",
@@ -285,6 +307,8 @@ export const listings = () => {
       mainCategory: "cxovelebi-da-frinvelebi",
       subCategory: "cxovelebi",
       category: "Rori",
+      catId: 1056,
+      slug: "/12/1056/",
       img: "product_12.webp",
       images: [
         "product_12.webp",

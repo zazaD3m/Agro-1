@@ -1,18 +1,19 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  desktopCat: false,
+  mobileCat: false,
+  breadCrumbs: {
+    mainCat: null,
+    subCat: null,
+    cat: null,
+  },
+};
+
 const siteSlice = createSlice({
   name: "site",
-  initialState: {
-    desktopCat: false,
-    mobileCat: false,
-    breadcrumbs: [
-      {
-        link: "catalog",
-        name: "კატალოგი",
-      },
-    ],
-  },
+  initialState,
   reducers: {
     toggleDesktopCat: (state, action) => {
       state.desktopCat = !state.desktopCat;
@@ -27,15 +28,10 @@ const siteSlice = createSlice({
       state.mobileCat = false;
     },
     setBreadcrumbs: (state, action) => {
-      state.breadcrumbs = action.payload;
+      state.breadCrumbs = action.payload;
     },
     resetBreadcrumbs: (state, action) => {
-      state.breadcrumbs = [
-        {
-          link: "catalog",
-          name: "კატალოგი",
-        },
-      ];
+      state.breadCrumbs = initialState.breadCrumbs;
     },
   },
 });
@@ -53,4 +49,4 @@ export default siteSlice.reducer;
 
 export const selectDesktopCat = (state) => state.site.desktopCat;
 export const selectMobileCat = (state) => state.site.mobileCat;
-export const selectBreadcrumbs = (state) => state.site.breadcrumbs;
+export const selectBreadcrumbs = (state) => state.site.breadCrumbs;

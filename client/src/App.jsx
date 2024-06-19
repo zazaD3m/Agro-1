@@ -75,7 +75,7 @@ const router = createBrowserRouter(
           />
         </Route>
         {/* == PRODUCT PATHS START */}
-        <Route path="product/:productId/:mainCategory/:subCategory?/:category/:productTitle">
+        <Route path="product/:productId/:catId/:mainCategory/:subCategory?/:category/:productTitle">
           <Route
             index
             element={

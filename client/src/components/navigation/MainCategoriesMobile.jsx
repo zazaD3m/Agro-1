@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import SubCategoryMobile from "./SubCategoryMobile";
 import { SheetCloseChild } from "../ui/sheet";
-import { MAIN_CATEGORIES } from "@/data/categories";
+import { CATEGORIES, MAIN_CAT_IDS } from "@/data/testcat";
 
 const MainCategoryItem = ({ id, name, link, icon, setSelectedMainCatId }) => {
   return (
@@ -34,28 +34,32 @@ const MainCategoryItem = ({ id, name, link, icon, setSelectedMainCatId }) => {
 const MainCategoriesMobile = () => {
   const [selectedMainCatId, setSelectedMainCatId] = useState(null);
 
-  const mainCat = selectedMainCatId
-    ? MAIN_CATEGORIES.find((mainCat) => mainCat.id === selectedMainCatId)
-    : null;
+  // const mainCat = selectedMainCatId
+  //   ? MAIN_CATEGORIES.find((mainCat) => mainCat.id === selectedMainCatId)
+  //   : null;
 
   return (
     <nav className="h-full overflow-auto px-4 pb-12">
       {selectedMainCatId ? (
         <SubCategoryMobile
-          mainCat={mainCat}
+          mainCat={CATEGORIES[selectedMainCatId]}
+          mainCatId={selectedMainCatId}
           setSelectedMainCatId={setSelectedMainCatId}
         />
       ) : (
-        MAIN_CATEGORIES.map((mainCat) => (
-          <MainCategoryItem
-            key={mainCat.id}
-            id={mainCat.id}
-            name={mainCat.name}
-            link={mainCat.link}
-            icon={mainCat.icon}
-            setSelectedMainCatId={setSelectedMainCatId}
-          />
-        ))
+        MAIN_CAT_IDS.map((mainCatId) => {
+          const mainCat = CATEGORIES[mainCatId];
+          return (
+            <MainCategoryItem
+              key={mainCatId}
+              id={mainCatId}
+              name={mainCat.name}
+              link={mainCat.link}
+              icon={mainCat.icon}
+              setSelectedMainCatId={setSelectedMainCatId}
+            />
+          );
+        })
       )}
     </nav>
   );

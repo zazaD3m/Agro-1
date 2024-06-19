@@ -6,7 +6,7 @@ import FavoriteButton from "./FavoriteButton";
 import CallNumberButton from "./CallNumberButton";
 
 const ListingCard = ({ listing, isMobile, className }) => {
-  const { id, mainCategory, subCategory, category, title } = listing;
+  const { id, catId, mainCategory, subCategory, category, title } = listing;
 
   return (
     <div
@@ -21,7 +21,7 @@ const ListingCard = ({ listing, isMobile, className }) => {
           "mb-4 flex grow flex-col",
           isMobile && "flex-row gap-x-2",
         )}
-        to={`/product/${id}/${mainCategory}${subCategory ? `/${subCategory}` : ""}/${category}/${convertToEnglish(title)}`}
+        to={`/product/${id}/${catId}/${mainCategory}${subCategory ? `/${subCategory}` : ""}/${category}/${convertToEnglish(title)}`}
       >
         <div
           className={cn(

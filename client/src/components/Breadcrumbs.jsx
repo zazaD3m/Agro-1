@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,55 +7,31 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
-import { Fragment } from "react";
-import { getBreadCrumbs } from "@/helpers/getBreadCrumbs";
+import { useEffect } from "react";
+import { getBreadCrumbs1 } from "@/data/categories";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  resetBreadcrumbs,
+  selectBreadcrumbs,
+  setBreadcrumbs,
+} from "@/features/site/siteSlice";
+import { convertToGeorgian } from "@/helpers/translateString";
 
 const Breadcrumbs = () => {
-  const { pathname } = useLocation();
-  // console.log(useParams());
+  const { catId, productId, productTitle } = useParams();
+  const dispatch = useDispatch();
+  const { mainCat, subCat, cat } = useSelector(selectBreadcrumbs);
 
-  // console.log(pathname);
+  useEffect(() => {
+    if (catId) {
+      const tempBreadCrumbs = getBreadCrumbs1(Number(catId));
+      dispatch(setBreadcrumbs(tempBreadCrumbs));
+    }
 
-  const allowedPages = ["/catalog", "/product"];
-  const shouldBreadCrumbsRender = allowedPages.some((page) =>
-    pathname.includes(page),
-  );
-
-  if (!shouldBreadCrumbsRender) return;
-
-  let crumbs = pathname.split("/");
-
-  if (crumbs[1] === "catalog") {
-    crumbs = crumbs.filter((str, i) => {
-      // remove / and catalog from crumbs list
-      if (i > 1) {
-        return /\w+/.test(str);
-      } else {
-        return false;
-      }
-    });
-  } else {
-    // if it's not catalog it is product/productId/*
-    crumbs = crumbs.filter((str, i) => {
-      // remove /, product and productId from crumbs list
-      if (i > 2 && i < 7) {
-        return /\w+/.test(str);
-      } else {
-        return false;
-      }
-    });
-  }
-
-  const firstPage = {
-    name: "კატალოგი",
-    link: "catalog",
-  };
-
-  let pages = null;
-
-  if (crumbs.length) {
-    pages = getBreadCrumbs(crumbs);
-  }
+    return () => {
+      dispatch(resetBreadcrumbs());
+    };
+  }, [catId, dispatch]);
 
   return (
     <div className="-mt-2 flex min-h-12 items-center bg-gradient-to-r from-primary-light to-primary pb-2 pt-4 lg:block lg:pt-[20px]">
@@ -70,39 +46,82 @@ const Breadcrumbs = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            {pages ? (
+            {catId ? (
               <BreadcrumbLink asChild>
                 <Link
                   className="underline-offset-2 hover:underline"
-                  to={firstPage.link}
+                  to={"/catalog"}
                 >
-                  {firstPage.name}
+                  კატალოგი
                 </Link>
               </BreadcrumbLink>
             ) : (
-              <BreadcrumbPage>{firstPage.name}</BreadcrumbPage>
+              <BreadcrumbPage>კატალოგი</BreadcrumbPage>
             )}
           </BreadcrumbItem>
-          {pages &&
-            pages.map((page, i) => (
-              <Fragment key={page.name + i}>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  {i === pages.length - 1 ? (
-                    <BreadcrumbPage>{page.name}</BreadcrumbPage>
-                  ) : (
-                    <BreadcrumbLink asChild>
-                      <Link
-                        className="underline-offset-2 hover:underline"
-                        to={firstPage.link + "/" + page.link}
-                      >
-                        {page.name}
-                      </Link>
-                    </BreadcrumbLink>
-                  )}
-                </BreadcrumbItem>
-              </Fragment>
-            ))}
+          {mainCat ? (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                {subCat || cat ? (
+                  <BreadcrumbLink asChild>
+                    <Link
+                      className="underline-offset-2 hover:underline"
+                      to={`/catalog/${mainCat.id}/${mainCat.link}`}
+                    >
+                      {mainCat.name}
+                    </Link>
+                  </BreadcrumbLink>
+                ) : (
+                  <BreadcrumbPage>{mainCat.name}</BreadcrumbPage>
+                )}
+              </BreadcrumbItem>
+            </>
+          ) : null}
+          {subCat ? (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                {cat ? (
+                  <BreadcrumbLink asChild>
+                    <Link
+                      className="underline-offset-2 hover:underline"
+                      to={`/catalog/${subCat.id}/${mainCat.link}/${subCat.link}`}
+                    >
+                      {subCat.name}
+                    </Link>
+                  </BreadcrumbLink>
+                ) : (
+                  <BreadcrumbPage>{subCat.name}</BreadcrumbPage>
+                )}
+              </BreadcrumbItem>
+            </>
+          ) : null}
+          {cat ? (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                {productId ? (
+                  <BreadcrumbLink asChild>
+                    <Link
+                      className="underline-offset-2 hover:underline"
+                      to={`/catalog/${cat.id}/${mainCat.link}${subCat.link ? "/" + subCat.link : ""}/${cat.link}`}
+                    >
+                      {cat.name}
+                    </Link>
+                  </BreadcrumbLink>
+                ) : (
+                  <BreadcrumbPage>{cat.name}</BreadcrumbPage>
+                )}
+              </BreadcrumbItem>
+            </>
+          ) : null}
+          {productTitle ? (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbPage>{convertToGeorgian(productTitle)}</BreadcrumbPage>
+            </>
+          ) : null}
         </BreadcrumbList>
       </Breadcrumb>
     </div>
