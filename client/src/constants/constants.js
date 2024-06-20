@@ -201,8 +201,8 @@ export const listings = () => {
       subCategory: "",
       category: "qvevri",
       catId: 10056,
-      slug: "/8/",
-      img: "product_8.webp10056/",
+      slug: "/8/10056/",
+      img: "product_8.webp",
       images: [
         "product_8.webp",
         "product_2.webp",
@@ -227,8 +227,8 @@ export const listings = () => {
       subCategory: "agro-inventari",
       category: "eleqtronuli-motori",
       catId: 10052,
-      slug: "/9/",
-      img: "product_9.webp10052/",
+      slug: "/9/10052/",
+      img: "product_9.webp",
       images: [
         "product_9.webp",
         "product_2.webp",

@@ -8,6 +8,7 @@ const initialState = {
     mainCat: null,
     subCat: null,
     cat: null,
+    title: null,
   },
 };
 

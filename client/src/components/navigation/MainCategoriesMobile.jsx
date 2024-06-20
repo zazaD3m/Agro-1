@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import SubCategoryMobile from "./SubCategoryMobile";
 import { SheetCloseChild } from "../ui/sheet";
-import { CATEGORIES, MAIN_CAT_IDS } from "@/data/testcat";
+import { CATEGORIES, MAIN_CAT_IDS } from "@/data/categories-data";
 
 const MainCategoryItem = ({ id, name, link, icon, setSelectedMainCatId }) => {
   return (

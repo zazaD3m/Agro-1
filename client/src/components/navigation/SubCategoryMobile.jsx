@@ -7,12 +7,11 @@ import {
 import { Link } from "react-router-dom";
 import { SheetCloseChild } from "../ui/sheet";
 import { useState } from "react";
-import { SUB_CATEGORIES } from "@/data/categories";
 import {
   CATEGORIES,
   MAIN_CAT_ID_TO_SUB_CAT_IDS,
   SUB_CAT_ID_TO_CAT_IDS,
-} from "@/data/testcat";
+} from "@/data/categories-data";
 
 const SubCategoryItems = ({ subCat, subCatId, mainCatLink }) => {
   const [showAll, setShowAll] = useState(false);

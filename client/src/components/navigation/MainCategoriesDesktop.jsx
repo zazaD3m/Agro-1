@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import SubCategoryDesktop from "./SubCategoryDesktop";
-// import { MAIN_CATEGORIES } from "@/data/categories";
-import { CATEGORIES, MAIN_CAT_IDS } from "@/data/testcat";
+import { CATEGORIES, MAIN_CAT_IDS } from "@/data/categories-data";
 
 const MainCategoriesDesktop = () => {
   const [mainCatId, setMainCatId] = useState(1000);

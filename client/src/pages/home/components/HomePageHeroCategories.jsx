@@ -8,7 +8,7 @@ import {
 import useWindowSize from "@/hooks/useWindowSize";
 import { cn } from "@/lib/utils";
 import HomePageCategoryCard from "./HomePageCategoryCard";
-import { MAIN_CATEGORIES } from "@/data/categories";
+import { CATEGORIES, MAIN_CAT_IDS } from "@/data/categories-data";
 
 const HomePageHeroCategories = () => {
   const { width } = useWindowSize();
@@ -30,22 +30,25 @@ const HomePageHeroCategories = () => {
           >
             <HomePageCategoryCard isMobile={isMobile} isAllCategories={true} />
           </CarouselItem>
-          {MAIN_CATEGORIES.map((mainCat) => (
-            <CarouselItem
-              key={mainCat.id}
-              className={cn(
-                "max-w-48 basis-[45%] py-1 md:basis-1/5 lg:basis-[15%]",
-              )}
-            >
-              <HomePageCategoryCard
-                isMobile={isMobile}
-                id={mainCat.id}
-                name={mainCat.name}
-                link={mainCat.link}
-                icon={mainCat.icon}
-              />
-            </CarouselItem>
-          ))}
+          {MAIN_CAT_IDS.map((id) => {
+            const cat = CATEGORIES[id];
+            return (
+              <CarouselItem
+                key={id}
+                className={cn(
+                  "max-w-48 basis-[45%] py-1 md:basis-1/5 lg:basis-[15%]",
+                )}
+              >
+                <HomePageCategoryCard
+                  isMobile={isMobile}
+                  id={id}
+                  name={cat.name}
+                  link={cat.link}
+                  icon={cat.icon}
+                />
+              </CarouselItem>
+            );
+          })}
         </CarouselContent>
       </Carousel>
     </div>

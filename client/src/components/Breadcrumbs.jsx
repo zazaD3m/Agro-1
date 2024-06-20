@@ -8,14 +8,10 @@ import {
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
 import { useEffect } from "react";
-import { getBreadCrumbs1 } from "@/data/categories";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  resetBreadcrumbs,
-  selectBreadcrumbs,
-  setBreadcrumbs,
-} from "@/features/site/siteSlice";
+import { selectBreadcrumbs, setBreadcrumbs } from "@/features/site/siteSlice";
 import { convertToGeorgian } from "@/helpers/translateString";
+import { getBreadCrumbs } from "@/data/categories-data";
 
 const Breadcrumbs = () => {
   const { catId, productId, productTitle } = useParams();
@@ -24,13 +20,9 @@ const Breadcrumbs = () => {
 
   useEffect(() => {
     if (catId) {
-      const tempBreadCrumbs = getBreadCrumbs1(Number(catId));
+      const tempBreadCrumbs = getBreadCrumbs(Number(catId));
       dispatch(setBreadcrumbs(tempBreadCrumbs));
     }
-
-    return () => {
-      dispatch(resetBreadcrumbs());
-    };
   }, [catId, dispatch]);
 
   return (

@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import { MAIN_CATEGORIES } from "@/data/categories";
+import { CATEGORIES, MAIN_CAT_IDS } from "@/data/categories-data";
 
 const Footer = () => {
   const { width } = useWindowSize();
@@ -62,16 +62,19 @@ const Footer = () => {
             <div className="basis-3/4">
               <h2 className="mb-6 font-medium">კატეგორიები</h2>
               <ul className="grid grid-cols-3 gap-y-4 text-xs">
-                {MAIN_CATEGORIES.map((mainCat) => (
-                  <li key={mainCat.id}>
-                    <Link
-                      to={`/catalog/${mainCat.id}/${mainCat.link}`}
-                      className="opacity-80 hover:opacity-100"
-                    >
-                      {mainCat.name}
-                    </Link>
-                  </li>
-                ))}
+                {MAIN_CAT_IDS.map((id) => {
+                  const cat = CATEGORIES[id];
+                  return (
+                    <li key={id}>
+                      <Link
+                        to={`/catalog/${id}/${cat.link}`}
+                        className="opacity-80 hover:opacity-100"
+                      >
+                        {cat.name}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
@@ -147,16 +150,19 @@ const Footer = () => {
               <AccordionTrigger>კატეგორიები</AccordionTrigger>
               <AccordionContent>
                 <ul className="space-y-6">
-                  {MAIN_CATEGORIES.map((mainCat) => (
-                    <li key={mainCat.id}>
-                      <Link
-                        to={`/catalog/${mainCat.id}/${mainCat.link}`}
-                        className="opacity-80 hover:opacity-100"
-                      >
-                        {mainCat.name}
-                      </Link>
-                    </li>
-                  ))}
+                  {MAIN_CAT_IDS.map((id) => {
+                    const cat = CATEGORIES[id];
+                    return (
+                      <li key={id}>
+                        <Link
+                          to={`/catalog/${id}/${cat.link}`}
+                          className="opacity-80 hover:opacity-100"
+                        >
+                          {cat.name}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </AccordionContent>
             </AccordionItem>

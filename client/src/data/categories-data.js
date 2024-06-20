@@ -423,3 +423,64 @@ export const SUB_CAT_IDS = [
   1050, 1100, 2050, 2100, 2150, 2200, 3050, 3100, 3150, 4050, 4100, 4150, 4200,
   5050, 6050, 6100, 7050, 7100, 7150, 7200, 7250, 8050, 9050, 10050, 11050,
 ];
+
+const getCatType = (catId) => {
+  if (MAIN_CAT_IDS.includes(catId)) return "mainCat";
+  if (SUB_CAT_IDS.includes(catId)) return "subCat";
+  return "cat";
+};
+
+export const getBreadCrumbs = (catId) => {
+  const catType = getCatType(catId);
+  const breadCrumbs = {
+    mainCat: null,
+    subCat: null,
+    cat: null,
+  };
+
+  if (catType === "mainCat") {
+    const tempMainCat = CATEGORIES[catId];
+    breadCrumbs.mainCat = {
+      name: tempMainCat.name,
+      link: tempMainCat.link,
+      id: catId,
+    };
+  } else if (catType === "subCat") {
+    const tempSubCat = CATEGORIES[catId];
+    const tempMainCat = CATEGORIES[tempSubCat.mainCatId];
+    breadCrumbs.mainCat = {
+      name: tempMainCat.name,
+      link: tempMainCat.link,
+      id: tempSubCat.mainCatId,
+    };
+    breadCrumbs.subCat = {
+      name: tempSubCat.name,
+      link: tempSubCat.link,
+      id: catId,
+    };
+  } else if (catType === "cat") {
+    const tempCat = CATEGORIES[catId];
+    const tempSubCat = CATEGORIES[tempCat.subCatId];
+    const tempMainCat = CATEGORIES[tempSubCat.mainCatId];
+    breadCrumbs.mainCat = {
+      name: tempMainCat.name,
+      link: tempMainCat.link,
+      id: tempSubCat.mainCatId,
+    };
+    if (tempSubCat.name) {
+      breadCrumbs.subCat = {
+        name: tempSubCat.name,
+        link: tempSubCat.link,
+        id: tempCat.subCatId,
+      };
+    } else {
+      breadCrumbs.subCat = null;
+    }
+    breadCrumbs.cat = {
+      name: tempCat.name,
+      link: tempCat.link,
+      id: catId,
+    };
+  }
+  return breadCrumbs;
+};

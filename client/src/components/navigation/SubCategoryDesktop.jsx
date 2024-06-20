@@ -6,7 +6,7 @@ import {
   MAIN_CAT_ID_TO_SUB_CAT_IDS,
   SUB_CAT_ID_TO_CAT_IDS,
   CATEGORIES,
-} from "@/data/testcat";
+} from "@/data/categories-data";
 
 const SubCategoryItems = ({ subCat, subCatId, mainCatLink }) => {
   const [showAll, setShowAll] = useState(false);
