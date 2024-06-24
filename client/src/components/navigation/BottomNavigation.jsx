@@ -5,14 +5,14 @@ import MainCategoriesMobile from "./MainCategoriesMobile";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/userSlice";
 import ProfileSheetMobile from "./ProfileSheetMobile";
-import { useLayoutEffect, useState } from "react";
+import { memo, useLayoutEffect, useState } from "react";
 import {
   closeMobileCat,
   selectMobileCat,
   toggleMobileCat,
 } from "@/features/site/siteSlice";
 
-const BottomNavigation = () => {
+const BottomNavigation = memo(() => {
   const mobileCat = useSelector(selectMobileCat);
   const [onFavoritesOpen, setOnFavoritesOpen] = useState(false);
   const userInfo = useSelector(selectCurrentUser);
@@ -103,5 +103,6 @@ const BottomNavigation = () => {
       )}
     </nav>
   );
-};
+});
+BottomNavigation.displayName = "BottomNavigation";
 export default BottomNavigation;

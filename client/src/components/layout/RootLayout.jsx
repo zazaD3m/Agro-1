@@ -1,7 +1,7 @@
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import Header from "../navigation/Header";
 import Footer from "../navigation/Footer";
-import { Toaster } from "../ui/toaster";
+import Toaster from "../ui/Toaster";
 import Breadcrumbs from "../Breadcrumbs";
 
 const RootLayout = () => {

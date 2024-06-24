@@ -7,21 +7,32 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
-import { useEffect } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectBreadcrumbs, setBreadcrumbs } from "@/features/site/siteSlice";
+import {
+  resetBreadcrumbs,
+  selectBreadcrumbs,
+  setBreadcrumbs,
+} from "@/features/site/siteSlice";
 import { convertToGeorgian } from "@/helpers/translateString";
 import { getBreadCrumbs } from "@/data/categories-data";
 
-const Breadcrumbs = () => {
+const Breadcrumbs = memo(() => {
   const { catId, productId, productTitle } = useParams();
   const dispatch = useDispatch();
   const { mainCat, subCat, cat } = useSelector(selectBreadcrumbs);
 
+  const breadCrumbs = useMemo(() => {
+    if (catId) {
+      return getBreadCrumbs(Number(catId));
+    }
+  }, [catId]);
+
   useEffect(() => {
     if (catId) {
-      const tempBreadCrumbs = getBreadCrumbs(Number(catId));
-      dispatch(setBreadcrumbs(tempBreadCrumbs));
+      dispatch(setBreadcrumbs(breadCrumbs));
+    } else {
+      dispatch(resetBreadcrumbs());
     }
   }, [catId, dispatch]);
 
@@ -118,5 +129,7 @@ const Breadcrumbs = () => {
       </Breadcrumb>
     </div>
   );
-};
+});
+
+Breadcrumbs.displayName = "Breadcrumbs";
 export default Breadcrumbs;

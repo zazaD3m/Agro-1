@@ -8,8 +8,9 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import { CATEGORIES, MAIN_CAT_IDS } from "@/data/categories-data";
+import { memo } from "react";
 
-const Footer = () => {
+const Footer = memo(() => {
   const { width } = useWindowSize();
 
   return (
@@ -188,5 +189,7 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+});
+
+Footer.displayName = "Footer";
 export default Footer;

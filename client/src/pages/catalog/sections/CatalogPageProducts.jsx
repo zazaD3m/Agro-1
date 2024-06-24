@@ -1,10 +1,16 @@
 import { listings } from "@/constants/constants";
 import CatalogPageListingCard from "../components/CatalogPageListingCard";
 import { useSearchParams } from "react-router-dom";
+import { memo } from "react";
 
-const CatalogPageProducts = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const cityFilter = searchParams.get("city");
+const CatalogPageProducts = memo(() => {
+  // const [searchParams, setSearchParams] = useSearchParams();
+
+  // const filters = {
+  //   sortId: Number(searchParams.get("sortId")) ?? 1,
+  // };
+
+  const cityFilter = false;
 
   const filteredListings = cityFilter
     ? listings().filter((listing) => listing.city === cityFilter)
@@ -17,5 +23,7 @@ const CatalogPageProducts = () => {
       ))}
     </section>
   );
-};
+});
+
+CatalogPageProducts.displayName = "CatalogPageProducts";
 export default CatalogPageProducts;

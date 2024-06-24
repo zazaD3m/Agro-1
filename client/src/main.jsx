@@ -11,16 +11,14 @@ import { Spinner } from "./components/ui/spinner.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <HelmetProvider>
-      <Provider store={store}>
-        <PersistGate
-          persistor={persistor}
-          loading={<Spinner fullScreen size="huge" />}
-        >
-          <App />
-        </PersistGate>
-      </Provider>
-    </HelmetProvider>
-  </React.StrictMode>,
+  <HelmetProvider>
+    <Provider store={store}>
+      <PersistGate
+        persistor={persistor}
+        loading={<Spinner fullScreen size="huge" />}
+      >
+        <App />
+      </PersistGate>
+    </Provider>
+  </HelmetProvider>,
 );

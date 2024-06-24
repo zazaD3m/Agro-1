@@ -15,8 +15,9 @@ import {
 import { Icons } from "../icons";
 import { useLogoutMutation } from "@/features/auth/authApiSlice";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
+import { memo } from "react";
 
-const HeaderDesktopBottom = () => {
+const HeaderDesktopBottom = memo(() => {
   const userInfo = useSelector(selectCurrentUser);
   const [logout] = useLogoutMutation();
 
@@ -43,7 +44,7 @@ const HeaderDesktopBottom = () => {
           <SheetTrigger asChild>
             <Button
               variant="ghost"
-              className="relative size-12 shrink-0 rounded-full bg-background-green p-0  text-action data-[state=open]:border-2 data-[state=open]:border-primary"
+              className="relative size-12 shrink-0 rounded-full bg-background-green p-0 text-action data-[state=open]:border-2 data-[state=open]:border-primary"
             >
               <Heart />
             </Button>
@@ -61,7 +62,7 @@ const HeaderDesktopBottom = () => {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="size-12 shrink-0 rounded-full p-0  hover:bg-background data-[state=open]:border-2 data-[state=open]:border-primary"
+                  className="size-12 shrink-0 rounded-full p-0 hover:bg-background data-[state=open]:border-2 data-[state=open]:border-primary"
                 >
                   <Icons.userProfile />
                 </Button>
@@ -139,5 +140,7 @@ const HeaderDesktopBottom = () => {
       </div>
     </div>
   );
-};
+});
+
+HeaderDesktopBottom.displayName = "HeaderDesktopBottom";
 export default HeaderDesktopBottom;

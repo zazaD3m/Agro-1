@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 
+export const defaultFilter = {
+  sortId: "1",
+  country: "ge",
+};
+
 const initialState = {
   desktopCat: false,
   mobileCat: false,
@@ -10,29 +15,39 @@ const initialState = {
     cat: null,
     title: null,
   },
+  catalogFilter: defaultFilter,
 };
 
 const siteSlice = createSlice({
   name: "site",
   initialState,
   reducers: {
-    toggleDesktopCat: (state, action) => {
+    toggleDesktopCat: (state) => {
       state.desktopCat = !state.desktopCat;
     },
-    closeDesktopCat: (state, action) => {
+    closeDesktopCat: (state) => {
       state.desktopCat = false;
     },
-    toggleMobileCat: (state, action) => {
+    toggleMobileCat: (state) => {
       state.mobileCat = !state.mobileCat;
     },
-    closeMobileCat: (state, action) => {
+    closeMobileCat: (state) => {
       state.mobileCat = false;
     },
     setBreadcrumbs: (state, action) => {
       state.breadCrumbs = action.payload;
     },
-    resetBreadcrumbs: (state, action) => {
+    resetBreadcrumbs: (state) => {
       state.breadCrumbs = initialState.breadCrumbs;
+    },
+    setCatalogFilter: (state, action) => {
+      state.catalogFilter = {
+        ...state.catalogFilter,
+        ...action.payload,
+      };
+    },
+    resetCatalogFilter: (state) => {
+      state.catalogFilter = initialState.catalogFilter;
     },
   },
 });
@@ -44,6 +59,8 @@ export const {
   closeMobileCat,
   setBreadcrumbs,
   resetBreadcrumbs,
+  setCatalogFilter,
+  resetCatalogFilter,
 } = siteSlice.actions;
 
 export default siteSlice.reducer;
@@ -51,3 +68,6 @@ export default siteSlice.reducer;
 export const selectDesktopCat = (state) => state.site.desktopCat;
 export const selectMobileCat = (state) => state.site.mobileCat;
 export const selectBreadcrumbs = (state) => state.site.breadCrumbs;
+export const selectCatalogFilter = (state) => state.site.catalogFilter;
+export const selectSortId = (state) => state.site.catalogFilter.sortId;
+export const selectCountry = (state) => state.site.catalogFilter.country;
