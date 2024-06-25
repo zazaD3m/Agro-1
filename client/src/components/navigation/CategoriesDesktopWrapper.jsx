@@ -3,28 +3,11 @@ import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import MainCategoriesDesktop from "./MainCategoriesDesktop";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  closeDesktopCat,
-  selectDesktopCat,
-  toggleDesktopCat,
-} from "@/features/site/siteSlice";
-import { useLayoutEffect } from "react";
+import { selectDesktopCat, toggleDesktopCat } from "@/features/site/siteSlice";
 
 const CategoriesDesktopWrapper = () => {
   const dispatch = useDispatch();
   const desktopCat = useSelector(selectDesktopCat);
-
-  useLayoutEffect(() => {
-    const handleBackButton = () => {
-      dispatch(closeDesktopCat());
-    };
-    window.addEventListener("popstate", handleBackButton, false);
-    window.addEventListener("hashchange", handleBackButton, false);
-    return () => {
-      window.removeEventListener("popstate", handleBackButton, false);
-      window.removeEventListener("hashchange", handleBackButton, false);
-    };
-  }, []);
 
   return (
     <>

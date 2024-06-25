@@ -4,8 +4,8 @@ function validate(input) {
   return this.options.includes(input);
 }
 
-const sortFilter = {
-  default: defaultFilter.sortId,
+const SortFilter = {
+  default: defaultFilter.SortId,
   options: ["1", "2", "3", "4"],
   nameMap: {
     1: "თარიღი კლებადი",
@@ -16,10 +16,21 @@ const sortFilter = {
   validate,
 };
 
+const SellerFilter = {
+  default: defaultFilter.SellerType,
+  options: ["1", "2", "3"],
+  nameMap: {
+    1: "ყველა",
+    2: "კერძო",
+    3: "მაღაზია",
+  },
+  validate,
+};
+
 const countryFilter = {
   default: defaultFilter.country,
   options: ["en", "ge"],
   validate,
 };
 
-export { sortFilter, countryFilter };
+export { SortFilter, SellerFilter, countryFilter };

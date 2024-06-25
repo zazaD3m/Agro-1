@@ -5,31 +5,14 @@ import MainCategoriesMobile from "./MainCategoriesMobile";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/userSlice";
 import ProfileSheetMobile from "./ProfileSheetMobile";
-import { memo, useLayoutEffect, useState } from "react";
-import {
-  closeMobileCat,
-  selectMobileCat,
-  toggleMobileCat,
-} from "@/features/site/siteSlice";
+import { memo, useState } from "react";
+import { selectMobileCat, toggleMobileCat } from "@/features/site/siteSlice";
 
 const BottomNavigation = memo(() => {
   const mobileCat = useSelector(selectMobileCat);
   const [onFavoritesOpen, setOnFavoritesOpen] = useState(false);
   const userInfo = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
-
-  useLayoutEffect(() => {
-    const handleBackButton = () => {
-      dispatch(closeMobileCat());
-      setOnFavoritesOpen(false);
-    };
-    window.addEventListener("popstate", handleBackButton, false);
-    window.addEventListener("hashchange", handleBackButton, false);
-    return () => {
-      window.removeEventListener("popstate", handleBackButton, false);
-      window.removeEventListener("hashchange", handleBackButton, false);
-    };
-  }, []);
 
   return (
     <nav className="relative grid h-full grid-cols-5 text-[#717171]">
@@ -52,7 +35,7 @@ const BottomNavigation = memo(() => {
           <h2 className="mx-4 border-b-2 border-primary pb-4 text-lg font-medium">
             კატეგორიები
           </h2>
-          <MainCategoriesMobile />
+          <MainCategoriesMobile setOnFavoritesOpen={setOnFavoritesOpen} />
           <SheetClose className="right-3 top-3 size-10 p-2" />
         </SheetContent>
       </Sheet>

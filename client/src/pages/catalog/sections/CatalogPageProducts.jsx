@@ -7,7 +7,7 @@ const CatalogPageProducts = memo(() => {
   // const [searchParams, setSearchParams] = useSearchParams();
 
   // const filters = {
-  //   sortId: Number(searchParams.get("sortId")) ?? 1,
+  //   SortId: Number(searchParams.get("SortId")) ?? 1,
   // };
 
   const cityFilter = false;

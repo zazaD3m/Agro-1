@@ -1,9 +1,11 @@
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SubCategoryMobile from "./SubCategoryMobile";
 import { SheetCloseChild } from "../ui/sheet";
 import { CATEGORIES, MAIN_CAT_IDS } from "@/data/categories-data";
+import { useDispatch } from "react-redux";
+import { closeMobileCat } from "@/features/site/siteSlice";
 
 const MainCategoryItem = ({ id, name, link, icon, setSelectedMainCatId }) => {
   return (
@@ -31,12 +33,20 @@ const MainCategoryItem = ({ id, name, link, icon, setSelectedMainCatId }) => {
   );
 };
 
-const MainCategoriesMobile = () => {
+const MainCategoriesMobile = ({ setOnFavoritesOpen }) => {
+  const dispatch = useDispatch();
   const [selectedMainCatId, setSelectedMainCatId] = useState(null);
 
-  // const mainCat = selectedMainCatId
-  //   ? MAIN_CATEGORIES.find((mainCat) => mainCat.id === selectedMainCatId)
-  //   : null;
+  useLayoutEffect(() => {
+    const handleBackButton = () => {
+      dispatch(closeMobileCat());
+      setOnFavoritesOpen(false);
+    };
+    window.addEventListener("popstate", handleBackButton, false);
+    return () => {
+      window.removeEventListener("popstate", handleBackButton, false);
+    };
+  }, []);
 
   return (
     <nav className="h-full overflow-auto px-4 pb-12">

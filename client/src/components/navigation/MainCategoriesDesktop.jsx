@@ -1,16 +1,29 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import SubCategoryDesktop from "./SubCategoryDesktop";
 import { CATEGORIES, MAIN_CAT_IDS } from "@/data/categories-data";
+import { useDispatch } from "react-redux";
+import { closeDesktopCat } from "@/features/site/siteSlice";
 
 const MainCategoriesDesktop = () => {
   const [mainCatId, setMainCatId] = useState(1000);
   const [mainCat, setMainCat] = useState(CATEGORIES[1000]);
+  const dispatch = useDispatch();
 
   const handleMainCatChange = (id) => {
     setMainCatId(id);
     setMainCat(CATEGORIES[id]);
   };
+
+  useLayoutEffect(() => {
+    const handleBackButton = () => {
+      dispatch(closeDesktopCat());
+    };
+    window.addEventListener("popstate", handleBackButton, false);
+    return () => {
+      window.removeEventListener("popstate", handleBackButton, false);
+    };
+  }, []);
 
   return (
     <div className="flex h-full w-full">

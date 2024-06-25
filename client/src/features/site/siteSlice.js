@@ -2,7 +2,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const defaultFilter = {
-  sortId: "1",
+  SortId: "1",
+  SellerType: "1",
   country: "ge",
 };
 
@@ -68,6 +69,8 @@ export default siteSlice.reducer;
 export const selectDesktopCat = (state) => state.site.desktopCat;
 export const selectMobileCat = (state) => state.site.mobileCat;
 export const selectBreadcrumbs = (state) => state.site.breadCrumbs;
+// Filters
 export const selectCatalogFilter = (state) => state.site.catalogFilter;
-export const selectSortId = (state) => state.site.catalogFilter.sortId;
+export const selectSortId = (state) => state.site.catalogFilter.SortId;
+export const selectSellerType = (state) => state.site.catalogFilter.SellerType;
 export const selectCountry = (state) => state.site.catalogFilter.country;
