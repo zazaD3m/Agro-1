@@ -1,36 +1,23 @@
-import { Button } from "@/components/ui/button";
-import {
-  selectCatalogFilter,
-  selectCountry,
-  setCatalogFilter,
-} from "@/features/site/siteSlice";
 import { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import CatalogPageSellerType from "../components/CatalogPageSellerType";
+import { Separator } from "@/components/ui/separator";
 
 const CatalogPageFilters = memo(() => {
-  const dispatch = useDispatch();
-  const country = useSelector(selectCountry);
-
   return (
-    <div className="flex flex-col gap-y-8 px-8">
-      <Button
-        onClick={() => {
-          dispatch(setCatalogFilter({ country: "ge" }));
-        }}
-        className={country === "ge" && "bg-yellow-300"}
-      >
-        ge
-      </Button>
-
-      <Button
-        onClick={() => {
-          dispatch(setCatalogFilter({ country: "en" }));
-        }}
-        className={country === "en" && "bg-yellow-300"}
-      >
-        en
-      </Button>
-    </div>
+    <ul className="flex flex-col gap-y-4">
+      <li className="rounded-t-md bg-accent py-4 shadow-md">
+        <h1 className="text-center">ფილტრები</h1>
+      </li>
+      <li className="px-4">
+        <h2 className="mb-4 text-sm">გამყიდველის ტიპი</h2>
+        <CatalogPageSellerType />
+      </li>
+      <Separator />
+      <li className="px-4">
+        <h2 className="mb-4 text-sm">ფასი</h2>
+        {/* <CatalogPageSellerType /> */}
+      </li>
+    </ul>
   );
 });
 

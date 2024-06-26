@@ -20,6 +20,8 @@ const buttonVariants = cva(
         outline:
           "border border-primary-light text-primary-light bg-background lg:hover:bg-primary-light active:bg-primary-light lg:hover:text-primary-foreground active:text-primary-foreground",
         accent: "bg-accent hover:bg-accent/70",
+        accentOutline:
+          "border-accent-dark border font-normal hover:bg-accent/50 rounded-full data-[state=active]:border-primary-light/30 data-[state=active]:bg-primary-light/10",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "bg-transparent",

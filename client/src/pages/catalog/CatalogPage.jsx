@@ -11,7 +11,7 @@ const CatalogPage = () => {
       <CatalogFilterStateAndUrlManager />
       <div className="bg-accent-dark px-4 pt-6">
         <div className="container flex gap-x-4 px-2 sm:px-4">
-          <aside className="h-[600px] shrink-0 rounded-md bg-background p-2 shadow-sm">
+          <aside className="h-[600px] max-w-[220px] shrink-0 rounded-md bg-background shadow-md">
             <CatalogPageFilters />
           </aside>
           <div>
