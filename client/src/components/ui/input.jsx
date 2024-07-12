@@ -16,7 +16,8 @@ const inputVariants = cva(
         //   "border border-primary-light text-primary bg-background hover:bg-primary-light hover:text-primary-foreground",
         // secondary:
         //   "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        // ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost:
+          "border-0 focus-visible:ring-0 focus-visible:ring-offset-0 outline-none",
         // link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

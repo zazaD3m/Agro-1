@@ -17,7 +17,6 @@ const CatalogPageSellerType = () => {
         <Button
           key={id}
           variant="accentOutline"
-          size="sm"
           className="w-min text-xs"
           data-state={sellerType === id ? "active" : ""}
           onClick={() => handleSellerTypeClick(id)}

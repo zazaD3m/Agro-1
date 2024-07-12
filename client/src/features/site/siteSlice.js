@@ -5,6 +5,9 @@ export const defaultFilter = {
   SortId: "1",
   SellerType: "1",
   country: "ge",
+  LocId: "1",
+  PriceFrom: "",
+  PriceTo: "",
 };
 
 const initialState = {
@@ -47,8 +50,13 @@ const siteSlice = createSlice({
         ...action.payload,
       };
     },
-    resetCatalogFilter: (state) => {
-      state.catalogFilter = initialState.catalogFilter;
+    resetCatalogFilter: (state, action) => {
+      state.catalogFilter = {
+        ...initialState.catalogFilter,
+        SortId: action.payload?.keepSort
+          ? state.catalogFilter.SortId
+          : initialState.catalogFilter.SortId,
+      };
     },
   },
 });
@@ -73,4 +81,6 @@ export const selectBreadcrumbs = (state) => state.site.breadCrumbs;
 export const selectCatalogFilter = (state) => state.site.catalogFilter;
 export const selectSortId = (state) => state.site.catalogFilter.SortId;
 export const selectSellerType = (state) => state.site.catalogFilter.SellerType;
-export const selectCountry = (state) => state.site.catalogFilter.country;
+export const selectLocId = (state) => state.site.catalogFilter.LocId;
+export const selectPriceFrom = (state) => state.site.catalogFilter.PriceFrom;
+export const selectPriceTo = (state) => state.site.catalogFilter.PriceTo;

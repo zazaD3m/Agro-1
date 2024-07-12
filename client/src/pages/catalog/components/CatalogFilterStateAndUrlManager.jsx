@@ -1,4 +1,9 @@
-import { countryFilter, SellerFilter, SortFilter } from "@/data/filters-data";
+import {
+  LocationFilter,
+  PriceFilter,
+  SellerFilter,
+  SortFilter,
+} from "@/data/filters-data";
 import {
   resetCatalogFilter,
   setCatalogFilter,
@@ -24,18 +29,26 @@ const stateToUrl = (prev, filter, catalogFilter) => {
 
 const urlToState = (searchParams) => {
   const filters = { ...defaultFilter };
-  const country = searchParams.get("country");
   const SortId = searchParams.get("SortId");
+  const LocId = searchParams.get("LocId");
   const SellerType = searchParams.get("SellerType");
+  const PriceFrom = searchParams.get("PriceFrom");
+  const PriceTo = searchParams.get("PriceTo");
 
-  if (countryFilter.validate(country)) {
-    filters.country = country;
-  }
   if (SortFilter.validate(SortId)) {
     filters.SortId = SortId;
   }
+  if (LocationFilter.validate(LocId)) {
+    filters.LocId = LocId;
+  }
   if (SellerFilter.validate(SellerType)) {
     filters.SellerType = SellerType;
+  }
+  if (PriceFilter.validate(PriceFrom)) {
+    filters.PriceFrom = PriceFrom;
+  }
+  if (PriceFilter.validate(PriceTo)) {
+    filters.PriceTo = PriceTo;
   }
 
   return filters;
@@ -101,8 +114,10 @@ const CatalogFilterStateAndUrlManager = memo(() => {
     setSearchParams(
       (prev) => {
         stateToUrl(prev, "SortId", catalogFilter);
+        stateToUrl(prev, "LocId", catalogFilter);
         stateToUrl(prev, "SellerType", catalogFilter);
-        stateToUrl(prev, "country", catalogFilter);
+        stateToUrl(prev, "PriceFrom", catalogFilter);
+        stateToUrl(prev, "PriceTo", catalogFilter);
         shouldUrlToStateRun.current = false; // prevent useEffect #3 from running
         return prev;
       },

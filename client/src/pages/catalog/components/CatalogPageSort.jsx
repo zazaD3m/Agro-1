@@ -30,7 +30,10 @@ const CatalogPageSort = () => {
       value={SortId}
       onValueChange={handleSortChange}
     >
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger
+        className="w-min shrink-0 gap-x-1 text-nowrap bg-inherit px-0 max-lg:flex-row-reverse max-lg:font-semibold lg:m-2 lg:ml-4 lg:w-[180px] lg:px-3"
+        iconClassName="max-lg:translate-y-0.5 max-lg:opacity-100"
+      >
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
