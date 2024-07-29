@@ -50,16 +50,16 @@ const PriceInput = ({ variant = "from", ...props }) => {
         { preventScrollReset: true },
       );
     }
-  }, [debouncedValue]);
+  }, [debouncedValue, PriceUrl]);
 
-  useEffect(() => {
-    if (isInitialRender.current) {
-      isInitialRender.current = false;
-      return;
-    }
-    console.log("PriceUrl", PriceUrl);
-    console.log("debouncedValue", debouncedValue);
-  }, [PriceUrl]);
+  // useEffect(() => {
+  //   if (isInitialRender.current) {
+  //     isInitialRender.current = false;
+  //     return;
+  //   }
+  //   console.log("PriceUrl", PriceUrl);
+  //   console.log("debouncedValue", debouncedValue);
+  // }, [PriceUrl]);
 
   // useEffect(() => {
   //   if (isInitialRender.current) {
