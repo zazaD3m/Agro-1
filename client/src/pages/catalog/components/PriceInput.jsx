@@ -1,21 +1,28 @@
 import { Input } from "@/components/ui/input";
 import { PriceFilter } from "@/data/filters-data";
-import { setCatalogFilter } from "@/features/site/siteSlice";
+import {
+  selectPriceFrom,
+  selectPriceTo,
+  setCatalogFilter,
+} from "@/features/site/siteSlice";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
 const PriceInput = ({ variant = "from", ...props }) => {
   const dispatch = useDispatch();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const PriceFrom = useSelector(selectPriceFrom);
+  const PriceTo = useSelector(selectPriceTo);
   const PriceUrl = searchParams.get(
     variant === "from" ? "PriceFrom" : "PriceTo",
   );
-  const isFirstRender = useRef(true);
-  const priceShouldDispatch = useRef(true);
-  const [value, setValue] = useState("");
+  const PriceState = variant === "from" ? PriceFrom : PriceTo;
+  const [value, setValue] = useState(PriceUrl || "");
   const debouncedValue = useDebounce(value, 1000);
+  const isInitialRender = useRef(true);
+  const priceShouldDispatch = useRef(true);
 
   const handleInputChange = (e) => {
     const v = e.target.value;
@@ -26,44 +33,70 @@ const PriceInput = ({ variant = "from", ...props }) => {
   };
 
   useEffect(() => {
-    if (isFirstRender.current) {
+    if (isInitialRender.current) {
       return;
     }
-    // when using browsers back and forward buttons we check for price value in url
-    // if that value isn't already set we set it and than prevent next useEffect
-    // from running
-    if (PriceUrl !== value) {
-      if (PriceFilter.validate(PriceUrl)) {
-        setValue(PriceUrl);
-      } else {
-        setValue("");
-      }
-      priceShouldDispatch.current = false;
-    }
-  }, [PriceUrl]);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      // on first render if we have price value in url, we set inputs value to that
-      // and skip dispatching (by returning) to redux as it is already set
-      // by state manager
-      if (PriceUrl && PriceFilter.validate(PriceUrl)) {
-        setValue(PriceUrl);
-        priceShouldDispatch.current = false;
-      }
-      return;
-    }
-    if (!priceShouldDispatch.current) {
-      priceShouldDispatch.current = true;
-      return;
-    }
-    if (variant === "from") {
-      dispatch(setCatalogFilter({ PriceFrom: debouncedValue }));
-    } else if (variant === "to") {
-      dispatch(setCatalogFilter({ PriceTo: debouncedValue }));
+    console.log("PriceUrl", PriceUrl);
+    console.log("debouncedValue", debouncedValue);
+    if (PriceUrl !== debouncedValue) {
+      setSearchParams(
+        (prev) => {
+          prev.set(
+            variant === "from" ? "PriceFrom" : "PriceTo",
+            debouncedValue,
+          );
+          return prev;
+        },
+        { preventScrollReset: true },
+      );
     }
   }, [debouncedValue]);
+
+  useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
+    console.log("PriceUrl", PriceUrl);
+    console.log("debouncedValue", debouncedValue);
+  }, [PriceUrl]);
+
+  // useEffect(() => {
+  //   if (isInitialRender.current) {
+  //     if (PriceUrl !== value) {
+  //       if (PriceFilter.validate(PriceUrl)) {
+  //         setValue(PriceUrl);
+  //       } else {
+  //         setValue("");
+  //       }
+  //     }
+  //     isInitialRender.current = false
+  //     return;
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (isInitialRender.current) {
+  //     isInitialRender.current = false;
+  //     // on first render if we have price value in url, we set inputs value to that
+  //     // and skip dispatching (by returning) to redux as it is already set
+  //     // by state manager
+  //     if (PriceUrl && PriceFilter.validate(PriceUrl)) {
+  //       setValue(PriceUrl);
+  //       priceShouldDispatch.current = false;
+  //     }
+  //     return;
+  //   }
+  //   if (!priceShouldDispatch.current) {
+  //     priceShouldDispatch.current = true;
+  //     return;
+  //   }
+  //   if (variant === "from") {
+  //     dispatch(setCatalogFilter({ PriceFrom: debouncedValue }));
+  //   } else if (variant === "to") {
+  //     dispatch(setCatalogFilter({ PriceTo: debouncedValue }));
+  //   }
+  // }, [debouncedValue]);
 
   return (
     <Input

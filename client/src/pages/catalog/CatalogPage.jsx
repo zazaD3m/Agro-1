@@ -1,11 +1,11 @@
 import CatalogPageFilters from "./sections/CatalogPageFilters";
 import CatalogPageProducts from "./sections/CatalogPageProducts";
 import CatalogPagePagination from "./sections/CatalogPagePagination";
-import CatalogFilterStateAndUrlManager from "./components/CatalogFilterStateAndUrlManager";
 import CatalogPageFiltersList from "./sections/CatalogPageFiltersList";
 import CatalogPageSort from "./components/CatalogPageSort";
 import useWindowSize from "@/hooks/useWindowSize";
 import CatalogPageFiltersMobile from "./components/CatalogPageFiltersMobile";
+import SearchParamsTracker from "./components/SearchParamsTracker";
 
 const CatalogPage = () => {
   const { width } = useWindowSize();
@@ -14,7 +14,7 @@ const CatalogPage = () => {
 
   return (
     <>
-      <CatalogFilterStateAndUrlManager />
+      <SearchParamsTracker />
       <div className="bg-accent-dark pt-6">
         <div className="container flex gap-x-4 px-2 sm:px-4">
           {isDesktop && (

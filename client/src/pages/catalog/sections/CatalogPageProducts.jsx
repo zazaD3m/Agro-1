@@ -2,6 +2,8 @@ import { listings } from "@/constants/constants";
 import CatalogPageListingCard from "../components/CatalogPageListingCard";
 import { useSearchParams } from "react-router-dom";
 import { memo } from "react";
+import { useSelector } from "react-redux";
+import { selectCatalogFilter } from "@/features/site/siteSlice";
 
 const CatalogPageProducts = memo(() => {
   // const [searchParams, setSearchParams] = useSearchParams();
@@ -9,6 +11,10 @@ const CatalogPageProducts = memo(() => {
   // const filters = {
   //   SortId: Number(searchParams.get("SortId")) ?? 1,
   // };
+
+  const filters = useSelector(selectCatalogFilter);
+
+  console.log("filters-", filters);
 
   const cityFilter = false;
 

@@ -20,15 +20,37 @@ import {
 } from "@/components/ui/popover";
 import { LocationFilter } from "@/data/filters-data";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useSearchParams } from "react-router-dom";
 
 const CatalogPageLocation = () => {
   const dispatch = useDispatch();
-  const locId = useSelector(selectLocId);
+  const [open, setOpen] = useState(false);
+  const [, setSearchParams] = useSearchParams();
+  const LocId = useSelector(selectLocId);
 
   const handleLocIdClick = (id) => {
+    if (id === LocId) {
+      // skip users click on the value that is already set
+      return;
+    }
     dispatch(setCatalogFilter({ LocId: id }));
+    setSearchParams(
+      (prev) => {
+        if (id === LocationFilter.default) {
+          // if id user selected is default value
+          if (prev.has("LocId")) {
+            // if there was some value of filter remove it as default value doesn't require url filter
+            prev.delete("LocId");
+          }
+        } else {
+          // if new id isn't default value append id to searchParams
+          prev.set("LocId", id);
+        }
+        return prev;
+      },
+      { preventScrollReset: true },
+    );
   };
-  const [open, setOpen] = useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -39,9 +61,9 @@ const CatalogPageLocation = () => {
           aria-expanded={open}
           className="group w-full rounded-md px-2"
         >
-          {locId === LocationFilter.default
+          {LocId === LocationFilter.default
             ? ""
-            : LocationFilter.nameMap[locId]}
+            : LocationFilter.nameMap[LocId]}
 
           <div className="ml-auto h-full w-px bg-accent-dark" />
           <ChevronDown className="ml-2 h-5 w-5 shrink-0 opacity-50 transition-all group-hover:opacity-80" />
@@ -63,7 +85,7 @@ const CatalogPageLocation = () => {
                       key={id}
                       value={location}
                       onSelect={() => {
-                        if (id === locId) {
+                        if (id === LocId) {
                           handleLocIdClick(LocationFilter.default);
                         } else {
                           handleLocIdClick(id);
@@ -74,7 +96,7 @@ const CatalogPageLocation = () => {
                       <Check
                         className={cn(
                           "mr-2 h-4 w-4",
-                          locId === id ? "opacity-100" : "opacity-0",
+                          LocId === id ? "opacity-100" : "opacity-0",
                         )}
                       />
                       {location}

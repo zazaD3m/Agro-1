@@ -13,15 +13,36 @@ import {
   setCatalogFilter,
 } from "@/features/site/siteSlice";
 import { SortFilter } from "@/data/filters-data";
+import { useSearchParams } from "react-router-dom";
+import { memo } from "react";
 
-const CatalogPageSort = () => {
+const CatalogPageSort = memo(() => {
   const dispatch = useDispatch();
   const SortId = useSelector(selectSortId);
+  const [, setSearchParams] = useSearchParams();
 
   const handleSortChange = (id) => {
-    if (SortFilter.validate(id)) {
-      dispatch(setCatalogFilter({ SortId: id }));
+    if (id === SortId) {
+      // skip users click on the value that is already set
+      return;
     }
+    dispatch(setCatalogFilter({ SortId: id }));
+    setSearchParams(
+      (prev) => {
+        if (id === SortFilter.default) {
+          // if id user selected is default value
+          if (prev.has("SortId")) {
+            // if there was some value of filter remove it as default value doesn't require url filter
+            prev.delete("SortId");
+          }
+        } else {
+          // if new id isn't default value append id to searchParams
+          prev.set("SortId", id);
+        }
+        return prev;
+      },
+      { preventScrollReset: true },
+    );
   };
 
   return (
@@ -46,5 +67,6 @@ const CatalogPageSort = () => {
       </SelectContent>
     </Select>
   );
-};
+});
+CatalogPageSort.displayName = "CatalogPageSort";
 export default CatalogPageSort;

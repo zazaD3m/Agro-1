@@ -1,4 +1,4 @@
-import { lazy, Suspense, StrictMode } from "react";
+import { lazy, Suspense } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -59,11 +59,9 @@ const router = createBrowserRouter(
         <Route
           index
           element={
-            <StrictMode>
-              <Suspense fallback={<FullScreenLoader />}>
-                <HomePage />
-              </Suspense>
-            </StrictMode>
+            <Suspense fallback={<FullScreenLoader />}>
+              <HomePage />
+            </Suspense>
           }
         />
         <Route path="catalog/:catId?/:mainCategory?/:subCategory?/:category?">
@@ -81,23 +79,15 @@ const router = createBrowserRouter(
           <Route
             index
             element={
-              <StrictMode>
-                <Suspense fallback={<FullScreenLoader />}>
-                  <ProductPage />
-                </Suspense>
-              </StrictMode>
+              <Suspense fallback={<FullScreenLoader />}>
+                <ProductPage />
+              </Suspense>
             }
           />
         </Route>
         {/* == PRODUCT PATHS END */}
         {/* == ACCOUNT PATHS START */}
-        <Route
-          element={
-            <StrictMode>
-              <PrivateRoute />
-            </StrictMode>
-          }
-        >
+        <Route element={<PrivateRoute />}>
           <Route element={<AccountLayout />}>
             <Route path="account">
               <Route
@@ -117,69 +107,21 @@ const router = createBrowserRouter(
         {/* == ACCOUNT PATHS END */}
         {/* == INFO PATHS END */}
         <Route path="info">
-          <Route
-            path="privacy-policy"
-            element={
-              <StrictMode>
-                <PrivacyPolicy />
-              </StrictMode>
-            }
-          />
-          <Route
-            path="terms-of-use"
-            element={
-              <StrictMode>
-                <TermsOfUse />
-              </StrictMode>
-            }
-          />
-          <Route
-            path="faq"
-            element={
-              <StrictMode>
-                <Faq />
-              </StrictMode>
-            }
-          />
-          <Route
-            path="contact"
-            element={
-              <StrictMode>
-                <Contact />
-              </StrictMode>
-            }
-          />
-          <Route
-            path="add-product"
-            element={
-              <StrictMode>
-                <InfoAddProduct />
-              </StrictMode>
-            }
-          />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="terms-of-use" element={<TermsOfUse />} />
+          <Route path="faq" element={<Faq />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="add-product" element={<InfoAddProduct />} />
         </Route>
         {/* == INFO PATHS END */}
         {/* == BLOG PATHS END */}
         <Route path="blog">
-          <Route
-            index
-            element={
-              <StrictMode>
-                <BlogPage />
-              </StrictMode>
-            }
-          />
+          <Route index element={<BlogPage />} />
         </Route>
         {/* == BLOG PATHS END */}
       </Route>
       {/* == AUTH PATHS START */}
-      <Route
-        element={
-          <StrictMode>
-            <RejectAuthenticatedUser />
-          </StrictMode>
-        }
-      >
+      <Route element={<RejectAuthenticatedUser />}>
         <Route element={<AuthLayout />}>
           <Route path="auth/login" element={<LoginPage />} />
           <Route path="auth/register" element={<RegisterPage />} />
