@@ -1,11 +1,11 @@
 import CatalogPageFilters from "./sections/CatalogPageFilters";
 import CatalogPageProducts from "./sections/CatalogPageProducts";
 import CatalogPagePagination from "./sections/CatalogPagePagination";
-import CatalogPageFiltersList from "./sections/CatalogPageFiltersList";
+import CatalogPageFiltersListDesktop from "./sections/CatalogPageFiltersListDesktop";
 import CatalogPageSort from "./components/CatalogPageSort";
 import useWindowSize from "@/hooks/useWindowSize";
 import CatalogPageFiltersMobile from "./components/CatalogPageFiltersMobile";
-import SearchParamsTracker from "./components/SearchParamsTracker";
+import CatalogPageFiltersSync from "./components/CatalogPageFiltersSync";
 
 const CatalogPage = () => {
   const { width } = useWindowSize();
@@ -14,7 +14,7 @@ const CatalogPage = () => {
 
   return (
     <>
-      <SearchParamsTracker />
+      <CatalogPageFiltersSync />
       <div className="bg-accent-dark pt-6">
         <div className="container flex gap-x-4 px-2 sm:px-4">
           {isDesktop && (
@@ -28,7 +28,7 @@ const CatalogPage = () => {
           <div>
             <section className="mb-4 flex flex-row-reverse items-center justify-between rounded-md p-1 lg:flex-row lg:bg-background lg:p-0 lg:shadow-sm">
               {isDesktop ? (
-                <CatalogPageFiltersList />
+                <CatalogPageFiltersListDesktop />
               ) : (
                 <CatalogPageFiltersMobile />
               )}

@@ -2,11 +2,9 @@ import { defaultFilter, setCatalogFilter } from "@/features/site/siteSlice";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 
 const Badge = ({ className, filter, value, ...props }) => {
   const dispatch = useDispatch();
-  const [, setSearchParams] = useSearchParams();
   return (
     <div
       className={cn(
@@ -21,13 +19,6 @@ const Badge = ({ className, filter, value, ...props }) => {
         onClick={(e) => {
           e.preventDefault();
           dispatch(setCatalogFilter({ [filter]: defaultFilter[filter] }));
-          setSearchParams(
-            (prev) => {
-              prev.delete(filter);
-              return prev;
-            },
-            { preventScrollReset: true },
-          );
         }}
       >
         <X className="size-4" />

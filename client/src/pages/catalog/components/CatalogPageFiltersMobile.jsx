@@ -8,7 +8,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { SlidersHorizontal, SlidersVertical, X } from "lucide-react";
-import CatalogPageFiltersList from "../sections/CatalogPageFiltersList";
+
 import CatalogPageFilters from "../sections/CatalogPageFilters";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -32,7 +32,6 @@ const CatalogPageFiltersMobile = () => {
               </Button>
             </DrawerClose>
           </div>
-          <CatalogPageFiltersList />
           <CatalogPageFilters />
           <div className="h-[800px] w-full bg-green-300"></div>
         </ScrollArea>

@@ -20,12 +20,10 @@ import {
 } from "@/components/ui/popover";
 import { LocationFilter } from "@/data/filters-data";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useSearchParams } from "react-router-dom";
 
 const CatalogPageLocation = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [, setSearchParams] = useSearchParams();
   const LocId = useSelector(selectLocId);
 
   const handleLocIdClick = (id) => {
@@ -34,22 +32,6 @@ const CatalogPageLocation = () => {
       return;
     }
     dispatch(setCatalogFilter({ LocId: id }));
-    setSearchParams(
-      (prev) => {
-        if (id === LocationFilter.default) {
-          // if id user selected is default value
-          if (prev.has("LocId")) {
-            // if there was some value of filter remove it as default value doesn't require url filter
-            prev.delete("LocId");
-          }
-        } else {
-          // if new id isn't default value append id to searchParams
-          prev.set("LocId", id);
-        }
-        return prev;
-      },
-      { preventScrollReset: true },
-    );
   };
 
   return (
