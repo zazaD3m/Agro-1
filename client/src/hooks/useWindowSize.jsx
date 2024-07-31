@@ -4,6 +4,8 @@ function useWindowSize() {
   const [windowDimensions, setWindowDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
+    isMobile: window.innerWidth < 1024,
+    isDesktop: window.innerWidth >= 1024,
   });
 
   useEffect(() => {
@@ -11,6 +13,8 @@ function useWindowSize() {
       setWindowDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
+        isMobile: window.innerWidth < 1024,
+        isDesktop: window.innerWidth >= 1024,
       });
     }
 

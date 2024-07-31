@@ -20,11 +20,13 @@ import {
 } from "@/components/ui/popover";
 import { LocationFilter } from "@/data/filters-data";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import useWindowSize from "@/hooks/useWindowSize";
 
-const CatalogPageLocation = () => {
+const CatalogPageLocation = ({ container }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const LocId = useSelector(selectLocId);
+  const { isMobile, isDesktop } = useWindowSize();
 
   const handleLocIdClick = (id) => {
     if (id === LocId) {
@@ -51,15 +53,24 @@ const CatalogPageLocation = () => {
           <ChevronDown className="ml-2 h-5 w-5 shrink-0 opacity-50 transition-all group-hover:opacity-80" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent
+        container={container}
+        avoidCollisions={isDesktop}
+        onOpenAutoFocus={(e) => {
+          if (isMobile) {
+            e.preventDefault();
+          }
+        }}
+        className="popover-content-width-full p-0"
+      >
         <Command>
           <CommandList>
             <CommandInput placeholder="მდებარეობა..." />
             <CommandEmpty className="text-wrap p-2">
               მდებარეობა ვერ მოიძებნა.
             </CommandEmpty>
-            <ScrollArea className="h-[255px]">
-              <CommandGroup>
+            <CommandGroup>
+              <ScrollArea className="h-[255px]">
                 {LocationFilter.options.map((id) => {
                   const location = LocationFilter.nameMap[id];
                   return (
@@ -85,8 +96,8 @@ const CatalogPageLocation = () => {
                     </CommandItem>
                   );
                 })}
-              </CommandGroup>
-            </ScrollArea>
+              </ScrollArea>
+            </CommandGroup>
           </CommandList>
         </Command>
       </PopoverContent>
