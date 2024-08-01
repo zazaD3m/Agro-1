@@ -26,7 +26,7 @@ const CatalogPageLocation = ({ container }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const LocId = useSelector(selectLocId);
-  const { isMobile, isDesktop } = useWindowSize();
+  const { isDesktop } = useWindowSize();
 
   const handleLocIdClick = (id) => {
     if (id === LocId) {
@@ -56,11 +56,6 @@ const CatalogPageLocation = ({ container }) => {
       <PopoverContent
         container={container}
         avoidCollisions={isDesktop}
-        onOpenAutoFocus={(e) => {
-          if (isMobile) {
-            e.preventDefault();
-          }
-        }}
         className="popover-content-width-full p-0"
       >
         <Command>
@@ -70,7 +65,7 @@ const CatalogPageLocation = ({ container }) => {
               მდებარეობა ვერ მოიძებნა.
             </CommandEmpty>
             <CommandGroup>
-              <ScrollArea className="h-[255px]">
+              <ScrollArea className="mobile-filters-location-popover-height lg:h-[255px]">
                 {LocationFilter.options.map((id) => {
                   const location = LocationFilter.nameMap[id];
                   return (

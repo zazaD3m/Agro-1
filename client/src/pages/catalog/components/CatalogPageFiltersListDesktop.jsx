@@ -1,10 +1,23 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import CatalogPageFiltersListItems from "../components/CatalogPageFiltersListItems";
 import CatalogPageFiltersListReset from "../components/CatalogPageFiltersListReset";
+import { useSelector } from "react-redux";
+import { defaultFilter, selectCatalogFilter } from "@/features/site/siteSlice";
 
 const CatalogPageFiltersListDesktop = () => {
+  const { SellerType, LocId, PriceFrom, PriceTo } =
+    useSelector(selectCatalogFilter);
+
+  if (
+    SellerType === defaultFilter.SellerType &&
+    LocId === defaultFilter.LocId &&
+    PriceFrom === defaultFilter.PriceFrom &&
+    PriceTo === defaultFilter.PriceTo
+  ) {
+    return null;
+  }
   return (
-    <div className="flex gap-2">
+    <div className="mr-2 flex gap-2">
       <>
         <CatalogPageFiltersListReset />
         <ScrollArea className="mt-2 w-full overflow-x-auto">

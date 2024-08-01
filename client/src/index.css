@@ -52,4 +52,7 @@
     width: var(--radix-popover-trigger-width);
     max-height: var(--radix-popover-content-available-height);
   }
+  .mobile-filters-location-popover-height {
+    height: calc(var(--radix-popover-content-available-height) - 65px);
+  }
 }

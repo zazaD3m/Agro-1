@@ -1,3 +1,4 @@
+import Seo from "@/components/Seo";
 import HomePageBlogPosts from "./sections/HomePageBlogPosts";
 import HomePageFeaturedProducts from "./sections/HomePageFeaturedProducts";
 import HomePageHero from "./sections/HomePageHero";
@@ -8,6 +9,7 @@ import HomePageSiteStats from "./sections/HomePageSiteStats";
 const HomePage = () => {
   return (
     <>
+      <Seo />
       <section className="bg-background-green pb-8">
         <HomePageHero className="container px-2 sm:px-4" />
       </section>

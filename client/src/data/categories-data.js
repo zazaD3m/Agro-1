@@ -431,6 +431,7 @@ const getCatType = (catId) => {
 };
 
 export const getBreadCrumbs = (catId) => {
+  console.time("function1");
   const catType = getCatType(catId);
   const breadCrumbs = {
     mainCat: null,
@@ -482,5 +483,7 @@ export const getBreadCrumbs = (catId) => {
       id: catId,
     };
   }
+  console.timeEnd("function1");
+
   return breadCrumbs;
 };

@@ -6,15 +6,13 @@ import CatalogPageSort from "./components/CatalogPageSort";
 import useWindowSize from "@/hooks/useWindowSize";
 import CatalogPageFiltersMobile from "./components/CatalogPageFiltersMobile";
 import CatalogPageFiltersSync from "./components/CatalogPageFiltersSync";
-import CatalogPageFiltersListDesktop from "./sections/CatalogPageFiltersListDesktop";
-import CatalogPageFiltersListMobile from "./sections/CatalogPageFiltersListMobile";
+import CatalogPageFiltersListDesktop from "./components/CatalogPageFiltersListDesktop";
+import CatalogPageFiltersListMobile from "./components/CatalogPageFiltersListMobile";
 import { useState } from "react";
 
 const CatalogPage = () => {
   const [container, setContainer] = useState(null);
-  const { width } = useWindowSize();
-
-  const isDesktop = width >= 1024;
+  const { isDesktop, isMobile } = useWindowSize();
 
   return (
     <>
@@ -41,7 +39,7 @@ const CatalogPage = () => {
               )}
               <CatalogPageSort />
             </section>
-            {!isDesktop && <CatalogPageFiltersListMobile />}
+            {isMobile && <CatalogPageFiltersListMobile />}
             <section className="mb-12">
               <CatalogPageProducts />
             </section>
