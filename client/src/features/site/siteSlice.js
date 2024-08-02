@@ -4,10 +4,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const defaultFilter = {
   SortId: "1",
   SellerType: "1",
-  country: "ge",
   LocId: "1",
   PriceFrom: "",
   PriceTo: "",
+  Page: 1,
+  TotalCount: 2000,
 };
 
 const initialState = {
@@ -84,3 +85,5 @@ export const selectSellerType = (state) => state.site.catalogFilter.SellerType;
 export const selectLocId = (state) => state.site.catalogFilter.LocId;
 export const selectPriceFrom = (state) => state.site.catalogFilter.PriceFrom;
 export const selectPriceTo = (state) => state.site.catalogFilter.PriceTo;
+export const selectPage = (state) => state.site.catalogFilter.Page;
+export const selectTotalCount = (state) => state.site.catalogFilter.TotalCount;

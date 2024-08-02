@@ -37,6 +37,15 @@ const SellerFilter = {
   validate,
 };
 
+const PageFilter = {
+  default: defaultFilter.Page,
+  validate: (input) => {
+    const val = parseInt(input, 10);
+    if (isNaN(val) || val < 1 || val > 200) return false;
+    return true;
+  },
+};
+
 const LocationFilter = {
   default: defaultFilter.LocId,
   options: [
@@ -176,4 +185,4 @@ const LocationFilter = {
   validate,
 };
 
-export { SortFilter, SellerFilter, LocationFilter, PriceFilter };
+export { SortFilter, SellerFilter, LocationFilter, PriceFilter, PageFilter };

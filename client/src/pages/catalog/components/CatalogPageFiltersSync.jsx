@@ -1,5 +1,6 @@
 import {
   LocationFilter,
+  PageFilter,
   PriceFilter,
   SellerFilter,
   SortFilter,
@@ -21,6 +22,7 @@ const getFilterStateFromSearchParams = (searchParams) => {
   const LocId = searchParams.get("LocId");
   const PriceFrom = searchParams.get("PriceFrom");
   const PriceTo = searchParams.get("PriceTo");
+  const Page = searchParams.get("Page");
 
   if (SellerFilter.validate(SellerType)) {
     filters.SellerType = SellerType;
@@ -36,6 +38,9 @@ const getFilterStateFromSearchParams = (searchParams) => {
   }
   if (PriceFilter.validate(PriceTo)) {
     filters.PriceTo = PriceTo;
+  }
+  if (PageFilter.validate(Page)) {
+    filters.Page = parseInt(Page, 10);
   }
 
   return filters;
@@ -98,6 +103,7 @@ const CatalogPageFiltersSync = () => {
           stateToUrl(prev, "LocId", filtersState);
           stateToUrl(prev, "PriceFrom", filtersState);
           stateToUrl(prev, "PriceTo", filtersState);
+          stateToUrl(prev, "Page", filtersState);
           oldFiltersUrl.current = getFilterStateFromSearchParams(prev);
           return prev;
         },
