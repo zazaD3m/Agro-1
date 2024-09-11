@@ -20,7 +20,9 @@ const FavoriteButton = ({
   const favoriteListings = useSelector(selectFavoriteListings);
   const isFavorite = favoriteListings.includes(productId);
 
-  const handleFavoriteToggle = () => {
+  const handleFavoriteToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (isFavorite) {
       dispatch(removeFromFavorites(productId));
       toast({
@@ -37,25 +39,48 @@ const FavoriteButton = ({
   };
 
   return variant === "productPage" ? (
-    <Button
-      variant={isFavorite ? "action" : "actionOutline"}
+    <button
       onClick={handleFavoriteToggle}
-      className="size-12 shrink-0 border-2 p-0 transition-all duration-300"
+      data-isfavorite={isFavorite}
+      className={cn(
+        "group/button flex size-12 shrink-0 items-center justify-center rounded-md bg-accent",
+        isMobile && "",
+      )}
     >
-      <Heart />
-    </Button>
+      <Heart
+        className="text-teal-900 group-data-[isfavorite=true]/button:fill-action group-data-[isfavorite=true]/button:text-action lg:group-hover/button:text-action"
+        size={20}
+        strokeWidth={2.5}
+      />
+    </button>
   ) : variant === "carousel" ? (
     <button
       onClick={handleFavoriteToggle}
       data-isfavorite={isFavorite}
       className={cn(
-        "group absolute -right-2 -top-16 rounded-b-md border  bg-background p-1 pb-2 pl-2 pr-4 pt-4 transition-all duration-300 group-hover:-top-2 data-[isfavorite=true]:-top-2",
-        isMobile && "-top-2",
+        "group/button rounded-md bg-accent p-1.5 shadow-md transition-all duration-300 xs:p-2 sm:p-2.5",
+        isMobile && "",
       )}
     >
       <Heart
-        className="text-action transition-all hover:scale-105 group-data-[isfavorite=true]:fill-action group-data-[isfavorite=true]:text-white"
-        size={28}
+        className="text-teal-900 group-data-[isfavorite=true]/button:fill-action group-data-[isfavorite=true]/button:text-action lg:group-hover/button:text-action"
+        size={20}
+        strokeWidth={2.5}
+      />
+    </button>
+  ) : variant === "catalogPage" ? (
+    <button
+      onClick={handleFavoriteToggle}
+      data-isfavorite={isFavorite}
+      className={cn(
+        "group/button rounded-md bg-accent p-1.5 shadow-md transition-all duration-300 xs:p-2 sm:p-2.5",
+        isMobile && "",
+      )}
+    >
+      <Heart
+        className="text-teal-900 group-data-[isfavorite=true]/button:fill-action group-data-[isfavorite=true]/button:text-action lg:group-hover/button:text-action"
+        size={20}
+        strokeWidth={2.5}
       />
     </button>
   ) : null;

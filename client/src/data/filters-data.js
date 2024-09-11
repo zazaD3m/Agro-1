@@ -1,19 +1,19 @@
-import { defaultFilter } from "@/features/site/siteSlice";
-
-function validate(input) {
-  return this.options.includes(input);
-}
+import { defaultFilter } from "@/features/filter/filterSlice";
 
 const SortFilter = {
   default: defaultFilter.SortId,
-  options: ["1", "2", "3", "4"],
+  options: [1, 2, 3, 4],
   nameMap: {
     1: "თარიღი კლებადი",
     2: "თარიღი ზრდადი",
     3: "ფასი კლებადი",
     4: "ფასი ზრდადი",
   },
-  validate,
+  validate: function (input) {
+    const val = parseInt(input, 10);
+    if (isNaN(val) || !this.options.includes(val)) return false;
+    return true;
+  },
 };
 
 const PriceFilter = {
@@ -28,13 +28,17 @@ const PriceFilter = {
 
 const SellerFilter = {
   default: defaultFilter.SellerType,
-  options: ["1", "2", "3"],
+  options: [1, 2, 3],
   nameMap: {
     1: "ყველა",
-    2: "კერძო",
+    2: "ფიზიკური პირი",
     3: "მაღაზია",
   },
-  validate,
+  validate: function (input) {
+    const val = parseInt(input, 10);
+    if (isNaN(val) || !this.options.includes(val)) return false;
+    return true;
+  },
 };
 
 const PageFilter = {
@@ -49,71 +53,10 @@ const PageFilter = {
 const LocationFilter = {
   default: defaultFilter.LocId,
   options: [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-    "26",
-    "27",
-    "28",
-    "29",
-    "30",
-    "31",
-    "32",
-    "33",
-    "34",
-    "35",
-    "36",
-    "37",
-    "38",
-    "39",
-    "40",
-    "41",
-    "42",
-    "43",
-    "44",
-    "45",
-    "46",
-    "47",
-    "48",
-    "49",
-    "50",
-    "51",
-    "52",
-    "53",
-    "54",
-    "55",
-    "56",
-    "57",
-    "58",
-    "59",
-    "60",
-    "61",
-    "62",
-    "63",
-    "64",
-    "65",
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
+    60, 61, 62, 63, 64, 65,
   ],
   nameMap: {
     1: "ყველა",
@@ -182,7 +125,11 @@ const LocationFilter = {
     64: "ხულო",
     65: "ოქროყანა",
   },
-  validate,
+  validate: function (input) {
+    const val = parseInt(input, 10);
+    if (isNaN(val) || !this.options.includes(val)) return false;
+    return true;
+  },
 };
 
 export { SortFilter, SellerFilter, LocationFilter, PriceFilter, PageFilter };

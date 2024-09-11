@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-const { fontFamily } = require("tailwindcss/defaultTheme");
+const defaultTheme = require("tailwindcss/defaultTheme");
+const fontFamily = defaultTheme.fontFamily;
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -10,6 +11,10 @@ module.exports = {
     "./src/**/*.{js,jsx}",
   ],
   theme: {
+    screens: {
+      xs: "375px",
+      ...defaultTheme.screens,
+    },
     extend: {
       colors: {
         border: "hsl(var(--border) / <alpha-value>)",

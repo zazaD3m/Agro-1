@@ -1,4 +1,4 @@
-import { selectLocId, setCatalogFilter } from "@/features/site/siteSlice";
+import { selectLocId, setFilter } from "@/features/filter/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
@@ -29,11 +29,8 @@ const CatalogPageLocation = ({ container }) => {
   const { isDesktop } = useWindowSize();
 
   const handleLocIdClick = (id) => {
-    if (id === LocId) {
-      // skip users click on the value that is already set
-      return;
-    }
-    dispatch(setCatalogFilter({ LocId: id }));
+    dispatch(setFilter({ LocId: id === LocId ? LocationFilter.default : id }));
+    setOpen(false);
   };
 
   return (
@@ -73,12 +70,7 @@ const CatalogPageLocation = ({ container }) => {
                       key={id}
                       value={location}
                       onSelect={() => {
-                        if (id === LocId) {
-                          handleLocIdClick(LocationFilter.default);
-                        } else {
-                          handleLocIdClick(id);
-                        }
-                        setOpen(false);
+                        handleLocIdClick(id);
                       }}
                     >
                       <Check

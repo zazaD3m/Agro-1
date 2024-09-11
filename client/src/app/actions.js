@@ -9,6 +9,9 @@ export const rehydrateState = () => {
     payload: {
       auth: parsedState.auth ? JSON.parse(parsedState.auth) : {},
       user: parsedState.user ? JSON.parse(parsedState.user) : {},
+      sitePersisted: parsedState.sitePersisted
+        ? JSON.parse(parsedState.sitePersisted)
+        : {},
       _persist: parsedState._persist ? JSON.parse(parsedState._persist) : {},
     },
     key: "root",

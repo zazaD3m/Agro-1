@@ -1,11 +1,10 @@
-import { defaultFilter, selectCatalogFilter } from "@/features/site/siteSlice";
+import { defaultFilter, selectFilter } from "@/features/filter/filterSlice";
 import { Badge } from "./Badge";
 import { LocationFilter, SellerFilter } from "@/data/filters-data";
 import { useSelector } from "react-redux";
 
 const CatalogPageFiltersListItems = () => {
-  const { SellerType, LocId, PriceFrom, PriceTo } =
-    useSelector(selectCatalogFilter);
+  const { SellerType, LocId, PriceFrom, PriceTo } = useSelector(selectFilter);
   return (
     <>
       {LocId !== defaultFilter.LocId && (

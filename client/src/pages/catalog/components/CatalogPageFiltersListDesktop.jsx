@@ -2,11 +2,10 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import CatalogPageFiltersListItems from "../components/CatalogPageFiltersListItems";
 import CatalogPageFiltersListReset from "../components/CatalogPageFiltersListReset";
 import { useSelector } from "react-redux";
-import { defaultFilter, selectCatalogFilter } from "@/features/site/siteSlice";
+import { defaultFilter, selectFilter } from "@/features/filter/filterSlice";
 
 const CatalogPageFiltersListDesktop = () => {
-  const { SellerType, LocId, PriceFrom, PriceTo } =
-    useSelector(selectCatalogFilter);
+  const { SellerType, LocId, PriceFrom, PriceTo } = useSelector(selectFilter);
 
   if (
     SellerType === defaultFilter.SellerType &&

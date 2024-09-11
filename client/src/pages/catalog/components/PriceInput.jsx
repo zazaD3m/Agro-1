@@ -3,8 +3,8 @@ import { PriceFilter } from "@/data/filters-data";
 import {
   selectPriceFrom,
   selectPriceTo,
-  setCatalogFilter,
-} from "@/features/site/siteSlice";
+  setFilter,
+} from "@/features/filter/filterSlice";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,7 +51,7 @@ const PriceInput = ({ variant = "from", ...props }) => {
     if (debouncedValue !== PriceState) {
       // dispatch inputs value to redux's state if it's new value
       dispatch(
-        setCatalogFilter(
+        setFilter(
           variant === "from"
             ? { PriceFrom: debouncedValue }
             : { PriceTo: debouncedValue },

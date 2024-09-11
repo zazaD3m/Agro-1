@@ -123,7 +123,7 @@ const Breadcrumbs = memo(() => {
                     <BreadcrumbLink asChild>
                       <Link
                         className="underline-offset-2 hover:underline"
-                        to={`/catalog/${cat.id}/${mainCat.link}${subCat.link ? "/" + subCat.link : ""}/${cat.link}`}
+                        to={`/catalog/${cat.id}/${mainCat.link}${subCat?.link ? "/" + subCat.link : ""}/${cat.link}`}
                       >
                         {cat.name}
                       </Link>

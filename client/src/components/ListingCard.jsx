@@ -1,12 +1,11 @@
 import { cn } from "@/lib/utils";
-import { MapPin } from "lucide-react";
+import { MapPin, Store, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import { convertToEnglish } from "@/helpers/translateString";
 import FavoriteButton from "./FavoriteButton";
-import CallNumberButton from "./CallNumberButton";
+import { LocationFilter, SellerFilter } from "@/data/filters-data";
 
 const ListingCard = ({ listing, isMobile, className }) => {
-  const { id, catId, mainCategory, subCategory, category, title } = listing;
+  const { slug } = listing;
 
   return (
     <div
@@ -17,18 +16,15 @@ const ListingCard = ({ listing, isMobile, className }) => {
       )}
     >
       <Link
-        className={cn(
-          "mb-4 flex grow flex-col",
-          isMobile && "flex-row gap-x-2",
-        )}
-        to={`/product/${id}/${catId}/${mainCategory}${subCategory ? `/${subCategory}` : ""}/${category}/${convertToEnglish(title)}`}
+        className={cn("flex grow flex-col", isMobile && "flex-row gap-x-2")}
+        to={"/product" + slug}
       >
         <div
           className={cn(
             "w-full",
             isMobile
-              ? "flex w-1/4 items-center"
-              : "mb-4 aspect-[3/2] overflow-hidden rounded-md",
+              ? "flex w-1/3 items-start"
+              : "mb-2 aspect-[3/2] overflow-hidden rounded-md",
           )}
         >
           <img
@@ -39,35 +35,45 @@ const ListingCard = ({ listing, isMobile, className }) => {
             )}
           />
         </div>
-        <div className="flex grow flex-col max-sm:w-3/4">
-          <h2 className="mb-1 line-clamp-2 pr-10 font-semibold sm:pr-0">
+        <div className="flex grow flex-col max-sm:w-2/3">
+          <h2 className="mb-1 line-clamp-2 pr-4 font-semibold sm:line-clamp-3 sm:pr-0">
             {listing.title}
           </h2>
-          <div className="mb-2 flex grow items-start gap-x-1 opacity-60">
+          <div className="mb-2 flex items-end gap-x-1 opacity-60">
             <MapPin size={18} strokeWidth={2} className="-ml-px" />
-            <span className="text-xs font-semibold">{listing.city}</span>
+            <span className="text-xs font-semibold">
+              {LocationFilter.nameMap[listing.LocId]}
+            </span>
           </div>
-          <p className="font-normal">
-            <span>₾ </span>
-            {listing.price}
-          </p>
+          <div className="mb-2 flex items-end gap-x-1 opacity-60">
+            {listing.SellerType === 2 ? (
+              <User size={18} strokeWidth={2} className="-ml-px" />
+            ) : (
+              <Store size={18} strokeWidth={2} className="-ml-px" />
+            )}
+            <span className="text-xs font-semibold">
+              {SellerFilter.nameMap[listing.SellerType]}
+            </span>
+          </div>
         </div>
       </Link>
-      <div className="flex items-center justify-between rounded-full border-2 border-action p-1 font-medium">
-        <h2 className="line-clamp-1 break-words pl-2 text-sm sm:pl-1 sm:text-xs">
-          {listing.author.firstName}
-        </h2>
-        <CallNumberButton
-          phoneNumber={listing.author.phoneNumber}
+      <div className="flex items-center justify-between">
+        <p className="font-normal">
+          {listing.price < 50 ? (
+            <span className="text-sm max-xs:truncate sm:text-sm">
+              ფასი შეთანხმებით
+            </span>
+          ) : (
+            <span className="">{listing.price}.00 ₾</span>
+          )}
+        </p>
+        <FavoriteButton
+          productId={listing.id}
+          productTitle={listing.title}
           variant="carousel"
+          isMobile={isMobile}
         />
       </div>
-      <FavoriteButton
-        productId={listing.id}
-        productTitle={listing.title}
-        variant="carousel"
-        isMobile={isMobile}
-      />
     </div>
   );
 };

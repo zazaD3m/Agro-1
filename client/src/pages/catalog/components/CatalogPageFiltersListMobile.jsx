@@ -1,12 +1,11 @@
 import { useSelector } from "react-redux";
 import CatalogPageFiltersListItems from "../components/CatalogPageFiltersListItems";
 import CatalogPageFiltersListReset from "../components/CatalogPageFiltersListReset";
-import { defaultFilter, selectCatalogFilter } from "@/features/site/siteSlice";
+import { defaultFilter, selectFilter } from "@/features/filter/filterSlice";
 import { cn } from "@/lib/utils";
 
 const CatalogPageFiltersListMobile = ({ className }) => {
-  const { SellerType, LocId, PriceFrom, PriceTo } =
-    useSelector(selectCatalogFilter);
+  const { SellerType, LocId, PriceFrom, PriceTo } = useSelector(selectFilter);
 
   if (
     SellerType === defaultFilter.SellerType &&

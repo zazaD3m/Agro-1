@@ -1,4 +1,4 @@
-import { defaultFilter, setCatalogFilter } from "@/features/site/siteSlice";
+import { defaultFilter, setFilter } from "@/features/filter/filterSlice";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import { useDispatch } from "react-redux";
@@ -18,7 +18,7 @@ const Badge = ({ className, filter, value, ...props }) => {
         className="transition-transform hover:scale-110"
         onClick={(e) => {
           e.preventDefault();
-          dispatch(setCatalogFilter({ [filter]: defaultFilter[filter] }));
+          dispatch(setFilter({ [filter]: defaultFilter[filter] }));
         }}
       >
         <X className="size-4" />

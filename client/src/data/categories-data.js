@@ -92,7 +92,7 @@ export const CATEGORIES = {
   7250: { mainCatId: 7000, name: "სხვადასხვა", link: "sxvadasxva" },
   8050: { mainCatId: 8000, name: "ალკოჰოლური", link: "alkoholuri" },
   9050: { mainCatId: 9000, name: "სასუქი", link: "sasuqi" },
-  10050: { mainCatId: 10000, name: "აგრო ინვენტარი", link: "agro-inventari" },
+  10050: { mainCatId: 10000 },
   11050: { mainCatId: 11000 },
   // SUB CATEGORIES END
   // CATEGORIES START
@@ -424,14 +424,13 @@ export const SUB_CAT_IDS = [
   5050, 6050, 6100, 7050, 7100, 7150, 7200, 7250, 8050, 9050, 10050, 11050,
 ];
 
-const getCatType = (catId) => {
+export const getCatType = (catId) => {
   if (MAIN_CAT_IDS.includes(catId)) return "mainCat";
   if (SUB_CAT_IDS.includes(catId)) return "subCat";
   return "cat";
 };
 
 export const getBreadCrumbs = (catId) => {
-  console.time("function1");
   const catType = getCatType(catId);
   const breadCrumbs = {
     mainCat: null,
@@ -483,7 +482,6 @@ export const getBreadCrumbs = (catId) => {
       id: catId,
     };
   }
-  console.timeEnd("function1");
 
   return breadCrumbs;
 };

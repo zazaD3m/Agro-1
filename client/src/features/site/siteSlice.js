@@ -1,16 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 
-export const defaultFilter = {
-  SortId: "1",
-  SellerType: "1",
-  LocId: "1",
-  PriceFrom: "",
-  PriceTo: "",
-  Page: 1,
-  TotalCount: 2000,
-};
-
 const initialState = {
   desktopCat: false,
   mobileCat: false,
@@ -20,7 +10,7 @@ const initialState = {
     cat: null,
     title: null,
   },
-  catalogFilter: defaultFilter,
+  totalListingCount: 20,
 };
 
 const siteSlice = createSlice({
@@ -45,19 +35,8 @@ const siteSlice = createSlice({
     resetBreadcrumbs: (state) => {
       state.breadCrumbs = initialState.breadCrumbs;
     },
-    setCatalogFilter: (state, action) => {
-      state.catalogFilter = {
-        ...state.catalogFilter,
-        ...action.payload,
-      };
-    },
-    resetCatalogFilter: (state, action) => {
-      state.catalogFilter = {
-        ...initialState.catalogFilter,
-        SortId: action.payload?.keepSort
-          ? state.catalogFilter.SortId
-          : initialState.catalogFilter.SortId,
-      };
+    setTotalListingCount: (state, action) => {
+      state.totalListingCount = action.payload;
     },
   },
 });
@@ -69,8 +48,7 @@ export const {
   closeMobileCat,
   setBreadcrumbs,
   resetBreadcrumbs,
-  setCatalogFilter,
-  resetCatalogFilter,
+  setTotalListingCount,
 } = siteSlice.actions;
 
 export default siteSlice.reducer;
@@ -78,12 +56,4 @@ export default siteSlice.reducer;
 export const selectDesktopCat = (state) => state.site.desktopCat;
 export const selectMobileCat = (state) => state.site.mobileCat;
 export const selectBreadcrumbs = (state) => state.site.breadCrumbs;
-// Filters
-export const selectCatalogFilter = (state) => state.site.catalogFilter;
-export const selectSortId = (state) => state.site.catalogFilter.SortId;
-export const selectSellerType = (state) => state.site.catalogFilter.SellerType;
-export const selectLocId = (state) => state.site.catalogFilter.LocId;
-export const selectPriceFrom = (state) => state.site.catalogFilter.PriceFrom;
-export const selectPriceTo = (state) => state.site.catalogFilter.PriceTo;
-export const selectPage = (state) => state.site.catalogFilter.Page;
-export const selectTotalCount = (state) => state.site.catalogFilter.TotalCount;
+export const selectTotalListingCount = (state) => state.site.totalListingCount;

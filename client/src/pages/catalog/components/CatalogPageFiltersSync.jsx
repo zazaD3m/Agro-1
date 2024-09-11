@@ -7,10 +7,10 @@ import {
 } from "@/data/filters-data";
 import {
   defaultFilter,
-  resetCatalogFilter,
-  selectCatalogFilter,
-  setCatalogFilter,
-} from "@/features/site/siteSlice";
+  resetFilter,
+  selectFilter,
+  setFilter,
+} from "@/features/filter/filterSlice";
 import { useEffect, useRef } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
@@ -25,13 +25,13 @@ const getFilterStateFromSearchParams = (searchParams) => {
   const Page = searchParams.get("Page");
 
   if (SellerFilter.validate(SellerType)) {
-    filters.SellerType = SellerType;
+    filters.SellerType = parseInt(SellerType, 10);
   }
   if (SortFilter.validate(SortId)) {
-    filters.SortId = SortId;
+    filters.SortId = parseInt(SortId, 10);
   }
   if (LocationFilter.validate(LocId)) {
-    filters.LocId = LocId;
+    filters.LocId = parseInt(LocId, 10);
   }
   if (PriceFilter.validate(PriceFrom)) {
     filters.PriceFrom = PriceFrom;
@@ -62,7 +62,7 @@ const stateToUrl = (prev, filter, filtersState) => {
 const CatalogPageFiltersSync = () => {
   const dispatch = useDispatch();
   const { search } = useLocation();
-  const filtersState = useSelector(selectCatalogFilter);
+  const filtersState = useSelector(selectFilter);
   const isInitialRender = useRef(true);
   const oldFiltersUrl = useRef(null);
   const oldFiltersState = useRef(filtersState);
@@ -70,7 +70,7 @@ const CatalogPageFiltersSync = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(resetCatalogFilter());
+      dispatch(resetFilter());
     };
   }, []);
 
@@ -80,7 +80,7 @@ const CatalogPageFiltersSync = () => {
       if (searchParams.size !== 0) {
         if (!shallowEqual(filtersState, filtersUrl)) {
           // on initial render if there is valid filter in url assign it to redux filter state
-          dispatch(setCatalogFilter(filtersUrl));
+          dispatch(setFilter(filtersUrl));
         }
       }
       oldFiltersUrl.current = filtersUrl;
@@ -116,7 +116,7 @@ const CatalogPageFiltersSync = () => {
     if (!shallowEqual(filtersUrl, oldFiltersUrl.current)) {
       // on browser back and forward buttons takes state from url and appends syncs with redux
       // on in site navigation using Link to /catalog... takes state from empty url and basically resets redux state to default
-      dispatch(setCatalogFilter(filtersUrl));
+      dispatch(setFilter(filtersUrl));
       oldFiltersState.current = filtersUrl;
       oldFiltersUrl.current = filtersUrl;
       return;

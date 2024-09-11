@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { SellerFilter } from "@/data/filters-data";
-import { selectSellerType, setCatalogFilter } from "@/features/site/siteSlice";
+import { selectSellerType, setFilter } from "@/features/filter/filterSlice";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,7 +13,7 @@ const CatalogPageSellerType = memo(() => {
       // skip users click on the value that is already set
       return;
     }
-    dispatch(setCatalogFilter({ SellerType: id }));
+    dispatch(setFilter({ SellerType: id }));
   };
 
   return (

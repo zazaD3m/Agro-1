@@ -11,13 +11,12 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { defaultFilter, selectCatalogFilter } from "@/features/site/siteSlice";
+import { defaultFilter, selectFilter } from "@/features/filter/filterSlice";
 import CatalogPageFiltersListMobile from "./CatalogPageFiltersListMobile";
 
 const CatalogPageFiltersMobile = () => {
   const [container, setContainer] = useState(null);
-  const { SellerType, LocId, PriceFrom, PriceTo } =
-    useSelector(selectCatalogFilter);
+  const { SellerType, LocId, PriceFrom, PriceTo } = useSelector(selectFilter);
 
   let filtersListShouldRender;
   if (
@@ -33,7 +32,7 @@ const CatalogPageFiltersMobile = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="flex h-10 w-min items-center gap-x-1 text-sm font-semibold">
+        <button className="ml-auto flex h-10 w-min items-center gap-x-1 text-sm font-semibold">
           <SlidersVertical className="h-4 w-4 translate-y-0.5" />
           ფილტრი
         </button>

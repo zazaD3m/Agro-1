@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { resetCatalogFilter } from "@/features/site/siteSlice";
+import { resetFilter } from "@/features/filter/filterSlice";
 import { cn } from "@/lib/utils";
 import { Trash2 } from "lucide-react";
 import { useDispatch } from "react-redux";
@@ -20,7 +20,7 @@ const CatalogPageFiltersListReset = ({
         className,
       )}
       onClick={() => {
-        dispatch(resetCatalogFilter({ keepSort: true }));
+        dispatch(resetFilter({ keepSort: true }));
       }}
     >
       {children ? children : <Trash2 />}

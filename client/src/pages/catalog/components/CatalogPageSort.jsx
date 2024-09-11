@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   defaultFilter,
   selectSortId,
-  setCatalogFilter,
-} from "@/features/site/siteSlice";
+  setFilter,
+} from "@/features/filter/filterSlice";
 import { memo } from "react";
 
 const CatalogPageSort = memo(() => {
@@ -19,17 +19,17 @@ const CatalogPageSort = memo(() => {
   const SortId = useSelector(selectSortId);
 
   const handleSortChange = (id) => {
-    if (id === SortId) {
+    if (parseInt(id, 10) === SortId) {
       // skip users click on the value that is already set
       return;
     }
-    dispatch(setCatalogFilter({ SortId: id }));
+    dispatch(setFilter({ SortId: parseInt(id, 10) }));
   };
 
   return (
     <Select
-      defaultValue={defaultFilter.SortId}
-      value={SortId}
+      defaultValue={String(defaultFilter.SortId)}
+      value={String(SortId)}
       onValueChange={handleSortChange}
     >
       <SelectTrigger

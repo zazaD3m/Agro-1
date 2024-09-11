@@ -3,7 +3,7 @@ import { listings } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 
 const ProductPageSimilarProducts = ({ className }) => {
-  const newListings = listings();
+  const newListings = listings;
 
   return (
     <div className={cn("", className)}>

@@ -7,23 +7,18 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import {
-  selectPage,
-  selectTotalCount,
-  setCatalogFilter,
-} from "@/features/site/siteSlice";
+import { selectPage, setFilter } from "@/features/filter/filterSlice";
 import { scrollToTop } from "@/lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 
-const CatalogPagePagination = () => {
+const CatalogPagePagination = ({ totalCount = 20 }) => {
   const dispatch = useDispatch();
   const page = useSelector(selectPage) || 1;
-  const totalCount = useSelector(selectTotalCount) || 20;
   const totalPageCount = Math.ceil(totalCount / 10);
   // 10 is product per page
 
   const handlePageChange = (page) => {
-    dispatch(setCatalogFilter({ Page: page }));
+    dispatch(setFilter({ Page: page }));
     scrollToTop();
   };
 
@@ -112,9 +107,9 @@ const CatalogPagePagination = () => {
   };
 
   return (
-    <Pagination>
-      <PaginationContent className="max-[412px]:flex-wrap max-[412px]:justify-between">
-        <PaginationItem className="max-[412px]:order-1">
+    <Pagination className="max-w-[500px]">
+      <PaginationContent className="max-sm:w-full max-sm:justify-between max-xs:flex-wrap">
+        <PaginationItem className="shrink-0 max-xs:order-1">
           <PaginationPrevious
             onClick={() => {
               handlePageChange(Math.max(page - 1, 1));
@@ -124,10 +119,10 @@ const CatalogPagePagination = () => {
             className={page === 1 && "pointer-events-none opacity-50"}
           />
         </PaginationItem>
-        <div className="max-[412px]:order-0 flex h-11 items-center justify-center gap-2 rounded-md bg-background px-5 shadow-sm max-[412px]:w-full">
+        <div className="max-xs:order-0 flex h-11 items-center justify-center gap-2 rounded-md bg-background px-2 shadow-sm max-sm:w-full max-xs:w-full sm:px-5">
           {renderPageNumbers()}
         </div>
-        <PaginationItem className="max-[412px]:order-2">
+        <PaginationItem className="shrink-0 max-xs:order-2">
           <PaginationNext
             onClick={() => {
               handlePageChange(Math.min(page + 1, totalPageCount));

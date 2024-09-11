@@ -9,6 +9,7 @@ import CatalogPageFiltersSync from "./components/CatalogPageFiltersSync";
 import CatalogPageFiltersListDesktop from "./components/CatalogPageFiltersListDesktop";
 import CatalogPageFiltersListMobile from "./components/CatalogPageFiltersListMobile";
 import { useState } from "react";
+import CatalogPageViewType from "./components/CatalogPageViewType";
 
 const CatalogPage = () => {
   const [container, setContainer] = useState(null);
@@ -30,14 +31,18 @@ const CatalogPage = () => {
               <CatalogPageFilters container={container} />
             </aside>
           )}
-          <div>
+          <div className="w-full">
             <section className="mb-4 flex flex-row-reverse items-center justify-between rounded-md px-1 lg:flex-row lg:bg-background lg:p-0 lg:shadow-sm">
               {isDesktop ? (
                 <CatalogPageFiltersListDesktop />
               ) : (
-                <CatalogPageFiltersMobile />
+                <>
+                  <CatalogPageViewType isDesktop={isDesktop} />
+                  <CatalogPageFiltersMobile />
+                </>
               )}
               <CatalogPageSort />
+              {isDesktop && <CatalogPageViewType isDesktop={isDesktop} />}
             </section>
             {isMobile && <CatalogPageFiltersListMobile />}
             <section className="mb-12">

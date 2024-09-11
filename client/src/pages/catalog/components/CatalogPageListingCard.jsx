@@ -1,74 +1,133 @@
 import { cn } from "@/lib/utils";
-import { MapPin } from "lucide-react";
+import { MapPin, Store, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import { convertToEnglish } from "@/helpers/translateString";
-import CallNumberButton from "@/components/CallNumberButton";
 import FavoriteButton from "@/components/FavoriteButton";
+import { LocationFilter, SellerFilter } from "@/data/filters-data";
 
-const CatalogPageListingCard = ({ listing, isMobile, className }) => {
-  const { id, catId, mainCategory, subCategory, category, title } = listing;
-
+const CatalogPageListingCard = ({ listing, className, viewType }) => {
   return (
-    <div
+    <Link
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-md border-2 bg-background p-4 shadow-md transition-shadow hover:shadow-black/25",
-        isMobile && "h-1/2 p-2 pb-3",
+        "group flex rounded-md bg-background py-2 shadow-sm transition-shadow hover:shadow-black/25",
+        viewType === "grid" && "flex-col",
+        viewType === "list" && "h-40 flex-row sm:h-48 lg:h-56",
         className,
       )}
+      to={"/product" + listing.slug}
     >
-      <Link
+      <div
         className={cn(
-          "mb-4 flex grow flex-col",
-          isMobile && "flex-row gap-x-2",
+          "mx-2 shrink-0 overflow-hidden rounded-md",
+          viewType === "grid" && "aspect-[6/5]",
+          viewType === "list" && "aspect-square h-full",
         )}
-        to={`/product/${id}/${catId}/${mainCategory}${subCategory ? `/${subCategory}` : ""}/${category}/${convertToEnglish(title)}`}
+      >
+        <img
+          src={"/product_images/" + listing.img}
+          className={cn("size-full rounded-md border object-cover")}
+        />
+      </div>
+      <div
+        className={cn(
+          "flex grow flex-col",
+          viewType === "grid" && "",
+          viewType === "list" && "sm:flex-row",
+        )}
       >
         <div
           className={cn(
-            "w-full",
-            isMobile
-              ? "flex w-1/4 items-center"
-              : "mb-4 aspect-[3/2] overflow-hidden rounded-md",
+            "textContent flex grow flex-col px-2",
+            viewType === "grid" && "pb-2",
+            viewType === "list" && "pl-0",
+            viewType === "list" && listing.description && "justify-between",
           )}
         >
-          <img
-            src={"/product_images/" + listing.img}
+          <div
             className={cn(
-              "border object-cover",
-              isMobile ? "aspect-square rounded-md" : "size-full",
+              "",
+              viewType === "grid" && "grow pb-2 pt-1",
+              viewType === "list" && "flex flex-col overflow-hidden",
             )}
+          >
+            <h2
+              className={cn(
+                "line-clamp-3 text-sm font-semibold sm:text-base",
+                viewType === "grid" && "pb-2 pt-1",
+                viewType === "list" && "shrink-0",
+              )}
+            >
+              {listing.title}
+            </h2>
+            {viewType === "list" && listing.description && (
+              <div className="pt-2 max-sm:hidden">
+                <p className="line-clamp-3 text-xs font-light lg:text-sm">
+                  {listing.description}
+                </p>
+              </div>
+            )}
+          </div>
+          <div
+            className={cn(
+              "flex shrink-0",
+              viewType === "grid" && "flex-col gap-y-2",
+              viewType === "list" && "flex-row gap-x-2",
+              viewType === "list" && listing.description && "pt-2",
+            )}
+          >
+            <div className="flex items-start gap-x-1">
+              <MapPin size={18} strokeWidth={2} className="-ml-px opacity-60" />
+              <span className="text-xs font-light">
+                {LocationFilter.nameMap[listing.LocId]}
+              </span>
+            </div>
+            <div className="flex items-start gap-x-1">
+              {listing.SellerType === 2 ? (
+                <User size={18} strokeWidth={2} className="-ml-px opacity-60" />
+              ) : (
+                <Store
+                  size={18}
+                  strokeWidth={2}
+                  className="-ml-px opacity-60"
+                />
+              )}
+              <span className="truncate text-xs font-light">
+                {SellerFilter.nameMap[listing.SellerType]}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className={cn(
+            "flex shrink-0 items-center justify-between pt-2",
+            viewType === "grid" &&
+              "border-t px-2 xs:flex-col md:flex-row md:justify-between",
+            viewType === "list" &&
+              "flex-row pl-0 pr-2 sm:w-32 sm:flex-col sm:items-end sm:border-l lg:w-36",
+          )}
+        >
+          <p
+            className={cn(
+              "font-semibold",
+              viewType === "grid" && "text-center xs:pb-2 md:pb-0",
+              viewType === "list" && "text-start xs:text-end",
+            )}
+          >
+            {listing.price < 50 ? (
+              <span className="text-xs max-xs:truncate sm:text-sm">
+                ფასი შეთანხმებით
+              </span>
+            ) : (
+              <span className="text-sm">{listing.price}.00 ₾</span>
+            )}
+          </p>
+          <FavoriteButton
+            productId={listing.id}
+            productTitle={listing.title}
+            variant="catalogPage"
           />
         </div>
-        <div className="flex grow flex-col max-sm:w-3/4">
-          <h2 className="mb-1 line-clamp-2 pr-10 font-semibold sm:pr-0">
-            {listing.title}
-          </h2>
-          <div className="mb-2 flex grow items-start gap-x-1 opacity-60">
-            <MapPin size={18} strokeWidth={2} className="-ml-px" />
-            <span className="text-xs font-semibold">{listing.city}</span>
-          </div>
-          <p className="font-normal">
-            <span>₾ </span>
-            {listing.price}
-          </p>
-        </div>
-      </Link>
-      <div className="flex items-center justify-between rounded-full border-2 border-action p-1 font-medium">
-        <h2 className="line-clamp-1 break-words pl-2 text-sm sm:pl-1 sm:text-xs">
-          {listing.author.firstName}
-        </h2>
-        <CallNumberButton
-          phoneNumber={listing.author.phoneNumber}
-          variant="carousel"
-        />
       </div>
-      <FavoriteButton
-        productId={listing.id}
-        productTitle={listing.title}
-        variant="carousel"
-        isMobile={isMobile}
-      />
-    </div>
+    </Link>
   );
 };
 export default CatalogPageListingCard;
