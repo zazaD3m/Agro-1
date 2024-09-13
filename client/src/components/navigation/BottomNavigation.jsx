@@ -7,6 +7,7 @@ import { selectCurrentUser } from "@/features/user/userSlice";
 import ProfileSheetMobile from "./ProfileSheetMobile";
 import { memo, useState } from "react";
 import { selectMobileCat, toggleMobileCat } from "@/features/site/siteSlice";
+import FavoriteProducts from "./FavoriteProducts";
 
 const BottomNavigation = memo(() => {
   const mobileCat = useSelector(selectMobileCat);
@@ -56,11 +57,12 @@ const BottomNavigation = memo(() => {
             <span>შენახული</span>
           </button>
         </SheetTrigger>
-        <SheetContent side="bottom" className="h-full max-h-screen py-4">
-          <h2 className="mx-4 border-b-2 border-primary pb-4 text-lg font-medium">
+        <SheetContent side="bottom" className="h-full max-h-screen py-4 pl-2">
+          <h2 className="ml-2 mr-4 border-b-2 border-primary pb-4 text-lg font-medium">
             შენახული განცხადებები
           </h2>
           <SheetClose className="right-3 top-3 size-10 p-2" />
+          <FavoriteProducts />
         </SheetContent>
       </Sheet>
       {userInfo ? (

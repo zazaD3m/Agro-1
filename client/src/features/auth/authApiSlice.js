@@ -69,18 +69,18 @@ const authApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...userInput },
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        try {
-          const res = await queryFulfilled;
-          const { accessToken } = res.data;
-          dispatch(setToken({ accessToken }));
-          dispatch(userApiSlice.endpoints.getMe.initiate());
-        } catch (err) {
-          console.log("devErr:", err);
-          dispatch(clearToken());
-          dispatch(clearUser());
-        }
-      },
+      // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      //   try {
+      //     const res = await queryFulfilled;
+      //     const { accessToken } = res.data;
+      //     dispatch(setToken({ accessToken }));
+      //     dispatch(userApiSlice.endpoints.getMe.initiate());
+      //   } catch (err) {
+      //     console.log("devErr:", err);
+      //     dispatch(clearToken());
+      //     dispatch(clearUser());
+      //   }
+      // },
     }),
     updateUser: builder.mutation({
       query: (userInput) => ({

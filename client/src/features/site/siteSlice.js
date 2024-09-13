@@ -4,13 +4,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   desktopCat: false,
   mobileCat: false,
+  desktopFavoritesModal: false,
+  mobileFavoritesModal: false,
   breadCrumbs: {
     mainCat: null,
     subCat: null,
     cat: null,
     title: null,
   },
-  totalListingCount: 20,
+  totalProductCount: 20,
 };
 
 const siteSlice = createSlice({
@@ -22,6 +24,18 @@ const siteSlice = createSlice({
     },
     closeDesktopCat: (state) => {
       state.desktopCat = false;
+    },
+    toggleDesktopFavoritesModal: (state) => {
+      state.desktopFavoritesModal = !state.desktopFavoritesModal;
+    },
+    closeDesktopFavoritesModal: (state) => {
+      state.desktopFavoritesModal = false;
+    },
+    toggleMobileFavoritesModal: (state) => {
+      state.mobileFavoritesModal = !state.mobileFavoritesModal;
+    },
+    closeMobileFavoritesModal: (state) => {
+      state.mobileFavoritesModal = false;
     },
     toggleMobileCat: (state) => {
       state.mobileCat = !state.mobileCat;
@@ -35,8 +49,8 @@ const siteSlice = createSlice({
     resetBreadcrumbs: (state) => {
       state.breadCrumbs = initialState.breadCrumbs;
     },
-    setTotalListingCount: (state, action) => {
-      state.totalListingCount = action.payload;
+    setTotalProductCount: (state, action) => {
+      state.totalProductCount = action.payload;
     },
   },
 });
@@ -46,14 +60,22 @@ export const {
   closeDesktopCat,
   toggleMobileCat,
   closeMobileCat,
+  toggleDesktopFavoritesModal,
+  closeDesktopFavoritesModal,
+  toggleMobileFavoritesModal,
+  closeMobileFavoritesModal,
   setBreadcrumbs,
   resetBreadcrumbs,
-  setTotalListingCount,
+  setTotalProductCount,
 } = siteSlice.actions;
 
 export default siteSlice.reducer;
 
 export const selectDesktopCat = (state) => state.site.desktopCat;
 export const selectMobileCat = (state) => state.site.mobileCat;
+export const selectDesktopFavoritesModal = (state) =>
+  state.site.desktopFavoritesModal;
+export const selectMobileFavoritesModal = (state) =>
+  state.site.mobileFavoritesModal;
 export const selectBreadcrumbs = (state) => state.site.breadCrumbs;
-export const selectTotalListingCount = (state) => state.site.totalListingCount;
+export const selectTotalProductCount = (state) => state.site.totalProductCount;

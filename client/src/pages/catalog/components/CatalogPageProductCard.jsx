@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import FavoriteButton from "@/components/FavoriteButton";
 import { LocationFilter, SellerFilter } from "@/data/filters-data";
 
-const CatalogPageListingCard = ({ listing, className, viewType }) => {
+const CatalogPageProductCard = ({ product, className, viewType }) => {
   return (
     <Link
       className={cn(
@@ -13,7 +13,7 @@ const CatalogPageListingCard = ({ listing, className, viewType }) => {
         viewType === "list" && "h-40 flex-row sm:h-48 lg:h-56",
         className,
       )}
-      to={"/product" + listing.slug}
+      to={"/product" + product.slug}
     >
       <div
         className={cn(
@@ -23,7 +23,7 @@ const CatalogPageListingCard = ({ listing, className, viewType }) => {
         )}
       >
         <img
-          src={"/product_images/" + listing.img}
+          src={"/product_images/" + product.img}
           className={cn("size-full rounded-md border object-cover")}
         />
       </div>
@@ -39,7 +39,7 @@ const CatalogPageListingCard = ({ listing, className, viewType }) => {
             "textContent flex grow flex-col px-2",
             viewType === "grid" && "pb-2",
             viewType === "list" && "pl-0",
-            viewType === "list" && listing.description && "justify-between",
+            viewType === "list" && product.description && "justify-between",
           )}
         >
           <div
@@ -56,12 +56,12 @@ const CatalogPageListingCard = ({ listing, className, viewType }) => {
                 viewType === "list" && "shrink-0",
               )}
             >
-              {listing.title}
+              {product.title}
             </h2>
-            {viewType === "list" && listing.description && (
+            {viewType === "list" && product.description && (
               <div className="pt-2 max-sm:hidden">
                 <p className="line-clamp-3 text-xs font-light lg:text-sm">
-                  {listing.description}
+                  {product.description}
                 </p>
               </div>
             )}
@@ -71,17 +71,17 @@ const CatalogPageListingCard = ({ listing, className, viewType }) => {
               "flex shrink-0",
               viewType === "grid" && "flex-col gap-y-2",
               viewType === "list" && "flex-row gap-x-2",
-              viewType === "list" && listing.description && "pt-2",
+              viewType === "list" && product.description && "pt-2",
             )}
           >
             <div className="flex items-start gap-x-1">
               <MapPin size={18} strokeWidth={2} className="-ml-px opacity-60" />
               <span className="text-xs font-light">
-                {LocationFilter.nameMap[listing.LocId]}
+                {LocationFilter.nameMap[product.LocId]}
               </span>
             </div>
             <div className="flex items-start gap-x-1">
-              {listing.SellerType === 2 ? (
+              {product.SellerType === 2 ? (
                 <User size={18} strokeWidth={2} className="-ml-px opacity-60" />
               ) : (
                 <Store
@@ -91,7 +91,7 @@ const CatalogPageListingCard = ({ listing, className, viewType }) => {
                 />
               )}
               <span className="truncate text-xs font-light">
-                {SellerFilter.nameMap[listing.SellerType]}
+                {SellerFilter.nameMap[product.SellerType]}
               </span>
             </div>
           </div>
@@ -112,17 +112,17 @@ const CatalogPageListingCard = ({ listing, className, viewType }) => {
               viewType === "list" && "text-start xs:text-end",
             )}
           >
-            {listing.price < 50 ? (
+            {product.price < 50 ? (
               <span className="text-xs max-xs:truncate sm:text-sm">
                 ფასი შეთანხმებით
               </span>
             ) : (
-              <span className="text-sm">{listing.price}.00 ₾</span>
+              <span className="text-sm">{product.price}.00 ₾</span>
             )}
           </p>
           <FavoriteButton
-            productId={listing.id}
-            productTitle={listing.title}
+            productId={product.id}
+            productTitle={product.title}
             variant="catalogPage"
           />
         </div>
@@ -130,4 +130,4 @@ const CatalogPageListingCard = ({ listing, className, viewType }) => {
     </Link>
   );
 };
-export default CatalogPageListingCard;
+export default CatalogPageProductCard;

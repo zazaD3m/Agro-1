@@ -16,6 +16,7 @@ import { Icons } from "../icons";
 import { useLogoutMutation } from "@/features/auth/authApiSlice";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import { memo } from "react";
+import FavoriteProducts from "./FavoriteProducts";
 
 const HeaderDesktopBottom = memo(() => {
   const userInfo = useSelector(selectCurrentUser);
@@ -49,11 +50,12 @@ const HeaderDesktopBottom = memo(() => {
               <Heart />
             </Button>
           </SheetTrigger>
-          <SheetContent className="max-w-sm p-6">
-            <h2 className="cursor-default border-b-2 border-primary pb-2 text-lg">
+          <SheetContent className="max-w-[400px] p-6 pr-0">
+            <h2 className="mr-6 cursor-default border-b-2 border-primary pb-2 text-lg">
               შენახული განცხადებები
             </h2>
             <SheetClose />
+            <FavoriteProducts />
           </SheetContent>
         </Sheet>
         {userInfo ? (

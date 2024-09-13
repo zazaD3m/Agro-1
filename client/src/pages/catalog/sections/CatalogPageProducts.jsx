@@ -1,5 +1,5 @@
-import { listings } from "@/constants/constants";
-import CatalogPageListingCard from "../components/CatalogPageListingCard";
+import { products } from "@/constants/constants";
+import CatalogPageProductCard from "../components/CatalogPageProductCard";
 import { memo } from "react";
 import { useSelector } from "react-redux";
 import { selectFilter } from "@/features/filter/filterSlice";
@@ -13,13 +13,13 @@ const CatalogPageProducts = memo(() => {
   const { isMobile, isDesktop } = useWindowSize();
   const { SellerType, PriceFrom, PriceTo, LocId, SortId } =
     useSelector(selectFilter);
-  // const totalListingCount = useSelector(selectTotalListingCount);
+  // const totalProductCount = useSelector(selectTotalProductCount);
   const { catId } = useParams();
   const viewType = useSelector(selectCatalogViewType);
 
   let catType = catId ? getCatType(Number(catId)) : null;
 
-  const filteredListings = listings
+  const filteredProducts = products
     .filter((l) => {
       if (catType === "mainCat" && l.MainCatId !== Number(catId)) {
         return false;
@@ -61,12 +61,12 @@ const CatalogPageProducts = memo(() => {
         viewType === "list" && "gap-y-2 sm:gap-y-4",
       )}
     >
-      {filteredListings.map((l) => (
-        <CatalogPageListingCard
+      {filteredProducts.map((l) => (
+        <CatalogPageProductCard
           key={l.id}
           isMobile={isMobile}
           isDesktop={isDesktop}
-          listing={l}
+          product={l}
           viewType={viewType}
         />
       ))}

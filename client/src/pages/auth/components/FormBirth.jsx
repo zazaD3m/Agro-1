@@ -18,6 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { BIRTH_YEARS } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
@@ -59,31 +60,35 @@ const FormBirth = ({ control, setValue }) => {
                   return 0;
                 }}
               >
-                <CommandInput />
                 <CommandList>
+                  <CommandInput />
                   <CommandGroup>
-                    {BIRTH_YEARS.map((year) => (
-                      <CommandItem
-                        value={year}
-                        key={year}
-                        onSelect={() => {
-                          if (field?.value === year) {
-                            setValue("birthYear", "");
-                          } else {
-                            setValue("birthYear", year);
-                            setOpen(false);
-                          }
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            year === field.value ? "opacity-100" : "opacity-0",
-                          )}
-                        />
-                        {year}
-                      </CommandItem>
-                    ))}
+                    <ScrollArea className="h-[255px]">
+                      {BIRTH_YEARS.map((year) => (
+                        <CommandItem
+                          value={year}
+                          key={year}
+                          onSelect={() => {
+                            if (field?.value === year) {
+                              setValue("birthYear", "");
+                            } else {
+                              setValue("birthYear", year);
+                              setOpen(false);
+                            }
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              year === field.value
+                                ? "opacity-100"
+                                : "opacity-0",
+                            )}
+                          />
+                          {year}
+                        </CommandItem>
+                      ))}
+                    </ScrollArea>
                   </CommandGroup>
                 </CommandList>
               </Command>

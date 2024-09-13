@@ -31,8 +31,8 @@ const SellerFilter = {
   options: [1, 2, 3],
   nameMap: {
     1: "ყველა",
-    2: "ფიზიკური პირი",
-    3: "მაღაზია",
+    2: "მაღაზია",
+    3: "ფიზიკური პირი",
   },
   validate: function (input) {
     const val = parseInt(input, 10);

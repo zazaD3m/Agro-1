@@ -1,12 +1,12 @@
-import ListingsCarousel from "@/components/ListingsCarousel";
-import { listings } from "@/constants/constants";
+import ProductsCarousel from "@/components/ProductsCarousel";
+import { products } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 
 const HomePageFeaturedProducts = ({ className }) => {
-  const newListings = listings;
+  const newProducts = products;
   return (
     <div className={cn("", className)}>
-      <ListingsCarousel listings={newListings} title={"რჩეული განცხადებები"} />
+      <ProductsCarousel products={newProducts} title={"რჩეული განცხადებები"} />
     </div>
   );
 };

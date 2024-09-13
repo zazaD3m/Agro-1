@@ -31,7 +31,7 @@ const LoginForm = () => {
 
   const form = useForm({
     defaultValues: {
-      password: "",
+      password: state?.password || "",
       email: state?.email || "",
     },
     resolver: yupResolver(loginSchema),
@@ -54,6 +54,15 @@ const LoginForm = () => {
 
   return (
     <Form {...form}>
+      {state?.isRegisterSuccess ? (
+        <div>
+          <p className="text-primary-light">
+            რეგისტრაცია წარმატებულია.
+            <br />
+            გთხოვთ შეხვიდეთ თქვენს ანგარისში
+          </p>
+        </div>
+      ) : null}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <FormText
           control={control}

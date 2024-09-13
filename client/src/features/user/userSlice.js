@@ -30,4 +30,4 @@ export const { setUser, clearUser, addToFavorites, removeFromFavorites } =
 export default userSlice.reducer;
 
 export const selectCurrentUser = (state) => state.user.userInfo;
-export const selectFavoriteListings = (state) => state.user.favorites;
+export const selectFavoriteProducts = (state) => state.user.favorites;

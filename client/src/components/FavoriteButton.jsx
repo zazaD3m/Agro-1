@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addToFavorites,
   removeFromFavorites,
-  selectFavoriteListings,
+  selectFavoriteProducts,
 } from "@/features/user/userSlice";
 import { Heart } from "lucide-react";
-import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 
 const FavoriteButton = ({
@@ -17,8 +16,8 @@ const FavoriteButton = ({
 }) => {
   const { toast } = useToast();
   const dispatch = useDispatch();
-  const favoriteListings = useSelector(selectFavoriteListings);
-  const isFavorite = favoriteListings.includes(productId);
+  const favoriteProducts = useSelector(selectFavoriteProducts);
+  const isFavorite = favoriteProducts.includes(productId);
 
   const handleFavoriteToggle = (e) => {
     e.preventDefault();

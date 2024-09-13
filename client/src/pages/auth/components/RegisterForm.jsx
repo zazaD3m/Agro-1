@@ -10,6 +10,7 @@ import FormBirth from "./FormBirth";
 import { BIRTH_YEARS } from "@/constants/constants";
 import FormGender from "./FormGender";
 import FormCheckbox from "./FormCheckbox";
+import { useNavigate } from "react-router-dom";
 
 const registerSchema = yup.object({
   password: yup
@@ -19,7 +20,7 @@ const registerSchema = yup.object({
     .matches(/[0-9]/, "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს და ციფრ(ებ)ს")
     .matches(
       /[a-zA-Z]/,
-      "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს და ციფრ(ებ)ს",
+      "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს და ასო(ებ)ს",
     ),
   confirmPassword: yup
     .string()
@@ -34,7 +35,9 @@ const registerSchema = yup.object({
   gender: yup.mixed().oneOf(["მდედრობითი", "მამრობითი"], "აირჩიე სქესი"),
   birthYear: yup.mixed().oneOf(BIRTH_YEARS, "აირჩიე დაბადების წელი"),
   phoneNumber: yup
-    .number()
+    .string()
+    .matches(/^[0-9]+$/, "უნდა შეიცავდეს მხოლოდ ციფრებს")
+    .length(9, "უნდა იყოს 9 ციფრი")
     .typeError("ჩაწერე ტელეფონის ნომერი")
     .required("ჩაწერე ტელეფონის ნომერი"),
   agreeTerms: yup
@@ -44,7 +47,8 @@ const registerSchema = yup.object({
 });
 
 const RegisterForm = () => {
-  const [registerMutation, { isError, error, isLoading }] =
+  const navigate = useNavigate();
+  const [registerMutation, { isError, error, isLoading, isSuccess }] =
     useRegisterMutation();
 
   const form = useForm({
@@ -65,10 +69,10 @@ const RegisterForm = () => {
     reValidateMode: "onSubmit",
   });
 
-  const { handleSubmit, control, setError, setValue } = form;
+  const { handleSubmit, control, setError, setValue, getValues } = form;
 
   const onSubmit = (data) => {
-    registerMutation(data);
+    registerMutation({ ...data, phoneNumber: parseInt(data.phoneNumber) });
   };
 
   useEffect(() => {
@@ -86,8 +90,23 @@ const RegisterForm = () => {
         );
       }
     }
+    if (isSuccess) {
+      const { email, password } = getValues();
+      console.log({
+        isRegisterSuccess: true,
+        email: email,
+        password: password,
+      });
+      navigate("/auth/login", {
+        state: {
+          isRegisterSuccess: true,
+          email: email,
+          password: password,
+        },
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError]);
+  }, [isError, isSuccess]);
 
   return (
     <Form {...form}>
@@ -134,7 +153,10 @@ const RegisterForm = () => {
           control={control}
           name="phoneNumber"
           label="ტელეფონის ნომერი"
-          type="number"
+          type="text"
+          inputMode="numeric"
+          maxLength="9"
+          placeholder="xxx-xx-xx-xx"
           isLoading={isLoading}
         />
         <FormCheckbox

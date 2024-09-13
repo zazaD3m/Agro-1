@@ -50,8 +50,8 @@ export const registerValidator = [
     .trim()
     .escape()
     .isIn(["მდედრობითი", "მამრობითი"]),
-  body("birthYear").notEmpty().trim().escape().isNumeric(),
-  body("phoneNumber").notEmpty().trim().escape().isNumeric(),
+  body("birthYear").notEmpty().isInt(),
+  body("phoneNumber").notEmpty().isInt(),
   body("agreeTerms").isIn([true, false]),
   body("agreePrivacyPolicy").isIn([true, false]),
   checkExact(),
@@ -79,8 +79,8 @@ export const updateUserValidator = [
     .trim()
     .escape()
     .isIn(["მდედრობითი", "მამრობითი"]),
-  body("birthYear").notEmpty().trim().escape().isNumeric(),
-  body("phoneNumber").notEmpty().trim().escape().isNumeric(),
+  body("birthYear").notEmpty().isInt(),
+  body("phoneNumber").notEmpty().isInt(),
   checkExact(),
 ];
 

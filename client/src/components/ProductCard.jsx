@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
 import { LocationFilter, SellerFilter } from "@/data/filters-data";
 
-const ListingCard = ({ listing, isMobile, className }) => {
-  const { slug } = listing;
+const ProductCard = ({ product, isMobile, className }) => {
+  const { slug } = product;
 
   return (
     <div
@@ -28,7 +28,7 @@ const ListingCard = ({ listing, isMobile, className }) => {
           )}
         >
           <img
-            src={"/product_images/" + listing.img}
+            src={"/product_images/" + product.img}
             className={cn(
               "border object-cover",
               isMobile ? "aspect-square rounded-md" : "size-full",
@@ -37,39 +37,39 @@ const ListingCard = ({ listing, isMobile, className }) => {
         </div>
         <div className="flex grow flex-col max-sm:w-2/3">
           <h2 className="mb-1 line-clamp-2 pr-4 font-semibold sm:line-clamp-3 sm:pr-0">
-            {listing.title}
+            {product.title}
           </h2>
           <div className="mb-2 flex items-end gap-x-1 opacity-60">
             <MapPin size={18} strokeWidth={2} className="-ml-px" />
             <span className="text-xs font-semibold">
-              {LocationFilter.nameMap[listing.LocId]}
+              {LocationFilter.nameMap[product.LocId]}
             </span>
           </div>
           <div className="mb-2 flex items-end gap-x-1 opacity-60">
-            {listing.SellerType === 2 ? (
+            {product.SellerType === 2 ? (
               <User size={18} strokeWidth={2} className="-ml-px" />
             ) : (
               <Store size={18} strokeWidth={2} className="-ml-px" />
             )}
             <span className="text-xs font-semibold">
-              {SellerFilter.nameMap[listing.SellerType]}
+              {SellerFilter.nameMap[product.SellerType]}
             </span>
           </div>
         </div>
       </Link>
       <div className="flex items-center justify-between">
         <p className="font-normal">
-          {listing.price < 50 ? (
+          {product.price < 50 ? (
             <span className="text-sm max-xs:truncate sm:text-sm">
               ფასი შეთანხმებით
             </span>
           ) : (
-            <span className="">{listing.price}.00 ₾</span>
+            <span className="">{product.price}.00 ₾</span>
           )}
         </p>
         <FavoriteButton
-          productId={listing.id}
-          productTitle={listing.title}
+          productId={product.id}
+          productTitle={product.title}
           variant="carousel"
           isMobile={isMobile}
         />
@@ -77,4 +77,4 @@ const ListingCard = ({ listing, isMobile, className }) => {
     </div>
   );
 };
-export default ListingCard;
+export default ProductCard;

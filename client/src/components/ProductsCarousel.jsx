@@ -1,5 +1,5 @@
 import useWindowSize from "@/hooks/useWindowSize";
-import ListingCard from "./ListingCard";
+import ProductCard from "./ProductCard";
 import {
   Carousel,
   CarouselContent,
@@ -10,7 +10,7 @@ import {
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
-const ListingsCarousel = ({ listings, title, showAllListings = true }) => {
+const ProductsCarousel = ({ products, title, showAllProducts = true }) => {
   const { width } = useWindowSize();
   const isMobile = width < 640 || false;
 
@@ -25,32 +25,32 @@ const ListingsCarousel = ({ listings, title, showAllListings = true }) => {
       </div>
       <CarouselContent className="-ml-4">
         {isMobile
-          ? listings.map((listing, i) =>
+          ? products.map((product, i) =>
               i % 2 === 0 ? (
                 <CarouselItem
                   key={i}
                   className="mb-4 basis-11/12 space-y-4 py-1 pl-4 transition-all"
                 >
-                  <ListingCard isMobile={isMobile} listing={listing} />
-                  {listings[i + 1] && (
-                    <ListingCard
+                  <ProductCard isMobile={isMobile} product={product} />
+                  {products[i + 1] && (
+                    <ProductCard
                       isMobile={isMobile}
-                      listing={listings[i + 1]}
+                      product={products[i + 1]}
                     />
                   )}
                 </CarouselItem>
               ) : null,
             )
-          : listings.map((listing, i) => (
+          : products.map((product, i) => (
               <CarouselItem
                 key={i}
                 className="basis-1/2 py-1 pl-4 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
               >
-                <ListingCard listing={listing} />
+                <ProductCard product={product} />
               </CarouselItem>
             ))}
       </CarouselContent>
-      {showAllListings && (
+      {showAllProducts && (
         <div className="mx-auto w-min pt-8">
           <Button
             asChild
@@ -65,4 +65,4 @@ const ListingsCarousel = ({ listings, title, showAllListings = true }) => {
     </Carousel>
   );
 };
-export default ListingsCarousel;
+export default ProductsCarousel;

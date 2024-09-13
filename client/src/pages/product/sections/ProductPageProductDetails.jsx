@@ -1,6 +1,6 @@
 import CallNumberButton from "@/components/CallNumberButton";
 import FavoriteButton from "@/components/FavoriteButton";
-import { listings } from "@/constants/constants";
+import { products } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Clock, Eye, MapPin, Store, User } from "lucide-react";
@@ -11,7 +11,7 @@ import { LocationFilter, SellerFilter } from "@/data/filters-data";
 const ProductPageProductDetails = ({ className }) => {
   let { productId } = useParams();
 
-  const product = listings.find((listing) => listing.id == productId);
+  const product = products.find((product) => product.id == productId);
 
   return (
     <section
