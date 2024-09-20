@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import HeaderSearch from "./HeaderSearch";
 import { Button } from "../ui/button";
 import CategoriesDesktopWrapper from "./CategoriesDesktopWrapper";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/userSlice";
-import { Heart, LogOut, ScrollText, Settings, User } from "lucide-react";
+import { Heart, LogOut, ScrollText, Settings } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -21,6 +21,17 @@ import FavoriteProducts from "./FavoriteProducts";
 const HeaderDesktopBottom = memo(() => {
   const userInfo = useSelector(selectCurrentUser);
   const [logout] = useLogoutMutation();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (pathname.split("/")[1] === "account") {
+      navigate("/");
+    }
+    logout();
+  };
 
   return (
     <div className="container flex h-20 gap-x-4 px-4 xl:gap-x-8">
@@ -80,15 +91,6 @@ const HeaderDesktopBottom = memo(() => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    to="account"
-                    className="flex w-full items-center justify-start gap-x-4 px-4 py-2"
-                  >
-                    <User size="16" strokeWidth="1.5" />
-                    <span>პროფილი</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link
                     to="account/my-products"
                     className="flex w-full items-center justify-start gap-x-4 px-4 py-2"
                   >
@@ -98,7 +100,7 @@ const HeaderDesktopBottom = memo(() => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    to="account/edit"
+                    to="account/edit/info"
                     className="flex w-full items-center justify-start gap-x-4 px-4 py-2"
                   >
                     <Settings size="16" strokeWidth="1.5" />
@@ -109,11 +111,7 @@ const HeaderDesktopBottom = memo(() => {
                 <DropdownMenuItem>
                   <button
                     className="flex w-full items-center justify-start gap-x-4 px-4 py-4"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      logout();
-                    }}
+                    onClick={handleLogout}
                   >
                     <LogOut size="16" strokeWidth="1.5" />
                     <span>გასვლა</span>

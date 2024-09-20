@@ -14,7 +14,6 @@ import { useLayoutEffect } from "react";
 const ImageGalleryZommedIn = ({ showModal, setShowModal, title, images }) => {
   useLayoutEffect(() => {
     const handleBackButton = () => {
-      console.log("asjldfhlaskjdf");
       setShowModal(false);
     };
     window.addEventListener("popstate", handleBackButton, false);

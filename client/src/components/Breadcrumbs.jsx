@@ -38,18 +38,54 @@ const Breadcrumbs = memo(() => {
     }
   }, [catId, dispatch]);
 
-  const allowedPagesForBreadCrumbs = ["catalog", "product"];
+  const allowedPagesForBreadCrumbs = ["catalog", "product", "account"];
   const shouldBreadCrumbsRender = allowedPagesForBreadCrumbs.some(
     (page) => pathname.split("/")[1] === page,
   );
 
   if (!shouldBreadCrumbsRender) return null;
 
+  let accountCurrentPage = null;
+
+  if (pathname.split("/")[1] === "account") {
+    const currPage = pathname.split("/")[2];
+
+    if (!currPage) {
+      return null;
+    } else if (currPage === "my-products") {
+      accountCurrentPage = "ჩემი განცხადებები";
+    } else if (currPage === "add-new-product") {
+      accountCurrentPage = "განცხადების დამატება";
+    } else if (currPage === "edit") {
+      accountCurrentPage = "ანგარიშის რედაქტირება";
+    } else {
+      return null;
+    }
+  }
+
   const title = catId
     ? `იყიდება ${productTitle ? convertToGeorgian(productTitle) : cat ? cat.name : subCat ? subCat.name : mainCat && mainCat.name}`
     : "აგრო საქონლის კატალოგი";
 
-  return (
+  return accountCurrentPage ? (
+    <div className="-mt-2 flex min-h-12 items-center bg-gradient-to-r from-primary-light to-primary pb-2 pt-4 lg:block lg:pt-[20px]">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link className="underline-offset-2 hover:underline" to="/">
+                მთავარი
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{accountCurrentPage}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    </div>
+  ) : (
     <>
       <Seo title={title} />
       <div className="-mt-2 flex min-h-12 items-center bg-gradient-to-r from-primary-light to-primary pb-2 pt-4 lg:block lg:pt-[20px]">

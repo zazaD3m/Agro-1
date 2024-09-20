@@ -9,6 +9,9 @@ import {
   sendEmail,
   resetPasswordCheck,
   resetPassword,
+  updateUserPassword,
+  addPasswordToSocialAccount,
+  deleteUser,
 } from "../controllers/authController.js";
 import { authenticateUser } from "../middleware/authMiddleware.js";
 import {
@@ -18,6 +21,9 @@ import {
   sendResetPasswordEmailValidator,
   resetPasswordValidator,
   resetPasswordCheckValidator,
+  updateUserPasswordValidator,
+  addUserPasswordValidator,
+  deleteUserValidator,
 } from "../validations/authValidation.js";
 import {
   validate,
@@ -43,6 +49,20 @@ router.put(
   updateUserProfile
 );
 
+router.put(
+  "/update-password",
+  authenticateUser,
+  [updateUserPasswordValidator, validate],
+  updateUserPassword
+);
+
+router.put(
+  "/add-password",
+  authenticateUser,
+  [addUserPasswordValidator, validate],
+  addPasswordToSocialAccount
+);
+
 router.get("/refresh-token", refreshToken);
 
 // @desc Create and send email to use for reseting password
@@ -63,6 +83,13 @@ router.post(
   "/forgot-password/reset-password",
   [resetPasswordValidator, validate],
   resetPassword
+);
+
+router.delete(
+  "/deactivate",
+  authenticateUser,
+  [deleteUserValidator, validate],
+  deleteUser
 );
 
 export default router;

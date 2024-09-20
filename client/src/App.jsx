@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
   RouterProvider,
 } from "react-router-dom";
@@ -22,21 +23,19 @@ import RejectAuthenticatedUser from "./components/RejectAuthenticatedUser";
 // LAYOUTS START
 import RootLayout from "./components/layout/RootLayout";
 import AuthLayout from "./components/layout/AuthLayout";
+import AccountLayout from "./pages/account/AccountLayout";
 // LAYOUTS END
 
 // PAGES START
 const HomePage = lazy(() => import("./pages/home/HomePage"));
 const CatalogPage = lazy(() => import("./pages/catalog/CatalogPage"));
-const AccountPage = lazy(() => import("./pages/account/AccountPage"));
 const ProductPage = lazy(() => import("./pages/product/ProductPage"));
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
-import AccountLayout from "./components/layout/AccountLayout";
 import PrivateRoute from "./components/PrivateRoute";
 import MyProductsPage from "./pages/account/MyProductsPage";
-import EditAccountPage from "./pages/account/EditAccountPage";
 import AddNewProductPage from "./pages/account/AddNewProductPage";
 // PAGES END
 
@@ -50,6 +49,10 @@ import Faq from "./pages/siteinfo/Faq";
 
 // BLOG START
 import BlogPage from "./pages/blog/BlogPage";
+import EditAccountLayout from "./pages/account/EditAccountLayout";
+import EditPassword from "./pages/account/EditPassword";
+import DeactivateAccount from "./pages/account/DeactivateAccount";
+import EditAccountInfo from "./pages/account/EditAccountInfo";
 // BLOG END
 
 const router = createBrowserRouter(
@@ -88,19 +91,15 @@ const router = createBrowserRouter(
         {/* == PRODUCT PATHS END */}
         {/* == ACCOUNT PATHS START */}
         <Route element={<PrivateRoute />}>
-          <Route element={<AccountLayout />}>
-            <Route path="account">
-              <Route
-                index
-                element={
-                  <Suspense fallback={<FullScreenLoader />}>
-                    <AccountPage />
-                  </Suspense>
-                }
-              />
-              <Route path="my-products" element={<MyProductsPage />} />
-              <Route path="edit" element={<EditAccountPage />} />
-              <Route path="add-new-product" element={<AddNewProductPage />} />
+          <Route path="account" element={<AccountLayout />}>
+            <Route index element={<Navigate to="my-products" replace />} />
+            <Route path="add-new-product" element={<AddNewProductPage />} />
+            <Route path="my-products" element={<MyProductsPage />} />
+            <Route path="edit" element={<EditAccountLayout />}>
+              <Route index element={<Navigate to="info" replace />} />
+              <Route path="info" element={<EditAccountInfo />} />
+              <Route path="password" element={<EditPassword />} />
+              <Route path="deactivate" element={<DeactivateAccount />} />
             </Route>
           </Route>
         </Route>
@@ -122,12 +121,13 @@ const router = createBrowserRouter(
       </Route>
       {/* == AUTH PATHS START */}
       <Route element={<RejectAuthenticatedUser />}>
-        <Route element={<AuthLayout />}>
-          <Route path="auth/login" element={<LoginPage />} />
-          <Route path="auth/register" element={<RegisterPage />} />
-          <Route path="auth/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="auth" element={<AuthLayout />}>
+          <Route index element={<Navigate to="login" replace />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route
-            path="auth/reset-password/:resetToken"
+            path="reset-password/:resetToken"
             element={<ResetPasswordPage />}
           />
         </Route>

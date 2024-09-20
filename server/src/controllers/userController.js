@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import { ThrowErr } from "../utils/CustomError.js";
+import mongoose from "mongoose";
+import { removeKeysFromDocument } from "../utils/helpers.js";
 
 // @desc Get all users
 // route GET /api/users/
@@ -19,13 +21,16 @@ export const getMe = asyncHandler(async (req, res) => {
     ThrowErr.ServerError();
   }
 
-  delete req.user.password;
-  delete req.user.role;
-  delete req.user.isBlocked;
-  delete req.user.agreeTerms;
-  delete req.user.__v;
+  const keysToRemove = [
+    "isBlocked",
+    "password",
+    "__v",
+    "googleId",
+    "facebookId",
+  ];
+  const user = removeKeysFromDocument(req.user, keysToRemove);
 
-  res.status(200).json({ userInfo: req.user });
+  res.status(200).json({ userInfo: user });
 });
 
 /** ===  WISHLIST START === */

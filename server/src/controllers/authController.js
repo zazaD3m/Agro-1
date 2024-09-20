@@ -14,9 +14,9 @@ import { REFRESH_TOKEN_SECRET } from "../config/config.js";
 // route    POST /api/auth/register
 // @access  Public //
 export const registerUser = asyncHandler(async (req, res) => {
-  const inputData = req.body;
+  const data = req.body;
 
-  const newUser = await User.create({ ...inputData, loginStrategy: ["local"] });
+  const newUser = await User.create({ ...data, loginStrategy: ["local"] });
 
   if (!newUser) {
     ThrowErr.ServerError();
@@ -87,29 +87,68 @@ export const logoutUser = asyncHandler(async (req, res) => {
 // @access  Private //
 export const updateUserProfile = asyncHandler(async (req, res) => {
   const user = req.user;
-  const newUser = req.body;
+  const inputData = req.body;
 
-  if (!(await user.matchPassword(newUser.password))) {
-    ThrowErr.BadRequest("Wrong Password");
+  if (!(await user.matchPassword(inputData.password))) {
+    ThrowErr.BadRequest("wrong password");
   }
+  delete inputData.password;
 
-  if (newUser.newPassword) {
-    user.password = newUser.newPassword;
-    delete newUser.newPassword;
-    delete newUser.password;
-  }
-
-  for (const key in newUser) {
-    if (user[key] !== newUser[key]) {
-      user[key] = newUser[key];
+  for (const key in inputData) {
+    if (user[key] !== inputData[key]) {
+      user[key] = inputData[key];
     }
   }
 
   const updatedUser = await user.save();
 
-  const formatedUser = formatUserInfo(updatedUser);
+  if (!updatedUser) {
+    ThrowErr.ServerError();
+  }
 
-  return res.status(201).json(formatedUser);
+  return res.status(201).json({ message: "success" });
+});
+
+// @desc    Update user password
+// route    PUT /api/auth/update-password
+// @access  Private //
+export const updateUserPassword = asyncHandler(async (req, res) => {
+  const user = req.user;
+  const currPassword = req.body.password;
+  const newPassword = req.body.newPassword;
+
+  if (!(await user.matchPassword(currPassword))) {
+    ThrowErr.BadRequest("Wrong Password");
+  }
+
+  user.password = newPassword;
+
+  const updatedUser = await user.save();
+
+  if (!updatedUser) {
+    ThrowErr.ServerError();
+  }
+
+  return res.status(201).json({ message: "success" });
+});
+
+// @desc    Add user password
+// route    PUT /api/auth/add-password
+// @access  Private //
+export const addPasswordToSocialAccount = asyncHandler(async (req, res) => {
+  const user = req.user;
+  const { password } = req.body;
+
+  user.password = password;
+  user.loginStrategy = [...user.loginStrategy, "local"];
+
+  const updatedUser = await user.save();
+
+  if (!updatedUser) {
+    ThrowErr.ServerError();
+  }
+
+  return res.status(201).json({ message: "success" });
 });
 
 // @desc    Refresh accessToken
@@ -182,6 +221,9 @@ export const resetPassword = asyncHandler(async (req, res) => {
 
   user.password = newPassword;
   user.resetPasswordToken = undefined;
+  if (!user.loginStrategy.includes("local")) {
+    user.loginStrategy = [...user.loginStrategy, "local"];
+  }
 
   const newUser = await user.save();
 
@@ -190,6 +232,27 @@ export const resetPassword = asyncHandler(async (req, res) => {
   }
 
   res.status(201).json({ email });
+});
+
+// @desc
+// route DELETE /api/auth/deactivate
+export const deleteUser = asyncHandler(async (req, res) => {
+  const user = req.user;
+  const { password } = req.body;
+
+  if (!(await user.matchPassword(password))) {
+    ThrowErr.BadRequest("wrong password");
+  }
+
+  const deletedUser = await user.deleteOne();
+
+  if (!deletedUser) {
+    ThrowErr.ServerError();
+  }
+
+  clearRefreshToken(res);
+
+  res.status(200).json({ message: "success" });
 });
 
 // @desc

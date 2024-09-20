@@ -14,12 +14,14 @@ export const authenticateUser = asyncHandler(async (req, res, next) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
 
   if (!authHeader?.startsWith("Bearer ")) {
+    clearRefreshToken(res);
     ThrowErr.Unauthorized();
   }
 
   const accessToken = authHeader.split(" ")[1];
 
   if (!accessToken) {
+    clearRefreshToken(res);
     ThrowErr.Unauthorized();
   }
 
@@ -30,6 +32,7 @@ export const authenticateUser = asyncHandler(async (req, res, next) => {
       if (err.name === "TokenExpiredError") {
         ThrowErr.Unauthorized("accessToken expired");
       } else {
+        clearRefreshToken(res);
         ThrowErr.Unauthorized();
       }
     } else {
@@ -40,10 +43,11 @@ export const authenticateUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(userId);
 
   if (!user) {
+    clearRefreshToken(res);
     ThrowErr.NotFound();
   }
 
-  req.user = user.toObject();
+  req.user = user;
   next();
 });
 

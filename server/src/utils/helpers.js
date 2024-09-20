@@ -8,3 +8,13 @@ export const slugify = (string) => {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-");
 };
+
+export const removeKeysFromDocument = (doc, keysToRemove) => {
+  const plainObject = doc.toObject();
+
+  keysToRemove.forEach((key) => {
+    delete plainObject[key];
+  });
+
+  return plainObject;
+};

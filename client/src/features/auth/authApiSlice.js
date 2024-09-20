@@ -1,6 +1,6 @@
 import { apiSlice } from "../api/apiSlice";
 import { clearToken, setToken } from "./authSlice";
-import { clearUser, setUser } from "../user/userSlice";
+import { clearUser } from "../user/userSlice";
 import { AUTH_URL } from "@/constants/urls";
 import { userApiSlice } from "../user/userApiSlice";
 
@@ -64,23 +64,11 @@ const authApiSlice = apiSlice.injectEndpoints({
       },
     }),
     register: builder.mutation({
-      query: (userInput) => ({
+      query: (data) => ({
         url: `${AUTH_URL}/register`,
         method: "POST",
-        body: { ...userInput },
+        body: data,
       }),
-      // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-      //   try {
-      //     const res = await queryFulfilled;
-      //     const { accessToken } = res.data;
-      //     dispatch(setToken({ accessToken }));
-      //     dispatch(userApiSlice.endpoints.getMe.initiate());
-      //   } catch (err) {
-      //     console.log("devErr:", err);
-      //     dispatch(clearToken());
-      //     dispatch(clearUser());
-      //   }
-      // },
     }),
     updateUser: builder.mutation({
       query: (userInput) => ({
@@ -91,10 +79,40 @@ const authApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
-          const { userInfo } = res.data;
-          dispatch(setUser({ userInfo }));
+          const { message } = res.data;
+          if (message === "success") {
+            dispatch(userApiSlice.endpoints.getMe.initiate());
+          }
         } catch (err) {
           console.log("devErr:", err);
+        }
+      },
+    }),
+    updateUserPassword: builder.mutation({
+      query: ({ password, newPassword }) => ({
+        url: `${AUTH_URL}/update-password`,
+        method: "PUT",
+        body: { password, newPassword },
+      }),
+      invalidatesTags: () => "User",
+    }),
+    addUserPassword: builder.mutation({
+      query: ({ password }) => ({
+        url: `${AUTH_URL}/add-password`,
+        method: "PUT",
+        body: { password },
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const res = await queryFulfilled;
+          const { message } = res.data;
+          if (message === "success") {
+            dispatch(userApiSlice.endpoints.getMe.initiate());
+          }
+        } catch (err) {
+          console.log("devERR:", err);
+          dispatch(clearToken());
+          dispatch(clearUser());
         }
       },
     }),
@@ -117,6 +135,13 @@ const authApiSlice = apiSlice.injectEndpoints({
         url: `${AUTH_URL}/forgot-password/check`,
         method: "POST",
         body: { token },
+      }),
+    }),
+    deleteUser: builder.mutation({
+      query: ({ password }) => ({
+        url: `${AUTH_URL}/deactivate`,
+        method: "DELETE",
+        body: { password },
       }),
     }),
     verifyGoogleLogin: builder.mutation({
@@ -166,9 +191,12 @@ export const {
   useLogoutMutation,
   useRegisterMutation,
   useUpdateUserMutation,
+  useUpdateUserPasswordMutation,
+  useAddUserPasswordMutation,
   useResetPasswordMutation,
   useResetPasswordCheckMutation,
   useSendPasswordResetEmailMutation,
+  useDeleteUserMutation,
   useVerifyGoogleLoginMutation,
   useVerifyFacebookLoginMutation,
 } = authApiSlice;

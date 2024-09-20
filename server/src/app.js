@@ -33,10 +33,6 @@ if (isDevelopment) {
   );
 }
 
-const __dirname = path.resolve();
-
-console.log(__dirname);
-
 app.use("/api", rootRoutes);
 
 if (isProduction) {

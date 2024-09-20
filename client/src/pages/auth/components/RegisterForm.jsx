@@ -30,16 +30,16 @@ const registerSchema = yup.object({
     .string()
     .email("ჩაწერე სწორი ფორმატის ელფოსტა")
     .required("ჩაწერე ელფოსტა"),
-  firstName: yup.string().required("ჩაწერე სახელი"),
-  lastName: yup.string().required("ჩაწერე გვარი"),
-  gender: yup.mixed().oneOf(["მდედრობითი", "მამრობითი"], "აირჩიე სქესი"),
-  birthYear: yup.mixed().oneOf(BIRTH_YEARS, "აირჩიე დაბადების წელი"),
+  firstName: yup.string(),
+  lastName: yup.string(),
+  gender: yup.mixed().oneOf(["მდედრობითი", "მამრობითი", ""], "აირჩიე სქესი"),
+  birthYear: yup.mixed().oneOf([...BIRTH_YEARS, ""], "აირჩიე დაბადების წელი"),
   phoneNumber: yup
     .string()
+    .required("ჩაწერე ტელეფონის ნომერი")
     .matches(/^[0-9]+$/, "უნდა შეიცავდეს მხოლოდ ციფრებს")
     .length(9, "უნდა იყოს 9 ციფრი")
-    .typeError("ჩაწერე ტელეფონის ნომერი")
-    .required("ჩაწერე ტელეფონის ნომერი"),
+    .typeError("ჩაწერე ტელეფონის ნომერი"),
   agreeTerms: yup
     .boolean()
     .oneOf([true], "დაეთანხმე საიტის წესებსა და პირობებს"),
@@ -59,6 +59,7 @@ const RegisterForm = () => {
       firstName: "",
       lastName: "",
       gender: "",
+      sellerType: "",
       birthYear: "",
       phoneNumber: "",
       agreeTerms: false,
@@ -72,7 +73,15 @@ const RegisterForm = () => {
   const { handleSubmit, control, setError, setValue, getValues } = form;
 
   const onSubmit = (data) => {
-    registerMutation({ ...data, phoneNumber: parseInt(data.phoneNumber) });
+    data.phoneNumber = parseInt(data.phoneNumber);
+    delete data.confirmPassword;
+    const newUser = {};
+    for (const key in data) {
+      if (data[key]) {
+        newUser[key] = data[key];
+      }
+    }
+    registerMutation(newUser);
   };
 
   useEffect(() => {
@@ -92,11 +101,6 @@ const RegisterForm = () => {
     }
     if (isSuccess) {
       const { email, password } = getValues();
-      console.log({
-        isRegisterSuccess: true,
-        email: email,
-        password: password,
-      });
       navigate("/auth/login", {
         state: {
           isRegisterSuccess: true,
@@ -114,7 +118,7 @@ const RegisterForm = () => {
         <FormText
           control={control}
           name="email"
-          label="ელფოსტა"
+          label="ელფოსტა*"
           isLoading={isLoading}
           placeholder="m@example.com"
           autoComplete="email"
@@ -122,7 +126,7 @@ const RegisterForm = () => {
         <FormText
           control={control}
           name="password"
-          label="პაროლი"
+          label="პაროლი*"
           isLoading={isLoading}
           password={true}
           passwordShowDefault={true}
@@ -130,7 +134,7 @@ const RegisterForm = () => {
         <FormText
           control={control}
           name="confirmPassword"
-          label="გაიმეორე პაროლი"
+          label="გაიმეორე პაროლი*"
           isLoading={isLoading}
           password={true}
           passwordShowDefault={true}
@@ -152,7 +156,7 @@ const RegisterForm = () => {
         <FormText
           control={control}
           name="phoneNumber"
-          label="ტელეფონის ნომერი"
+          label="ტელეფონის ნომერი*"
           type="text"
           inputMode="numeric"
           maxLength="9"
@@ -164,7 +168,7 @@ const RegisterForm = () => {
           name="agreeTerms"
           label="ვეთანხმები"
           redirectLink="/rules"
-          redirectLinkText="წესებსა და პირობებს"
+          redirectLinkText="წესებსა და პირობებს*"
         />
         <FormCheckbox
           control={control}
@@ -190,4 +194,5 @@ const RegisterForm = () => {
     </Form>
   );
 };
+
 export default RegisterForm;

@@ -28,7 +28,6 @@ const loginSchema = yup.object({
 const LoginForm = () => {
   const { state } = useLocation();
   const [loginMutation, { isError, isLoading }] = useLoginMutation();
-
   const form = useForm({
     defaultValues: {
       password: state?.password || "",

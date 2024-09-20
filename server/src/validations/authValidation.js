@@ -30,57 +30,68 @@ export const registerValidator = [
     minLowercase: 0,
     minUppercase: 0,
   }),
-  body("confirmPassword")
+  body("firstName")
+    .optional()
     .isString()
     .notEmpty()
     .trim()
     .escape()
-    .isStrongPassword({
-      minLength: 7,
-      minNumbers: 0,
-      minSymbols: 0,
-      minLowercase: 0,
-      minUppercase: 0,
-    }),
-  body("firstName").isString().notEmpty().trim().escape().toLowerCase(),
-  body("lastName").isString().notEmpty().trim().escape().toLowerCase(),
+    .toLowerCase(),
+  body("lastName")
+    .optional()
+    .isString()
+    .notEmpty()
+    .trim()
+    .escape()
+    .toLowerCase(),
   body("gender")
+    .optional()
     .isString()
     .notEmpty()
     .trim()
     .escape()
     .isIn(["მდედრობითი", "მამრობითი"]),
-  body("birthYear").notEmpty().isInt(),
-  body("phoneNumber").notEmpty().isInt(),
+  body("birthYear").optional().notEmpty().isInt().isLength({ max: 4, min: 4 }),
+  body("phoneNumber").notEmpty().isInt().isLength({ max: 9, min: 9 }),
   body("agreeTerms").isIn([true, false]),
-  body("agreePrivacyPolicy").isIn([true, false]),
-  checkExact(),
+  body("agreePrivacyPolicy").isIn([true, false, undefined]),
 ];
 
 export const updateUserValidator = [
-  body("password").optional({ values: "falsy" }).notEmpty().trim().escape(),
-  body("newPassword")
-    .optional({ values: "falsy" })
-    .notEmpty()
-    .trim()
-    .escape()
-    .isStrongPassword({
-      minLength: 7,
-      minNumbers: 0,
-      minSymbols: 0,
-      minLowercase: 0,
-      minUppercase: 0,
-    }),
-  body("firstName").isString().notEmpty().trim().escape().toLowerCase(),
-  body("lastName").isString().notEmpty().trim().escape().toLowerCase(),
+  body("password").isString().notEmpty().trim().escape(),
+  body("firstName").optional().isString().trim().escape(),
+  body("lastName").optional().isString().trim().escape(),
   body("gender")
+    .optional()
     .isString()
     .notEmpty()
     .trim()
     .escape()
     .isIn(["მდედრობითი", "მამრობითი"]),
-  body("birthYear").notEmpty().isInt(),
-  body("phoneNumber").notEmpty().isInt(),
+  body("birthYear").optional().notEmpty().isInt().isLength({ max: 4, min: 4 }),
+  body("phoneNumber").notEmpty().isInt().isLength({ max: 9, min: 9 }),
+];
+
+export const updateUserPasswordValidator = [
+  body("password").notEmpty().trim().escape(),
+  body("newPassword").isString().notEmpty().trim().escape().isStrongPassword({
+    minLength: 7,
+    minNumbers: 0,
+    minSymbols: 0,
+    minLowercase: 0,
+    minUppercase: 0,
+  }),
+  checkExact(),
+];
+
+export const addUserPasswordValidator = [
+  body("password").isString().notEmpty().trim().escape().isStrongPassword({
+    minLength: 7,
+    minNumbers: 0,
+    minSymbols: 0,
+    minLowercase: 0,
+    minUppercase: 0,
+  }),
   checkExact(),
 ];
 
@@ -104,6 +115,11 @@ export const resetPasswordValidator = [
     minLowercase: 0,
     minUppercase: 0,
   }),
+  checkExact(),
+];
+
+export const deleteUserValidator = [
+  body("password").isString().notEmpty().trim().escape(),
   checkExact(),
 ];
 

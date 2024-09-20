@@ -6,12 +6,11 @@ const userSchema = new Schema(
   {
     firstName: {
       type: String,
+      default: "",
     },
     lastName: {
       type: String,
-    },
-    fullName: {
-      type: String,
+      default: "",
     },
     email: {
       type: String,
@@ -29,10 +28,7 @@ const userSchema = new Schema(
       type: String,
     },
     address: { type: String },
-    role: {
-      type: String,
-      default: "user",
-    },
+    shopId: { type: Schema.Types.ObjectId },
     isBlocked: {
       type: Boolean,
       default: false,
@@ -42,6 +38,7 @@ const userSchema = new Schema(
     },
     agreePrivacyPolicy: {
       type: Boolean,
+      default: false,
     },
     resetPasswordToken: {
       type: String,
@@ -56,15 +53,10 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  if (this.isModified("firstName") || this.isModified("lastName")) {
-    this.fullName = this.firstName + " " + this.lastName;
+  if (this.isModified("password")) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
   }
-
-  if (!this.isModified("password")) {
-    return next();
-  }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
 
   next();
 });

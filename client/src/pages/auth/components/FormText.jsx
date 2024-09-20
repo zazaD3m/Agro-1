@@ -17,6 +17,7 @@ const FormText = ({
   placeholder,
   password,
   passwordShowDefault,
+  className,
   ...props
 }) => {
   return (
@@ -24,7 +25,7 @@ const FormText = ({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={className}>
           <FormLabel className="text-lg">{label}</FormLabel>
           <FormControl>
             {password ? (

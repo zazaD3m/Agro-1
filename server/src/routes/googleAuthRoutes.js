@@ -35,16 +35,14 @@ passport.use(
         if (user) {
           if (!user.googleId) {
             user.googleId = googleId;
-          }
-          if (!user.loginStrategy.includes("google")) {
             if (user.loginStrategy.length > 0) {
               const strategy = user.loginStrategy;
               user.loginStrategy = [...strategy, "google"];
             } else {
               user.loginStrategy = ["google"];
             }
+            await user.save();
           }
-          await user.save();
           return done(null, { userId: user._id });
         }
 
