@@ -42,7 +42,7 @@ import AddNewProductPage from "./pages/account/AddNewProductPage";
 // INFO START
 import PrivacyPolicy from "./pages/siteinfo/PrivacyPolicy";
 import TermsOfUse from "./pages/siteinfo/TermsOfUse";
-import InfoAddProduct from "./pages/siteinfo/InfoAddProduct";
+import FaqAddProduct from "./pages/siteinfo/components/FaqAddProduct";
 import Contact from "./pages/siteinfo/Contact";
 import Faq from "./pages/siteinfo/Faq";
 // INFO END
@@ -53,6 +53,12 @@ import EditAccountLayout from "./pages/account/EditAccountLayout";
 import EditPassword from "./pages/account/EditPassword";
 import DeactivateAccount from "./pages/account/DeactivateAccount";
 import EditAccountInfo from "./pages/account/EditAccountInfo";
+import AboutUs from "./pages/siteinfo/AboutUs";
+import FaqIndex from "./pages/siteinfo/components/FaqIndex";
+import FaqAuth from "./pages/siteinfo/components/FaqAuth";
+import FaqAuthRegister from "./pages/siteinfo/components/FaqAuthRegister";
+import FaqAuthEdit from "./pages/siteinfo/components/FaqAuthEdit";
+import FaqAuthRecover from "./pages/siteinfo/components/FaqAuthRecover";
 // BLOG END
 
 const router = createBrowserRouter(
@@ -108,10 +114,31 @@ const router = createBrowserRouter(
         <Route path="info">
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="terms-of-use" element={<TermsOfUse />} />
-          <Route path="faq" element={<Faq />} />
+          <Route path="faq" element={<Faq />}>
+            <Route index element={<FaqIndex />} />
+            <Route
+              path="rogor-davamato-gancxadeba"
+              element={<FaqAddProduct />}
+            />
+            <Route path="registracia-angarishis-martva" element={<FaqAuth />}>
+              <Route
+                path="rogor-davregistrirde"
+                element={<FaqAuthRegister />}
+              />
+              <Route
+                path="rogor-davaredaqtiro-angarishi"
+                element={<FaqAuthEdit />}
+              />
+              <Route
+                path="rogor-aRvadgino-angarishi"
+                element={<FaqAuthRecover />}
+              />
+            </Route>
+          </Route>
           <Route path="contact" element={<Contact />} />
-          <Route path="add-product" element={<InfoAddProduct />} />
         </Route>
+        <Route path="about-us" element={<AboutUs />} />
+
         {/* == INFO PATHS END */}
         {/* == BLOG PATHS END */}
         <Route path="blog">

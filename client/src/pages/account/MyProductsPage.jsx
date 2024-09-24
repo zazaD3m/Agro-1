@@ -1,4 +1,19 @@
+import { getCatType } from "@/data/categories-data";
+import { useState } from "react";
+
 const MyProductsPage = () => {
-  return <div>MyProductsPage</div>;
+  const [state, setState] = useState("");
+  return (
+    <div>
+      <input value={state} onChange={(e) => setState(e.target.value)} />
+      <button
+        onClick={() => {
+          console.log(getCatType(parseInt(state)));
+        }}
+      >
+        click
+      </button>
+    </div>
+  );
 };
 export default MyProductsPage;

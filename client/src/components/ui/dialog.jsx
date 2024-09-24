@@ -3,6 +3,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -29,6 +30,7 @@ const DialogContent = React.forwardRef(
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Content
+        aria-describedby={undefined}
         ref={ref}
         className={cn(
           "fixed z-50 bg-background shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out",
@@ -39,6 +41,9 @@ const DialogContent = React.forwardRef(
         )}
         {...props}
       >
+        <VisuallyHidden>
+          <DialogTitle>Nav Content</DialogTitle>
+        </VisuallyHidden>
         {children}
         {!customClose && (
           <DialogPrimitive.Close className="absolute right-4 top-4 rounded-full bg-accent-dark/50 p-2 transition-opacity hover:bg-accent-dark focus:outline-none">

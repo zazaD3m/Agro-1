@@ -3,13 +3,13 @@ import { Button } from "../ui/button";
 import { Facebook, Instagram } from "lucide-react";
 
 const SECONDARY_NAV_ITEMS = [
-  "032 211 11 11",
-  "agroezo@gmail.com",
-  "ჩვენს შესახებ",
-  "სიახლეები",
-  "ბლოგი",
-  "დახმარება",
-  "უკუკავშირი",
+  { text: "ჩვენ შესახებ", link: "about-us" },
+  { text: "ბლოგი", link: "blog" },
+  { text: "დახმარება", link: "info/faq" },
+  {
+    text: "დაგვიკავშირდით",
+    link: "info/contact",
+  },
 ];
 
 const SOCIAL_LINKS = [
@@ -26,15 +26,15 @@ const SOCIAL_LINKS = [
 const HeaderDesktopTop = () => {
   return (
     <div className="container flex justify-between pr-1">
-      <ul className="flex h-10 items-center divide-x ">
-        {SECONDARY_NAV_ITEMS.map((item) => (
-          <li key={item}>
+      <ul className="flex h-10 items-center divide-x">
+        {SECONDARY_NAV_ITEMS.map((item, i) => (
+          <li key={i}>
             <Button
               asChild
               variant="link"
               className="text-xs leading-3 tracking-wider"
             >
-              <Link>{item}</Link>
+              <Link to={item.link}>{item.text}</Link>
             </Button>
           </li>
         ))}

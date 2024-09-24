@@ -18,25 +18,31 @@ const HomePageSiteInfo = ({ className }) => {
       ),
     },
     {
-      title: "შეარჩიე",
+      title: "ძიება",
       icon: (
         <Search className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
       ),
     },
     {
-      title: "დაურეკე",
+      title: "შერჩევა",
       icon: (
         <PhoneCall className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
       ),
     },
     {
-      title: "შეთანხმდით",
+      title: "დაკავშირება",
       icon: (
         <Handshake className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
       ),
     },
     {
-      title: "გამყიდველი",
+      title: "შეთანხმება",
+      icon: (
+        <PersonStanding className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
+      ),
+    },
+    {
+      title: "შეძენა",
       icon: (
         <PersonStanding className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
       ),
@@ -128,7 +134,7 @@ const HomePageSiteInfo = ({ className }) => {
         ) : (
           <div className="relative mb-8 flex w-5/6 justify-between md:w-4/5 lg:w-2/3">
             {circles.map((e, i) => (
-              <div key={e.title} className="relative z-10 flex justify-center ">
+              <div key={e.title} className="relative z-10 flex justify-center">
                 <div
                   className={cn(
                     "flex items-center justify-center rounded-full bg-[#3F444D] p-4 md:p-5 lg:p-6",

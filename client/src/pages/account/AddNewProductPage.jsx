@@ -27,6 +27,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import AddNewProductPrice from "./components/AddNewProductPrice";
+import AddNewProductCategory from "./components/AddNewProductCategory";
 
 const addNewProductSchema = yup.object({
   // password: yup.string().required("ჩაწერე პაროლი"),
@@ -41,7 +42,7 @@ const addNewProductSchema = yup.object({
   //   .length(9, "უნდა იყოს 9 ციფრი")
   //   .typeError("ჩაწერე ტელეფონის ნომერი"),
   sellerType: yup.mixed().oneOf(["მაღაზია", "ფიზიკური პირი"]),
-  price: yup.string(),
+  price: yup.string().required(),
 });
 
 const AddNewProductPage = () => {
@@ -70,6 +71,8 @@ const AddNewProductPage = () => {
   const { handleSubmit, control, setError, setValue } = form;
 
   const onSubmit = (data) => {
+    data.price = parseFloat(data.price);
+
     console.log(data);
   };
 
@@ -96,6 +99,9 @@ const AddNewProductPage = () => {
           </div>
           <div className="rounded-md bg-background px-4 pb-4 pt-2.5 shadow-sm">
             <AddNewProductPrice />
+          </div>
+          <div className="rounded-md bg-background px-4 pb-4 pt-2.5 shadow-sm">
+            <AddNewProductCategory />
           </div>
           <button type="submit">hhhhhh</button>
         </form>

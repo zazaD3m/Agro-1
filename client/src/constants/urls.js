@@ -1,4 +1,5 @@
 export const AUTH_URL = "/auth";
+export const GENERAL_URL = "/";
 export const BRANDS_URL = "/brands";
 export const SIZES_URL = "/sizes";
 export const SALES_URL = "/sales";
