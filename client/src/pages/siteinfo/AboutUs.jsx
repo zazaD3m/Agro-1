@@ -3,6 +3,7 @@ const AboutUs = () => {
     <div
       style={{
         backgroundImage: `url('/about-us.png')`,
+        transition: "background-image 0.3s ease-in-out",
       }}
       className="relative w-full bg-cover bg-center text-white"
     >
