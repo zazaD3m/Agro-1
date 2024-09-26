@@ -15,14 +15,14 @@ const Footer = memo(() => {
       <div className="container px-2 sm:px-4">
         <div className="hidden flex-wrap gap-y-16 lg:flex">
           <div className="basis-1/4">
-            <h2 className="mb-6 font-medium">ნავიგაცია</h2>
+            <h2 className="mb-6 font-medium">დახმარება</h2>
             <ul className="flex flex-col gap-y-4 text-xs">
               <li>
                 <Link
-                  to="/info/faq/rogor-davamato-gancxadeba"
+                  to="/info/contact"
                   className="opacity-80 hover:opacity-100"
                 >
-                  განცხადების დამატების ინსტრუქცია
+                  დაგვიკავშირდით
                 </Link>
               </li>
               <li>
@@ -32,20 +32,19 @@ const Footer = memo(() => {
               </li>
               <li>
                 <Link
-                  to="/info/contact"
+                  to="/info/faq/rogor-davamato-gancxadeba"
                   className="opacity-80 hover:opacity-100"
                 >
-                  მესიჯის მიწერა
+                  როგორ დავამატო განცხადება
                 </Link>
               </li>
-
               <li>
-                <a
-                  href="mailto:agroezo@gmail.com"
+                <Link
+                  to="/info/faq/registracia-angarishis-martva/rogor-davregistrirde"
                   className="opacity-80 hover:opacity-100"
                 >
-                  agroezo@gmail.com
-                </a>
+                  როგორ დავრეგისრირდე
+                </Link>
               </li>
             </ul>
           </div>
@@ -93,10 +92,10 @@ const Footer = memo(() => {
               <ul className="space-y-4">
                 <li>
                   <Link
-                    to="/info/add-product"
+                    to="/info/contact"
                     className="text-xs opacity-80 hover:opacity-100 sm:text-sm"
                   >
-                    განცხადების დამატების ინსტრუქცია
+                    დაგვიკავშირდით
                   </Link>
                 </li>
                 <li>
@@ -109,27 +108,19 @@ const Footer = memo(() => {
                 </li>
                 <li>
                   <Link
-                    to="/info/contact"
+                    to="/info/faq/rogor-davamato-gancxadeba"
                     className="text-xs opacity-80 hover:opacity-100 sm:text-sm"
                   >
-                    მესიჯის მიწერა
+                    როგორ დავამატო განცხადება
                   </Link>
                 </li>
                 <li>
-                  <a
-                    href="tel:(032) 212 53 17"
+                  <Link
+                    to="/info/faq/registracia-angarishis-martva/rogor-davregistrirde"
                     className="text-xs opacity-80 hover:opacity-100 sm:text-sm"
                   >
-                    (032) 212 53 17
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="mailto:agroezo@gmail.com"
-                    className="text-xs opacity-80 hover:opacity-100 sm:text-sm"
-                  >
-                    agroezo@gmail.com
-                  </a>
+                    როგორ დავრეგისრირდე
+                  </Link>
                 </li>
               </ul>
             </AccordionContent>

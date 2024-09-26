@@ -5,6 +5,7 @@ import HomePageHero from "./sections/HomePageHero";
 import HomePageNewProducts from "./sections/HomePageNewProducts";
 import HomePageSiteInfo from "./sections/HomePageSiteInfo";
 import HomePageSiteStats from "./sections/HomePageSiteStats";
+import ColorTester from "@/components/ColorTester";
 
 const HomePage = () => {
   return (
@@ -28,6 +29,9 @@ const HomePage = () => {
       <section className="bg-background py-12">
         <HomePageBlogPosts className="container px-2 sm:px-4" />
       </section>
+      {/* <section className="bg-background py-12">
+        <ColorTester />
+      </section> */}
     </>
   );
 };

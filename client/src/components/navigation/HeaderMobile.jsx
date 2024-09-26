@@ -9,8 +9,19 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { AlignJustify } from "lucide-react";
+import ColorTester from "../ColorTester";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
 const HeaderMobile = () => {
+  const [showColor, setShowColor] = useState(false);
+  const showColors = () => {
+    setShowColor(true);
+  };
+  const hideColors = () => {
+    setShowColor(false);
+  };
+
   return (
     <>
       <div className="flex h-11 items-center justify-between px-4 py-px">
@@ -31,6 +42,11 @@ const HeaderMobile = () => {
               <Link to="about-us">ჩვენ შესახებ</Link>
             </SheetCloseChild>
             <SheetCloseChild asChild>
+              <Button to="about-us" onClick={showColors}>
+                ფერის შეცვლა
+              </Button>
+            </SheetCloseChild>
+            <SheetCloseChild asChild>
               <Link to="info/faq">დახმარება</Link>
             </SheetCloseChild>
             <SheetCloseChild asChild>
@@ -42,6 +58,7 @@ const HeaderMobile = () => {
             <SheetClose className="right-3 top-3 size-10 rounded-full bg-accent-dark p-2" />
           </SheetContent>
         </Sheet>
+        <ColorTester hidden={showColor} hideColors={hideColors} />
       </div>
       <Separator />
       <div className="flex items-center justify-center px-2 py-2">

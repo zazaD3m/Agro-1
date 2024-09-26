@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Facebook, Instagram } from "lucide-react";
+import ColorTester from "../ColorTester";
+import { useState } from "react";
 
 const SECONDARY_NAV_ITEMS = [
   { text: "ჩვენ შესახებ", link: "about-us" },
@@ -24,6 +26,13 @@ const SOCIAL_LINKS = [
 ];
 
 const HeaderDesktopTop = () => {
+  const [showColor, setShowColor] = useState(false);
+  const showColors = () => {
+    setShowColor(true);
+  };
+  const hideColors = () => {
+    setShowColor(false);
+  };
   return (
     <div className="container flex justify-between pr-1">
       <ul className="flex h-10 items-center divide-x">
@@ -38,6 +47,15 @@ const HeaderDesktopTop = () => {
             </Button>
           </li>
         ))}
+        <li>
+          <Button
+            variant="link"
+            className="text-xs leading-3 tracking-wider"
+            onClick={showColors}
+          >
+            ფერის შეცვლა
+          </Button>
+        </li>
       </ul>
       <ul className="flex h-10 items-center justify-end">
         {SOCIAL_LINKS.map((item, i) => (
@@ -53,6 +71,7 @@ const HeaderDesktopTop = () => {
           </li>
         ))}
       </ul>
+      <ColorTester hidden={showColor} hideColors={hideColors} />
     </div>
   );
 };
