@@ -8,7 +8,7 @@ import {
   FormSubmitError,
 } from "@/components/ui/form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { DevTool } from "@hookform/devtools";
+// import { DevTool } from "@hookform/devtools";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -116,7 +116,7 @@ const AddNewProductPage = () => {
           <button type="submit">hhhhhh</button>
         </form>
       </Form>
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
     </div>
   );
 };
