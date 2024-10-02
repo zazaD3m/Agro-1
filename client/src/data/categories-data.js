@@ -37,7 +37,7 @@ export const CATEGORIES = {
   },
   8000: {
     name: "სასმელები",
-    icon: "fish.png",
+    icon: "icons/8.png",
     link: "sasmelebi",
   },
   9000: {

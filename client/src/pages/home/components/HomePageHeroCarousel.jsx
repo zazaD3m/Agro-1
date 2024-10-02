@@ -56,8 +56,7 @@ const HOME_PAGE_CONTENT = [
 ];
 
 const images = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23,
+  1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
 ];
 
 const HomePageHeroCarousel = ({ className }) => {
@@ -77,7 +76,7 @@ const HomePageHeroCarousel = ({ className }) => {
               <div className="relative">
                 <img
                   src={`bgs/${data}.jpg`}
-                  className="h-80 w-full rounded-b-md object-cover brightness-[.7] sm:h-[450px]"
+                  className="h-80 w-full rounded-b-md object-cover brightness-[.8] sm:h-[450px]"
                 />
                 {/* <div className="absolute left-0 top-0 w-full space-y-4 p-4 pt-3 sm:p-6 sm:pl-8 xl:p-8 xl:pl-12">
                   <h1 className="cursor-default text-pretty break-words font-semibold tracking-wide text-white sm:max-w-md sm:text-lg md:max-w-lg lg:text-xl xl:max-w-2xl xl:text-2xl">

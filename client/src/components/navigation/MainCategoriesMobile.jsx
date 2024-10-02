@@ -9,14 +9,14 @@ import { closeMobileCat } from "@/features/site/siteSlice";
 
 const MainCategoryItem = ({ id, name, link, icon, setSelectedMainCatId }) => {
   return (
-    <div className="border-b py-5 first:pt-8 last:border-none">
+    <div className="border-b py-4 first:pt-6 last:border-none">
       <div className="flex w-full items-center">
         <SheetCloseChild asChild>
           <Link
             to={`catalog/${id}/${link}`}
             className="flex items-center gap-x-4 text-sm font-medium"
           >
-            <img src={"/" + icon} className="h-6" alt={name} />
+            <img src={"/" + icon} className="size-10 shrink-0" alt={name} />
             {name}
           </Link>
         </SheetCloseChild>

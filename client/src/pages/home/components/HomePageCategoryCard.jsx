@@ -46,7 +46,7 @@ const HomePageCategoryCard = ({
       <div className="absolute bottom-1 right-1">
         <img
           src={icon}
-          className="size-10 transition-all group-hover:scale-110"
+          className="size-12 transition-all group-hover:scale-105"
         />
       </div>
     </Link>

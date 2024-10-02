@@ -27,7 +27,7 @@ const MainCategoriesDesktop = () => {
 
   return (
     <div className="flex h-full w-full">
-      <div className="h-full min-w-80 shrink-0 border-r border-muted pb-12">
+      <div className="h-full min-w-80 shrink-0 pb-12">
         <h2 className="cursor-default pb-4 text-xl font-semibold">კატეგორია</h2>
         <ul className="h-full min-w-80 shrink-0 overflow-y-scroll border-r border-muted">
           {MAIN_CAT_IDS.map((id) => (
@@ -37,11 +37,11 @@ const MainCategoriesDesktop = () => {
               }}
               key={id}
               className={cn(
-                "flex h-16 w-full cursor-pointer items-center justify-start gap-x-4 whitespace-nowrap px-2 text-sm tracking-wide hover:bg-muted",
-                id === mainCatId && "border-l-2 border-primary bg-muted",
+                "duration-250 flex h-16 w-full cursor-pointer items-center justify-start gap-x-4 whitespace-nowrap border-l-2 border-background px-2 text-sm tracking-wide transition-all",
+                id === mainCatId && "border-primary bg-accent bg-opacity-100",
               )}
             >
-              <img src={"/" + CATEGORIES[id].icon} className="h-auto w-10" />
+              <img src={"/" + CATEGORIES[id].icon} className="h-auto w-11" />
               {CATEGORIES[id].name}
             </li>
           ))}

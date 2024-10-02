@@ -26,7 +26,9 @@ const HomePageHeroCategories = () => {
         </div>
         <CarouselContent className="-ml-4">
           <CarouselItem
-            className={"max-w-40 basis-2/5 py-1 sm:basis-1/4 lg:basis-[13%]"}
+            className={cn(
+              "max-w-40 basis-2/5 py-1 sm:basis-1/4 xl:basis-[13%]",
+            )}
           >
             <HomePageCategoryCard isMobile={isMobile} isAllCategories={true} />
           </CarouselItem>
@@ -36,7 +38,7 @@ const HomePageHeroCategories = () => {
               <CarouselItem
                 key={id}
                 className={cn(
-                  "max-w-48 basis-[45%] py-1 md:basis-1/5 lg:basis-[15%]",
+                  "max-w-48 basis-[55%] py-1 xs:basis-[45%] xl:basis-1/5 2xl:basis-[15%]",
                 )}
               >
                 <HomePageCategoryCard
