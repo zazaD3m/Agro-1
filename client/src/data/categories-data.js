@@ -7,27 +7,27 @@ export const CATEGORIES = {
   },
   2000: {
     name: "თევზი და ზღვისპროდუქტები",
-    icon: "fish.png",
+    icon: "icons/2.png",
     link: "Tevzi-da-zRvisproduqtebi",
   },
   3000: {
     name: "ნერგები",
-    icon: "fish.png",
+    icon: "icons/3.png",
     link: "nergebi",
   },
   4000: {
     name: "ყვავილები",
-    icon: "fish.png",
+    icon: "icons/222.png",
     link: "yvavilebi",
   },
   5000: {
     name: "წიწვოვანი მარადმწვანე",
-    icon: "fish.png",
+    icon: "icons/5.png",
     link: "wiwvovani-maradmwvane",
   },
   6000: {
     name: "ჩითილები და სათესლე მასალა",
-    icon: "fish.png",
+    icon: "icons/10.png",
     link: "CiTilebi-da-saTesle-masala",
   },
   7000: {
@@ -42,7 +42,7 @@ export const CATEGORIES = {
   },
   9000: {
     name: "მცენარეთა დაცვის საშუალებები",
-    icon: "fish.png",
+    icon: "icons/99.png",
     link: "mcenareTa-dacvis-saSualebebi",
   },
   10000: {
@@ -52,7 +52,7 @@ export const CATEGORIES = {
   },
   11000: {
     name: "სხვადასხვა",
-    icon: "fish.png",
+    icon: "icons/10.png",
     link: "sxvadasxva",
   },
   // MAIN CATEGORIES END

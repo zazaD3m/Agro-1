@@ -18,7 +18,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-primary-light text-primary-light bg-background lg:hover:bg-primary-light active:bg-primary-light lg:hover:text-primary-foreground active:text-primary-foreground",
+          "border border-primary-light text-primary-light bg-background lg:hover:bg-primary-light active:bg-primary-light lg:hover:text-primary-foreground active:text-primary-foreground disabled:hover:bg-background disabled:hover:text-primary-light",
         accent: "bg-accent hover:bg-accent/70",
         accentOutline:
           "border-accent-dark border font-normal hover:bg-accent/50 rounded-full data-[state=active]:border-primary-light/30 data-[state=active]:bg-primary-light/10",

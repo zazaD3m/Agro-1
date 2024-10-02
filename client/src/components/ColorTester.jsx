@@ -4,6 +4,14 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 const defaultColors = {
   primary: "155 100% 30.8%",
@@ -19,12 +27,20 @@ const defaultColors = {
 
 const ColorTester = ({ hidden, hideColors }) => {
   const [colorScheme, setColorScheme] = useState(defaultColors);
+  const [savedSchemes, setSavedSchemes] = useState({
+    default: { ...defaultColors },
+  });
 
   useEffect(() => {
     // Load color scheme from local storage on component mount
     const storedColorScheme = localStorage.getItem("colorScheme");
+    const storedSavedSchemes = localStorage.getItem("savedColorSchemes");
+
     if (storedColorScheme) {
       setColorScheme(JSON.parse(storedColorScheme));
+    }
+    if (storedSavedSchemes) {
+      setSavedSchemes(JSON.parse(storedSavedSchemes));
     }
   }, []);
 
@@ -35,6 +51,29 @@ const ColorTester = ({ hidden, hideColors }) => {
     });
     localStorage.setItem("colorScheme", JSON.stringify(colorScheme));
   }, [colorScheme]);
+
+  useEffect(() => {
+    // Update CSS variables and store in local storage when colorScheme changes
+    localStorage.setItem("savedColorSchemes", JSON.stringify(savedSchemes));
+  }, [savedSchemes]);
+
+  const saveScheme = () => {
+    const numOfSchemes = Object.keys(savedSchemes).length + 1;
+    const newSchemeName = `ver-${numOfSchemes}`;
+    setSavedSchemes((p) => ({
+      ...p,
+      [newSchemeName]: colorScheme,
+    }));
+  };
+
+  const loadScheme = (e) => {
+    const selectedScheme = savedSchemes[e];
+    console.log(e);
+    console.log(selectedScheme);
+    if (selectedScheme) {
+      setColorScheme(selectedScheme);
+    }
+  };
 
   const handleColorChange = (e) => {
     const { name, value } = e.target;
@@ -70,7 +109,7 @@ const ColorTester = ({ hidden, hideColors }) => {
   return (
     <div
       className={cn(
-        "absolute -top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-md bg-accent-dark p-8 max-lg:-top-[100%] max-lg:w-5/6",
+        "absolute left-1/2 top-36 -translate-x-1/2 transform rounded-md bg-accent-dark p-8 max-lg:-top-[100%] max-lg:w-5/6 max-lg:translate-y-44",
         hidden ? "" : "hidden",
       )}
     >
@@ -107,7 +146,26 @@ const ColorTester = ({ hidden, hideColors }) => {
             />
           </div>
         ))}
-        <Button onClick={resetColors}>Reset Colors</Button>
+        <div className="flex gap-x-4">
+          <Button onClick={resetColors}>დარესეტება</Button>
+          <Button onClick={saveScheme}>შენახვა</Button>
+        </div>
+        <div>
+          <Select onValueChange={loadScheme} defaultValue="default">
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="შენახულები" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {Object.keys(savedSchemes).map((name, i) => (
+                  <SelectItem key={i} value={name}>
+                    {name}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
     </div>
   );

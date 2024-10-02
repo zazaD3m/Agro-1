@@ -3,16 +3,16 @@ import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 
 export const loginValidator = [
-  body("email").isString().notEmpty().trim().escape().isEmail(),
-  body("password").isString().notEmpty().trim().escape(),
+  body("email").isString().trim().notEmpty().escape().isEmail(),
+  body("password").isString().trim().notEmpty().escape(),
   checkExact(),
 ];
 
 export const registerValidator = [
   body("email")
     .isString()
-    .notEmpty()
     .trim()
+    .notEmpty()
     .escape()
     .isEmail()
     .custom(
@@ -23,7 +23,7 @@ export const registerValidator = [
         }
       })
     ),
-  body("password").isString().notEmpty().trim().escape().isStrongPassword({
+  body("password").isString().trim().notEmpty().escape().isStrongPassword({
     minLength: 7,
     minNumbers: 0,
     minSymbols: 0,
@@ -33,22 +33,22 @@ export const registerValidator = [
   body("firstName")
     .optional()
     .isString()
-    .notEmpty()
     .trim()
+    .notEmpty()
     .escape()
     .toLowerCase(),
   body("lastName")
     .optional()
     .isString()
-    .notEmpty()
     .trim()
+    .notEmpty()
     .escape()
     .toLowerCase(),
   body("gender")
     .optional()
     .isString()
-    .notEmpty()
     .trim()
+    .notEmpty()
     .escape()
     .isIn(["მდედრობითი", "მამრობითი"]),
   body("birthYear").optional().notEmpty().isInt().isLength({ max: 4, min: 4 }),
@@ -58,14 +58,14 @@ export const registerValidator = [
 ];
 
 export const updateUserValidator = [
-  body("password").isString().notEmpty().trim().escape(),
-  body("firstName").optional().isString().trim().escape(),
-  body("lastName").optional().isString().trim().escape(),
+  body("password").isString().trim().notEmpty().escape(),
+  body("firstName").optional().isString().trim().notEmpty().escape(),
+  body("lastName").optional().isString().trim().notEmpty().escape(),
   body("gender")
     .optional()
     .isString()
-    .notEmpty()
     .trim()
+    .notEmpty()
     .escape()
     .isIn(["მდედრობითი", "მამრობითი"]),
   body("birthYear").optional().notEmpty().isInt().isLength({ max: 4, min: 4 }),
@@ -73,8 +73,8 @@ export const updateUserValidator = [
 ];
 
 export const updateUserPasswordValidator = [
-  body("password").notEmpty().trim().escape(),
-  body("newPassword").isString().notEmpty().trim().escape().isStrongPassword({
+  body("password").isString().trim().notEmpty().escape(),
+  body("newPassword").isString().trim().notEmpty().escape().isStrongPassword({
     minLength: 7,
     minNumbers: 0,
     minSymbols: 0,
@@ -85,7 +85,7 @@ export const updateUserPasswordValidator = [
 ];
 
 export const addUserPasswordValidator = [
-  body("password").isString().notEmpty().trim().escape().isStrongPassword({
+  body("password").isString().trim().notEmpty().escape().isStrongPassword({
     minLength: 7,
     minNumbers: 0,
     minSymbols: 0,
@@ -96,7 +96,7 @@ export const addUserPasswordValidator = [
 ];
 
 export const sendResetPasswordEmailValidator = [
-  body("email").isString().notEmpty().trim().escape().isEmail(),
+  body("email").isString().trim().notEmpty().escape().isEmail(),
   checkExact(),
 ];
 
@@ -106,9 +106,9 @@ export const resetPasswordCheckValidator = [
 ];
 
 export const resetPasswordValidator = [
-  body("email").isString().notEmpty().trim().escape().isEmail(),
+  body("email").isString().trim().notEmpty().escape().isEmail(),
   body("token").exists().isJWT(),
-  body("newPassword").isString().notEmpty().trim().escape().isStrongPassword({
+  body("newPassword").isString().trim().notEmpty().escape().isStrongPassword({
     minLength: 7,
     minNumbers: 0,
     minSymbols: 0,
@@ -119,7 +119,7 @@ export const resetPasswordValidator = [
 ];
 
 export const deleteUserValidator = [
-  body("password").isString().notEmpty().trim().escape(),
+  body("password").isString().trim().notEmpty().escape(),
   checkExact(),
 ];
 

@@ -11,6 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { SellerFilter } from "@/data/filters-data";
 import { ArrowRight, MessageCircleQuestion, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -42,17 +43,19 @@ const AddNewProductFormSellerType = ({ control, userInfo }) => {
             >
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
-                  <RadioGroupItem value="ფიზიკური პირი" />
+                  <RadioGroupItem value="3" />
                 </FormControl>
                 <FormLabel className="text-base font-normal">
-                  ფიზიკური პირი
+                  {SellerFilter.nameMap[3]}
                 </FormLabel>
               </FormItem>
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
-                  <RadioGroupItem disabled={!userInfo.shopId} value="მაღაზია" />
+                  <RadioGroupItem disabled={!userInfo.shopId} value="2" />
                 </FormControl>
-                <FormLabel className="text-base font-normal">მაღაზია</FormLabel>
+                <FormLabel className="text-base font-normal">
+                  {SellerFilter.nameMap[2]}
+                </FormLabel>
                 {userInfo.shopId ? null : (
                   <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger

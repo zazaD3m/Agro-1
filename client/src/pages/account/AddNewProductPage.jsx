@@ -8,6 +8,8 @@ import {
   FormSubmitError,
 } from "@/components/ui/form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { DevTool } from "@hookform/devtools";
+
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
@@ -28,6 +30,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import AddNewProductPrice from "./components/AddNewProductPrice";
 import AddNewProductCategory from "./components/AddNewProductCategory";
+import AddNewProductDesc from "./components/AddNewProductDesc";
 
 const addNewProductSchema = yup.object({
   // password: yup.string().required("ჩაწერე პაროლი"),
@@ -41,8 +44,9 @@ const addNewProductSchema = yup.object({
   //   .matches(/^[0-9]+$/, "უნდა შეიცავდეს მხოლოდ ციფრებს")
   //   .length(9, "უნდა იყოს 9 ციფრი")
   //   .typeError("ჩაწერე ტელეფონის ნომერი"),
-  sellerType: yup.mixed().oneOf(["მაღაზია", "ფიზიკური პირი"]),
-  price: yup.string().required(),
+  sellerType: yup.mixed().oneOf(["2", "3"]),
+  price: yup.string().required("მიუთითეთ ფასი"),
+  desc: yup.string(),
 });
 
 const AddNewProductPage = () => {
@@ -54,8 +58,9 @@ const AddNewProductPage = () => {
 
   const form = useForm({
     defaultValues: {
-      sellerType: preferedSellerType ? preferedSellerType : "ფიზიკური პირი",
+      sellerType: preferedSellerType ? preferedSellerType : "3",
       price: "",
+      desc: "",
       // password: "",
       // firstName: userInfo.firstName ? userInfo.firstName : "",
       // lastName: userInfo.lastName ? userInfo.lastName : "",
@@ -71,9 +76,11 @@ const AddNewProductPage = () => {
   const { handleSubmit, control, setError, setValue } = form;
 
   const onSubmit = (data) => {
-    data.price = parseFloat(data.price);
+    const newProduct = { ...data };
+    newProduct.price = parseFloat(newProduct.price);
+    newProduct.sellerType = parseInt(newProduct.sellerType);
 
-    console.log(data);
+    console.log(newProduct);
   };
 
   useEffect(() => {
@@ -100,12 +107,16 @@ const AddNewProductPage = () => {
           <div className="rounded-md bg-background px-4 pb-4 pt-2.5 shadow-sm">
             <AddNewProductPrice />
           </div>
-          <div className="rounded-md bg-background px-4 pb-4 pt-2.5 shadow-sm">
+          {/* <div className="rounded-md bg-background px-4 pb-4 pt-2.5 shadow-sm">
             <AddNewProductCategory />
+          </div> */}
+          <div className="rounded-md bg-background px-4 pb-4 pt-2.5 shadow-sm">
+            <AddNewProductDesc control={control} />
           </div>
           <button type="submit">hhhhhh</button>
         </form>
       </Form>
+      <DevTool control={control} />
     </div>
   );
 };

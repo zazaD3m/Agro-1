@@ -69,6 +69,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Noto Sans Georgian", ...fontFamily.sans],
+        // serif: ["Noto Serif Georgian", ...fontFamily.serif],
         // mono: ["var(--font-mono)", ...fontFamily.mono],
       },
       fontSize: {

@@ -1,12 +1,28 @@
+import { useState } from "react";
+
 const AboutUs = () => {
+  const [image, setImage] = useState("new-about-us.png");
   return (
     <div
       style={{
-        backgroundImage: `url('/about-us.png')`,
+        backgroundImage: `url('/${image}')`,
         transition: "background-image 0.3s ease-in-out",
       }}
       className="relative w-full bg-cover bg-center text-white"
     >
+      <button
+        className="absolute left-2 top-2 z-50 bg-background"
+        onClick={(e) => {
+          e.preventDefault();
+          if (image === "new-about-us.png") {
+            setImage("about-us.png");
+          } else {
+            setImage("new-about-us.png");
+          }
+        }}
+      >
+        hello
+      </button>
       <div className="absolute inset-0 bg-black bg-opacity-30 bg-gradient-to-t from-transparent via-transparent to-black/35" />
       <div className="relative px-2">
         <section className="flex flex-col items-center gap-4 pt-12 2xl:pt-32">

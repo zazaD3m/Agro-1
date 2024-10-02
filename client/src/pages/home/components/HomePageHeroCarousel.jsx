@@ -55,33 +55,38 @@ const HOME_PAGE_CONTENT = [
   },
 ];
 
+const images = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+  23,
+];
+
 const HomePageHeroCarousel = ({ className }) => {
   return (
     <div className={cn("overflow-hidden rounded-b-md", className)}>
       <Carousel
         opts={{ loop: true }}
-        plugins={[
-          Autoplay({
-            delay: 4000,
-          }),
-        ]}
+        // plugins={[
+        //   Autoplay({
+        //     delay: 4000,
+        //   }),
+        // ]}
       >
         <CarouselContent>
-          {HOME_PAGE_CONTENT.map((data, i) => (
+          {images.map((data, i) => (
             <CarouselItem key={i}>
               <div className="relative">
                 <img
-                  src={data.img}
+                  src={`bgs/${data}.jpg`}
                   className="h-80 w-full rounded-b-md object-cover brightness-[.7] sm:h-[450px]"
                 />
-                <div className="absolute left-0 top-0 w-full space-y-4 p-4 pt-3 sm:p-6 sm:pl-8 xl:p-8 xl:pl-12">
+                {/* <div className="absolute left-0 top-0 w-full space-y-4 p-4 pt-3 sm:p-6 sm:pl-8 xl:p-8 xl:pl-12">
                   <h1 className="cursor-default text-pretty break-words font-semibold tracking-wide text-white sm:max-w-md sm:text-lg md:max-w-lg lg:text-xl xl:max-w-2xl xl:text-2xl">
                     {data.heading}
                   </h1>
                   <p className="cursor-default rounded-md bg-transparent/60 p-2 text-sm font-medium text-white sm:max-w-md sm:text-base md:max-w-lg lg:text-lg xl:max-w-2xl xl:text-xl">
                     {data.p}
                   </p>
-                </div>
+                </div> */}
               </div>
             </CarouselItem>
           ))}

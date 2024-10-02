@@ -4,10 +4,13 @@ import { ThrowErr } from "../../utils/CustomError.js";
 
 import generalRoutes from "./generalRoutes.js";
 import userRoutes from "./userRoutes.js";
+import productRoutes from "./productRoutes.js";
 
 const router = Router();
 
 router.use("/users", authenticateUser, userRoutes);
+
+router.use("/products", productRoutes);
 
 router.use("/", generalRoutes);
 
