@@ -61,6 +61,9 @@ import FaqAuthEdit from "./pages/siteinfo/components/FaqAuthEdit";
 import FaqAuthRecover from "./pages/siteinfo/components/FaqAuthRecover";
 // BLOG END
 
+// AUTH START
+// AUTH START
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" errorElement={<GlobalError />}>
@@ -150,12 +153,37 @@ const router = createBrowserRouter(
       <Route element={<RejectAuthenticatedUser />}>
         <Route path="auth" element={<AuthLayout />}>
           <Route index element={<Navigate to="login" replace />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
-          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route
+            path="login"
+            element={
+              <Suspense fallback={<FullScreenLoader />}>
+                <LoginPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <Suspense fallback={<FullScreenLoader />}>
+                <RegisterPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="forgot-password"
+            element={
+              <Suspense fallback={<FullScreenLoader />}>
+                <ForgotPasswordPage />
+              </Suspense>
+            }
+          />
           <Route
             path="reset-password/:resetToken"
-            element={<ResetPasswordPage />}
+            element={
+              <Suspense fallback={<FullScreenLoader />}>
+                <ResetPasswordPage />
+              </Suspense>
+            }
           />
         </Route>
       </Route>
