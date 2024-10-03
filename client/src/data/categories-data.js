@@ -27,7 +27,7 @@ export const CATEGORIES = {
   },
   6000: {
     name: "ჩითილები და სათესლე მასალა",
-    icon: "icons/10.png",
+    icon: "icons/6.png",
     link: "CiTilebi-da-saTesle-masala",
   },
   7000: {
