@@ -16,7 +16,7 @@ import PageNotFound from "./components/errors/PageNotFound";
 // ERRORS END
 
 // COMPONENTS START
-import FullScreenLoader from "./components/FullScreenLoader";
+import FullSizeLoader from "./components/FullSizeLoader";
 import RejectAuthenticatedUser from "./components/RejectAuthenticatedUser";
 import PrivateRoute from "./components/PrivateRoute";
 // COMPONENTS END
@@ -34,16 +34,14 @@ const ProductPage = lazy(() => import("./pages/product/ProductPage"));
 // PAGES END
 
 // ACCOUNT START
-const MyProductsPage = lazy(() => import("./pages/account/MyProductsPage"));
+import MyProductsPage from "./pages/account/MyProductsPage";
 const AddNewProductPage = lazy(
   () => import("./pages/account/AddNewProductPage"),
 );
 import EditAccountLayout from "./pages/account/EditAccountLayout";
-const EditPassword = lazy(() => import("./pages/account/EditPassword"));
-const DeactivateAccount = lazy(
-  () => import("./pages/account/DeactivateAccount"),
-);
-const EditAccountInfo = lazy(() => import("./pages/account/EditAccountInfo"));
+import EditPassword from "./pages/account/EditPassword";
+import DeactivateAccount from "./pages/account/DeactivateAccount";
+import EditAccountInfo from "./pages/account/EditAccountInfo";
 // ACCOUNT END
 
 // INFO START
@@ -62,18 +60,13 @@ import FaqAuthRecover from "./pages/siteinfo/components/FaqAuthRecover";
 
 // BLOG START
 import BlogPage from "./pages/blog/BlogPage";
-import { Spinner } from "./components/ui/spinner";
-import FullSizeLoader from "./components/FullSizeLoader";
-
 // BLOG END
 
 // AUTH START
-const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
-const ForgotPasswordPage = lazy(
-  () => import("./pages/auth/ForgotPasswordPage"),
-);
-const ResetPasswordPage = lazy(() => import("./pages/auth/ResetPasswordPage"));
-const RegisterPage = lazy(() => import("./pages/auth/RegisterPage"));
+import LoginPage from "./pages/auth/LoginPage";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import RegisterPage from "./pages/auth/RegisterPage";
 // AUTH START
 
 const router = createBrowserRouter(
@@ -83,7 +76,7 @@ const router = createBrowserRouter(
         <Route
           index
           element={
-            <Suspense fallback={<FullSizeLoader />}>
+            <Suspense fallback={<FullSizeLoader className="min-h-svh" />}>
               <HomePage />
             </Suspense>
           }
@@ -92,7 +85,7 @@ const router = createBrowserRouter(
           <Route
             index
             element={
-              <Suspense fallback={<FullScreenLoader />}>
+              <Suspense fallback={<FullSizeLoader />}>
                 <CatalogPage />
               </Suspense>
             }
@@ -103,7 +96,7 @@ const router = createBrowserRouter(
           <Route
             index
             element={
-              <Suspense fallback={<FullScreenLoader />}>
+              <Suspense fallback={<FullSizeLoader />}>
                 <ProductPage />
               </Suspense>
             }
@@ -117,45 +110,17 @@ const router = createBrowserRouter(
             <Route
               path="add-new-product"
               element={
-                <Suspense fallback={<FullScreenLoader />}>
+                <Suspense fallback={<FullSizeLoader />}>
                   <AddNewProductPage />
                 </Suspense>
               }
             />
-            <Route
-              path="my-products"
-              element={
-                <Suspense fallback={<FullScreenLoader />}>
-                  <MyProductsPage />
-                </Suspense>
-              }
-            />
+            <Route path="my-products" element={<MyProductsPage />} />
             <Route path="edit" element={<EditAccountLayout />}>
               <Route index element={<Navigate to="info" replace />} />
-              <Route
-                path="info"
-                element={
-                  <Suspense fallback={<FullSizeLoader />}>
-                    <EditAccountInfo />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="password"
-                element={
-                  <Suspense fallback={<FullScreenLoader />}>
-                    <EditPassword />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="deactivate"
-                element={
-                  <Suspense fallback={<FullScreenLoader />}>
-                    <DeactivateAccount />
-                  </Suspense>
-                }
-              />
+              <Route path="info" element={<EditAccountInfo />} />
+              <Route path="password" element={<EditPassword />} />
+              <Route path="deactivate" element={<DeactivateAccount />} />
             </Route>
           </Route>
         </Route>
@@ -200,37 +165,12 @@ const router = createBrowserRouter(
       <Route element={<RejectAuthenticatedUser />}>
         <Route path="auth" element={<AuthLayout />}>
           <Route index element={<Navigate to="login" replace />} />
-          <Route
-            path="login"
-            element={
-              <Suspense fallback={<FullScreenLoader />}>
-                <LoginPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="register"
-            element={
-              <Suspense fallback={<FullScreenLoader />}>
-                <RegisterPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="forgot-password"
-            element={
-              <Suspense fallback={<FullScreenLoader />}>
-                <ForgotPasswordPage />
-              </Suspense>
-            }
-          />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route
             path="reset-password/:resetToken"
-            element={
-              <Suspense fallback={<FullScreenLoader />}>
-                <ResetPasswordPage />
-              </Suspense>
-            }
+            element={<ResetPasswordPage />}
           />
         </Route>
       </Route>

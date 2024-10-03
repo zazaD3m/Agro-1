@@ -4,13 +4,19 @@ import { Link } from "react-router-dom";
 import FavoriteButton from "@/components/FavoriteButton";
 import { LocationFilter, SellerFilter } from "@/data/filters-data";
 
-const CatalogPageProductCard = ({ product, className, viewType }) => {
+const CatalogPageProductCard = ({
+  product,
+  className,
+  viewType,
+  isSuccess,
+}) => {
   return (
     <Link
       className={cn(
         "group flex rounded-md bg-background py-2 shadow-sm transition-shadow hover:shadow-black/25",
         viewType === "grid" && "flex-col",
         viewType === "list" && "h-40 flex-row sm:h-48 lg:h-56",
+        isSuccess && "animate-fadeIn",
         className,
       )}
       to={"/product" + product.slug}

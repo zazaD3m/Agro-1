@@ -1,9 +1,5 @@
-import { lazy, Suspense, useState } from "react";
-
 import CatalogPageFilters from "./sections/CatalogPageFilters";
-const CatalogPageProducts = lazy(
-  () => import("./sections/CatalogPageProducts"),
-);
+import CatalogPageProducts from "./sections/CatalogPageProducts";
 import CatalogPagePagination from "./sections/CatalogPagePagination";
 
 import CatalogPageSort from "./components/CatalogPageSort";
@@ -12,8 +8,8 @@ import CatalogPageFiltersMobile from "./components/CatalogPageFiltersMobile";
 import CatalogPageFiltersSync from "./components/CatalogPageFiltersSync";
 import CatalogPageFiltersListDesktop from "./components/CatalogPageFiltersListDesktop";
 import CatalogPageFiltersListMobile from "./components/CatalogPageFiltersListMobile";
+import { useState } from "react";
 import CatalogPageViewType from "./components/CatalogPageViewType";
-import FullSizeLoader from "@/components/FullSizeLoader";
 
 const CatalogPage = () => {
   const [container, setContainer] = useState(null);
@@ -50,9 +46,7 @@ const CatalogPage = () => {
             </section>
             {isMobile && <CatalogPageFiltersListMobile />}
             <section className="mb-12">
-              <Suspense fallback={<FullSizeLoader />}>
-                <CatalogPageProducts />
-              </Suspense>
+              <CatalogPageProducts />
             </section>
             <section className="mb-32">
               <CatalogPagePagination />
