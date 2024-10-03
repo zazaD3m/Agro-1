@@ -17,7 +17,7 @@ export const CATEGORIES = {
   },
   4000: {
     name: "ყვავილები",
-    icon: "icons/222.png",
+    icon: "icons/4.png",
     link: "yvavilebi",
   },
   5000: {
@@ -42,12 +42,12 @@ export const CATEGORIES = {
   },
   9000: {
     name: "მცენარეთა დაცვის საშუალებები",
-    icon: "icons/99.png",
+    icon: "icons/999.png",
     link: "mcenareTa-dacvis-saSualebebi",
   },
   10000: {
     name: "აგრო ინვენტარი",
-    icon: "fish.png",
+    icon: "icons/10.png",
     link: "agro-inventari",
   },
   11000: {
