@@ -32,7 +32,7 @@ export const CATEGORIES = {
   },
   7000: {
     name: "სოფლის ნობათი",
-    icon: "fish.png",
+    icon: "icons/7.png",
     link: "soflis-nobaTi",
   },
   8000: {
