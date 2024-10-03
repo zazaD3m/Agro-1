@@ -2,7 +2,7 @@ export const CATEGORIES = {
   // == MAIN CATEGORIES START ==
   1000: {
     name: "ცხოველები და ფრინველები",
-    icon: "meat.png",
+    icon: "icons/1.png",
     link: "cxovelebi-da-frinvelebi",
   },
   2000: {
