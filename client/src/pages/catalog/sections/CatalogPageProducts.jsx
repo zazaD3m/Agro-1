@@ -1,6 +1,6 @@
 import { products } from "@/constants/constants";
 import CatalogPageProductCard from "../components/CatalogPageProductCard";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectFilter } from "@/features/filter/filterSlice";
 import { useParams } from "react-router-dom";
@@ -8,8 +8,17 @@ import { getCatType } from "@/data/categories-data";
 import { cn } from "@/lib/utils";
 import { selectCatalogViewType } from "@/features/site/sitePersistedSlice";
 import useWindowSize from "@/hooks/useWindowSize";
+import FullSizeLoader from "@/components/FullSizeLoader";
 
 const CatalogPageProducts = memo(() => {
+  const [render, setRender] = useState(false);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setRender(true);
+    }, 2000);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
   const { isMobile, isDesktop } = useWindowSize();
   const { SellerType, PriceFrom, PriceTo, LocId, SortId } =
     useSelector(selectFilter);
@@ -53,7 +62,7 @@ const CatalogPageProducts = memo(() => {
       }
     });
 
-  return (
+  return render ? (
     <section
       className={cn(
         "grid auto-rows-fr grid-cols-1 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-8",
@@ -71,6 +80,8 @@ const CatalogPageProducts = memo(() => {
         />
       ))}
     </section>
+  ) : (
+    <FullSizeLoader />
   );
 });
 

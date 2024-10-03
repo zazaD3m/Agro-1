@@ -42,7 +42,7 @@ export const CATEGORIES = {
   },
   9000: {
     name: "მცენარეთა დაცვის საშუალებები",
-    icon: "icons/999.png",
+    icon: "icons/9.png",
     link: "mcenareTa-dacvis-saSualebebi",
   },
   10000: {
@@ -52,7 +52,7 @@ export const CATEGORIES = {
   },
   11000: {
     name: "სხვადასხვა",
-    icon: "icons/10.png",
+    icon: "icons/11.png",
     link: "sxvadasxva",
   },
   // MAIN CATEGORIES END

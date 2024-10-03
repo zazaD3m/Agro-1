@@ -83,7 +83,7 @@ const router = createBrowserRouter(
         <Route
           index
           element={
-            <Suspense fallback={<FullScreenLoader />}>
+            <Suspense fallback={<FullSizeLoader />}>
               <HomePage />
             </Suspense>
           }
