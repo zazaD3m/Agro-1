@@ -18,6 +18,7 @@ import PageNotFound from "./components/errors/PageNotFound";
 // COMPONENTS START
 import FullScreenLoader from "./components/FullScreenLoader";
 import RejectAuthenticatedUser from "./components/RejectAuthenticatedUser";
+import PrivateRoute from "./components/PrivateRoute";
 // COMPONENTS END
 
 // LAYOUTS START
@@ -30,14 +31,20 @@ import AccountLayout from "./pages/account/AccountLayout";
 const HomePage = lazy(() => import("./pages/home/HomePage"));
 const CatalogPage = lazy(() => import("./pages/catalog/CatalogPage"));
 const ProductPage = lazy(() => import("./pages/product/ProductPage"));
-import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
-import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
-import LoginPage from "./pages/auth/LoginPage";
-import RegisterPage from "./pages/auth/RegisterPage";
-import PrivateRoute from "./components/PrivateRoute";
-import MyProductsPage from "./pages/account/MyProductsPage";
-import AddNewProductPage from "./pages/account/AddNewProductPage";
 // PAGES END
+
+// ACCOUNT START
+const MyProductsPage = lazy(() => import("./pages/account/MyProductsPage"));
+const AddNewProductPage = lazy(
+  () => import("./pages/account/AddNewProductPage"),
+);
+import EditAccountLayout from "./pages/account/EditAccountLayout";
+const EditPassword = lazy(() => import("./pages/account/EditPassword"));
+const DeactivateAccount = lazy(
+  () => import("./pages/account/DeactivateAccount"),
+);
+const EditAccountInfo = lazy(() => import("./pages/account/EditAccountInfo"));
+// ACCOUNT END
 
 // INFO START
 import PrivacyPolicy from "./pages/siteinfo/PrivacyPolicy";
@@ -45,23 +52,28 @@ import TermsOfUse from "./pages/siteinfo/TermsOfUse";
 import FaqAddProduct from "./pages/siteinfo/components/FaqAddProduct";
 import Contact from "./pages/siteinfo/Contact";
 import Faq from "./pages/siteinfo/Faq";
-// INFO END
-
-// BLOG START
-import BlogPage from "./pages/blog/BlogPage";
-import EditAccountLayout from "./pages/account/EditAccountLayout";
-import EditPassword from "./pages/account/EditPassword";
-import DeactivateAccount from "./pages/account/DeactivateAccount";
-import EditAccountInfo from "./pages/account/EditAccountInfo";
 import AboutUs from "./pages/siteinfo/AboutUs";
 import FaqIndex from "./pages/siteinfo/components/FaqIndex";
 import FaqAuth from "./pages/siteinfo/components/FaqAuth";
 import FaqAuthRegister from "./pages/siteinfo/components/FaqAuthRegister";
 import FaqAuthEdit from "./pages/siteinfo/components/FaqAuthEdit";
 import FaqAuthRecover from "./pages/siteinfo/components/FaqAuthRecover";
+// INFO END
+
+// BLOG START
+import BlogPage from "./pages/blog/BlogPage";
+import { Spinner } from "./components/ui/spinner";
+import FullSizeLoader from "./components/FullSizeLoader";
+
 // BLOG END
 
 // AUTH START
+const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
+const ForgotPasswordPage = lazy(
+  () => import("./pages/auth/ForgotPasswordPage"),
+);
+const ResetPasswordPage = lazy(() => import("./pages/auth/ResetPasswordPage"));
+const RegisterPage = lazy(() => import("./pages/auth/RegisterPage"));
 // AUTH START
 
 const router = createBrowserRouter(
@@ -102,13 +114,48 @@ const router = createBrowserRouter(
         <Route element={<PrivateRoute />}>
           <Route path="account" element={<AccountLayout />}>
             <Route index element={<Navigate to="my-products" replace />} />
-            <Route path="add-new-product" element={<AddNewProductPage />} />
-            <Route path="my-products" element={<MyProductsPage />} />
+            <Route
+              path="add-new-product"
+              element={
+                <Suspense fallback={<FullScreenLoader />}>
+                  <AddNewProductPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="my-products"
+              element={
+                <Suspense fallback={<FullScreenLoader />}>
+                  <MyProductsPage />
+                </Suspense>
+              }
+            />
             <Route path="edit" element={<EditAccountLayout />}>
               <Route index element={<Navigate to="info" replace />} />
-              <Route path="info" element={<EditAccountInfo />} />
-              <Route path="password" element={<EditPassword />} />
-              <Route path="deactivate" element={<DeactivateAccount />} />
+              <Route
+                path="info"
+                element={
+                  <Suspense fallback={<FullSizeLoader />}>
+                    <EditAccountInfo />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="password"
+                element={
+                  <Suspense fallback={<FullScreenLoader />}>
+                    <EditPassword />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="deactivate"
+                element={
+                  <Suspense fallback={<FullScreenLoader />}>
+                    <DeactivateAccount />
+                  </Suspense>
+                }
+              />
             </Route>
           </Route>
         </Route>
