@@ -8,7 +8,7 @@ import GoogleLoginButton from "./components/GoogleLoginButton";
 const RegisterPage = () => {
   return (
     <>
-      <h1 className="text-3xl font-semibold sm:text-4xl">ანგარიშის შექმნა</h1>
+      <h1 className="text-xl font-semibold sm:text-xl">ანგარიშის შექმნა</h1>
       <div className="grid gap-4">
         <RegisterForm />
         <div className="relative">
