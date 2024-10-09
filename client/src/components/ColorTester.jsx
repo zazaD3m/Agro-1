@@ -14,14 +14,14 @@ import {
 } from "./ui/select";
 
 const defaultColors = {
-  primary: "155 100% 30.8%",
-  action: "30 80% 52%",
+  primary: "148 37% 34%",
+  action: "20 65% 35%",
   background: "0 0% 100%",
   "background-green": "158 35% 94%",
   accent: "240 4.8% 95.9%",
   secondary: "240 4.8% 95.9%",
-  "primary-light": "155 100% 39.2%",
-  ring: "155 100% 30.8%",
+  "primary-light": "148 37% 45%",
+  ring: "148 37% 34%",
   "accent-dark": "240 4.8% 90.9%",
 };
 
