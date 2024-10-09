@@ -26,7 +26,7 @@ const FormText = ({
       name={name}
       render={({ field }) => (
         <FormItem className={className}>
-          <FormLabel className="text-lg">{label}</FormLabel>
+          <FormLabel className="text-md">{label}</FormLabel>
           <FormControl>
             {password ? (
               <PasswordInput

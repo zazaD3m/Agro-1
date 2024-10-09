@@ -30,26 +30,12 @@ export const registerValidator = [
     minLowercase: 0,
     minUppercase: 0,
   }),
-  body("firstName")
-    .optional()
-    .isString()
-    .trim()
-    .notEmpty()
-    .escape()
-    .toLowerCase(),
-  body("lastName")
-    .optional()
-    .isString()
-    .trim()
-    .notEmpty()
-    .escape()
-    .toLowerCase(),
+  body("firstName").optional().isString().trim().notEmpty().escape(),
+  body("lastName").optional().isString().trim().notEmpty().escape(),
   body("gender")
     .optional()
     .isString()
-    .trim()
     .notEmpty()
-    .escape()
     .isIn(["მდედრობითი", "მამრობითი"]),
   body("birthYear").optional().notEmpty().isInt().isLength({ max: 4, min: 4 }),
   body("phoneNumber").notEmpty().isInt().isLength({ max: 9, min: 9 }),

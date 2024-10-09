@@ -55,4 +55,169 @@
   .mobile-filters-location-popover-height {
     height: calc(var(--radix-popover-content-available-height) - 65px);
   }
+  /* .centerAbsolute {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .ball-1 {
+    left: 25%;
+    top: 75%;
+    transform: translate();
+    animation: 3s linear 0.5s infinite;
+  } */
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ball {
+  opacity: 0;
+  width: 80px;
+  height: 80px;
+  background-color: #3498db;
+  border-radius: 50%;
+  /* text-align: center; */
+  z-index: 50;
+}
+
+.circle {
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: rgba(5, 14, 58, 0.165);
+  height: 350px;
+  width: 350px;
+  z-index: 0;
+}
+
+.cutCircleBottom {
+  width: 400px;
+  height: 42px;
+  top: 85%;
+  z-index: 10;
+}
+
+.ball1 {
+  animation: moveBall1 1.5s ease 0s forwards;
+}
+
+.ball2 {
+  animation: moveBall2 1.5s ease 0s forwards;
+}
+
+.ball3 {
+  animation: moveBall3 1.5s ease 0s forwards;
+}
+
+.ball4 {
+  animation: moveBall4 1.5s ease 0s forwards;
+}
+
+.ball5 {
+  animation: moveBall5 1.5s ease 0s forwards;
+}
+
+.ball6 {
+  animation: moveBall6 1.5s ease 0s forwards;
+}
+
+@keyframes moveBall1 {
+  100% {
+    opacity: 100;
+    top: 80%;
+    left: 27%;
+  }
+}
+
+@keyframes moveBall2 {
+  0% {
+  }
+  100% {
+    opacity: 100;
+    top: 50%;
+    left: 12.8%;
+  }
+}
+
+@keyframes moveBall3 {
+  0% {
+  }
+  100% {
+    opacity: 100;
+
+    top: 20%;
+    left: 27%;
+  }
+}
+
+@keyframes moveBall4 {
+  0% {
+  }
+  100% {
+    opacity: 100;
+
+    top: 20%;
+    left: 73%;
+  }
+}
+@keyframes moveBall5 {
+  0% {
+  }
+  100% {
+    opacity: 100;
+
+    top: 50%;
+    left: 87.2%;
+  }
+}
+
+@keyframes moveBall6 {
+  0% {
+  }
+  100% {
+    opacity: 100;
+    top: 80%;
+    left: 76%;
+  }
+}
+
+.c {
+  opacity: 0;
+}
+
+.c-1 {
+  animation: showC 1s ease 0s forwards;
+}
+
+.c-2 {
+  animation: showC 1s ease 0.5s forwards;
+}
+
+.c-3 {
+  animation: showC 1s ease 1s forwards;
+}
+
+.c-4 {
+  animation: showC 1s ease 1.5s forwards;
+}
+
+.c-5 {
+  animation: showC 1s ease 2s forwards;
+}
+
+.c-6 {
+  animation: showC 1s ease 2.5s forwards;
+}
+
+@keyframes showC {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
 }
