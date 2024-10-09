@@ -21,7 +21,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { BIRTH_YEARS } from "@/constants/constants";
 import { cn } from "@/lib/utils";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 const FormBirth = ({ control, setValue }) => {
@@ -32,28 +32,29 @@ const FormBirth = ({ control, setValue }) => {
       name="birthYear"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel className="text-lg">დაბადების წელი</FormLabel>
+          <FormLabel>დაბადების წელი</FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
-                  size="lg"
-                  variant="secondary"
+                  variant="popoverTriggerAsInput"
                   role="combobox"
                   aria-expanded={open}
                   className={cn(
-                    "w-64 justify-between px-4 text-foreground",
+                    "group w-48 justify-between pl-4 pr-2 text-foreground",
                     !field.value && "text-muted-foreground",
                   )}
                 >
                   {field.value
                     ? BIRTH_YEARS.find((year) => year === field.value)
                     : "აირჩიე წელი"}
-                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  <div className="ml-auto h-full w-px bg-accent-dark" />
+
+                  <ChevronDown className="ml-2 h-5 w-5 shrink-0 opacity-50 transition-all group-hover:opacity-100" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent align="start" className="w-64 rounded-sm p-0">
+            <PopoverContent align="start" className="w-48 rounded-sm p-0">
               <Command
                 filter={(value, search) => {
                   if (value.includes(search)) return 1;

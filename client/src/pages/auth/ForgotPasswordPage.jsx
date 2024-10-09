@@ -18,7 +18,7 @@ const ForgotPasswordPage = () => {
             <ChevronLeft />
           </Link>
         </Button>
-        <h1 className="text-xl font-semibold sm:text-3xl">პაროლის აღდგენა</h1>
+        <h1 className="text-xl font-semibold sm:text-2xl">პაროლის აღდგენა</h1>
       </div>
       <p className="py-2">
         შეიყვანეთ ელფოსტა და პაროლის აღდგენის ინსტრუქციას გამოგიგზავნით.

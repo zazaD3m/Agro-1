@@ -38,7 +38,7 @@ const HeaderDesktopBottom = memo(() => {
       <div className="flex grow gap-x-4 xl:gap-x-8">
         <div className="flex items-center">
           <Link to="/" className="cursor-pointer">
-            <img src="logo.png" className="h-12" />
+            <img src="/logo-1.png" className="h-8" />
           </Link>
         </div>
         <div className="flex items-center justify-center">

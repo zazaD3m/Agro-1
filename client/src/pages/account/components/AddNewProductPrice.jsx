@@ -11,21 +11,19 @@ import { Input } from "@/components/ui/input";
 const AddNewProductPrice = ({ control, isLoading }) => {
   return (
     <>
-      <h2 className="pb-2 text-lg font-medium">ფასი</h2>
       <FormField
         control={control}
         name="price"
         render={({ field }) => (
           <FormItem className="space-y-3">
-            <FormLabel className="font-light">
+            <FormLabel className="text-base">ფასი</FormLabel>
+            <p className="text-sm font-light">
               მიუთითე ნივთის ფასი
               <span className="font-semibold text-destructive">*</span>
-            </FormLabel>
+            </p>
             <FormControl>
               <Input
                 disabled={isLoading || field.value === "0.00"}
-                size="lg"
-                placeholder="0"
                 type="text"
                 inputMode="numeric"
                 className="sm:max-w-48"
@@ -40,7 +38,7 @@ const AddNewProductPrice = ({ control, isLoading }) => {
                     field.onChange(value);
                   }
                 }}
-                value={field.value === "0.00" ? "0" : field.value}
+                value={field.value === "0.00" ? "" : field.value}
               />
             </FormControl>
             <div className="flex items-center space-x-2">
@@ -52,7 +50,12 @@ const AddNewProductPrice = ({ control, isLoading }) => {
                   field.onChange(field.value === "0.00" ? "" : "0.00");
                 }}
               />
-              <label htmlFor="addProductPrice-0">ფასი შეთანხმებით</label>
+              <label
+                htmlFor="addProductPrice-0"
+                className="cursor-pointer text-sm"
+              >
+                ფასი შეთანხმებით
+              </label>
             </div>
             <FormMessage />
           </FormItem>

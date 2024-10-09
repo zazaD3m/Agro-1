@@ -50,10 +50,7 @@ const AddPassword = () => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-12 lg:px-4 lg:py-4"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-x-12">
           <FormText
             control={control}

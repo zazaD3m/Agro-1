@@ -26,12 +26,11 @@ const FormText = ({
       name={name}
       render={({ field }) => (
         <FormItem className={className}>
-          <FormLabel className="text-md">{label}</FormLabel>
+          <FormLabel>{label}</FormLabel>
           <FormControl>
             {password ? (
               <PasswordInput
                 disabled={isLoading || disabled}
-                size="lg"
                 showDefault={passwordShowDefault}
                 {...props}
                 {...field}
@@ -39,7 +38,6 @@ const FormText = ({
             ) : (
               <Input
                 disabled={isLoading || disabled}
-                size="lg"
                 placeholder={placeholder}
                 {...props}
                 {...field}

@@ -8,7 +8,9 @@ import GoogleLoginButton from "./components/GoogleLoginButton";
 const RegisterPage = () => {
   return (
     <>
-      <h1 className="text-xl font-semibold sm:text-xl">ანგარიშის შექმნა</h1>
+      <h1 className="pb-6 text-xl font-semibold sm:text-2xl">
+        ანგარიშის შექმნა
+      </h1>
       <div className="grid gap-4">
         <RegisterForm />
         <div className="relative">
@@ -24,9 +26,9 @@ const RegisterPage = () => {
           {/* <FacebookLoginButton /> */}
         </div>
       </div>
-      <div className="mt-4 pb-6 text-center text-base">
+      <div className="pb-20 pt-4 text-center">
         <span>არსებული ანგარიშით - </span>
-        <Button variant="link" asChild className="p-0">
+        <Button variant="link" asChild className="p-0 font-semibold">
           <Link to="/auth/login">შესვლა</Link>
         </Button>
       </div>

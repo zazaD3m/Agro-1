@@ -77,7 +77,7 @@ const LoginForm = () => {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center">
-                <FormLabel className="text-lg font-semibold">პაროლი</FormLabel>
+                <FormLabel>პაროლი</FormLabel>
                 <Link
                   to="/auth/forgot-password"
                   className="ml-auto inline-block text-sm underline"
@@ -86,7 +86,7 @@ const LoginForm = () => {
                 </Link>
               </div>
               <FormControl>
-                <PasswordInput size="lg" disabled={isLoading} {...field} />
+                <PasswordInput disabled={isLoading} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

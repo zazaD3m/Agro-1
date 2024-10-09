@@ -5,7 +5,7 @@ const AuthLayout = () => {
     <main className="relative w-full lg:grid lg:grid-cols-2">
       <section className="mx-auto flex max-w-md flex-col px-2 sm:min-w-[26rem]">
         <Link to="/" className="py-12 text-4xl text-primary">
-          ლოგო
+          <img src="/logo-1.png" className="h-10" />
         </Link>
         <Outlet />
       </section>

@@ -37,7 +37,7 @@ const CatalogPageLocation = ({ container }) => {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="accentOutline"
+          variant="popoverTriggerAsInput"
           role="combobox"
           aria-expanded={open}
           className="group w-full rounded-md px-2"

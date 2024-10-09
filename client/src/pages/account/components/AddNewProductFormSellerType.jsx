@@ -32,20 +32,20 @@ const AddNewProductFormSellerType = ({ control, userInfo }) => {
       name="sellerType"
       render={({ field }) => (
         <FormItem className="space-y-3">
-          <FormLabel asChild className="text-lg">
+          <FormLabel asChild className="text-base">
             <legend>დაამატე განცხადება როგორც</legend>
           </FormLabel>
           <FormControl>
             <RadioGroup
               onValueChange={field.onChange}
               defaultValue={field.value}
-              className="flex gap-x-8 max-xs:flex-col"
+              className="flex gap-8 max-xs:flex-col"
             >
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
                   <RadioGroupItem value="3" />
                 </FormControl>
-                <FormLabel className="text-base font-normal">
+                <FormLabel className="font-normal">
                   {SellerFilter.nameMap[3]}
                 </FormLabel>
               </FormItem>
@@ -53,7 +53,7 @@ const AddNewProductFormSellerType = ({ control, userInfo }) => {
                 <FormControl>
                   <RadioGroupItem disabled={!userInfo.shopId} value="2" />
                 </FormControl>
-                <FormLabel className="text-base font-normal">
+                <FormLabel className="font-normal">
                   {SellerFilter.nameMap[2]}
                 </FormLabel>
                 {userInfo.shopId ? null : (

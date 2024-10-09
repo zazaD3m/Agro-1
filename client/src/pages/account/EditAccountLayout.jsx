@@ -13,7 +13,7 @@ const EditAccountItem = ({ text, link }) => {
 
 const EditAccountLayout = () => {
   return (
-    <div className="w-full animate-fadeIn space-y-4 lg:max-w-[768px]">
+    <div className="w-full animate-fadeIn space-y-4 duration-300 lg:max-w-[768px]">
       <h2 className="text-xl font-semibold">პირადი ინფორმაცია</h2>
       <div className="flex rounded-md bg-background p-2 text-sm shadow-sm max-sm:flex-col max-sm:gap-y-2 sm:gap-x-4 md:w-min">
         {[

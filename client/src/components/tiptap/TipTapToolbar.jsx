@@ -7,6 +7,7 @@ const TipTapToolbar = ({ editor, limit }) => {
     <div className="flex items-center gap-x-1 rounded-md border p-1">
       <Toggle
         size="sm"
+        className="data-[state=on]:bg-accent-dark data-[state=on]:text-accent-foreground"
         pressed={editor.isActive("bold")}
         onPressedChange={() => editor.chain().focus().toggleBold().run()}
       >
@@ -14,6 +15,7 @@ const TipTapToolbar = ({ editor, limit }) => {
       </Toggle>
       <Toggle
         size="sm"
+        className="data-[state=on]:bg-accent-dark data-[state=on]:text-accent-foreground"
         pressed={editor.isActive("italic")}
         onPressedChange={() => editor.chain().focus().toggleItalic().run()}
       >

@@ -36,7 +36,7 @@ const ResetPasswordPage = () => {
 
   return (
     <>
-      <h1 className="text-xl font-semibold sm:text-3xl">პაროლის აღდგენა</h1>
+      <h1 className="text-xl font-semibold sm:text-2xl">პაროლის აღდგენა</h1>
       {isSuccess ? (
         <>
           <p className="py-2">შეიყვანეთ ახალი პაროლი</p>

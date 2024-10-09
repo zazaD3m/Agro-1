@@ -97,7 +97,7 @@ const ContactForm = () => {
             name="message"
             render={({ field }) => (
               <FormItem className="pb-8">
-                <FormLabel className="text-lg">წერილი</FormLabel>
+                <FormLabel>წერილი</FormLabel>
                 <FormControl>
                   <Textarea
                     disabled={isLoading}

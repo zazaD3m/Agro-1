@@ -88,9 +88,9 @@ const AddNewProductPage = () => {
   }, [isError, isSuccess]);
 
   return (
-    <div className="w-full lg:max-w-[768px]">
+    <div className="w-full animate-fadeIn duration-300 lg:max-w-[768px]">
       <h2 className="pb-8 text-xl font-semibold">განცხადების დამატება</h2>
-      {/* <div className="rounded-md bg-background px-4 py-4 shadow-sm">
+      {/* <div className="rounded-md bg-background p-4 shadow-sm">
         
       </div> */}
       <Form {...form}>
@@ -98,19 +98,19 @@ const AddNewProductPage = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-y-8"
         >
-          <div className="rounded-md bg-background px-4 pb-4 pt-2.5 shadow-sm">
+          <div className="rounded-md bg-background p-4 pt-2.5 shadow-sm">
             <AddNewProductFormSellerType
               control={control}
               userInfo={userInfo}
             />
           </div>
-          <div className="rounded-md bg-background px-4 pb-4 pt-2.5 shadow-sm">
+          <div className="rounded-md bg-background p-4 pt-2.5 shadow-sm">
             <AddNewProductPrice />
           </div>
-          {/* <div className="rounded-md bg-background px-4 pb-4 pt-2.5 shadow-sm">
+          {/* <div className="rounded-md bg-background p-4 pt-2.5 shadow-sm">
             <AddNewProductCategory />
           </div> */}
-          <div className="rounded-md bg-background px-4 pb-4 pt-2.5 shadow-sm">
+          <div className="rounded-md bg-background p-4 pt-2.5 shadow-sm">
             <AddNewProductDesc control={control} />
           </div>
           <button type="submit">hhhhhh</button>

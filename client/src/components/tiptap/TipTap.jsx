@@ -25,7 +25,7 @@ const Tiptap = ({ onChange }) => {
     editorProps: {
       attributes: {
         class:
-          "rounded-md border min-h-[150px] bg-background p-2 pb-8 border-input bg-background text-sm ring-offset-background  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          "rounded-md border min-h-[150px] bg-background p-2 border-input bg-background  ring-offset-background focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 duration-300 transition",
       },
     },
     enableInputRules: [Italic],

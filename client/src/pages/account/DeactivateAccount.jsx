@@ -68,22 +68,17 @@ const DeactivateAccount = () => {
   return (
     <>
       <Form {...form}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="lg:px-4 lg:py-4"
-          ref={setContainer}
-        >
-          <h1 className="pb-8 text-lg">ანგარიშის წასაშლელად შეიყვანე პაროლი</h1>
-          <div className="grid gap-6 pb-8 lg:grid-cols-2 lg:gap-x-12">
-            <FormText
-              control={control}
-              name="password"
-              label="პაროლი*"
-              isLoading={isLoading}
-              password={true}
-              passwordShowDefault={true}
-            />
-          </div>
+        <form onSubmit={handleSubmit(onSubmit)} ref={setContainer}>
+          <h1 className="pb-4 text-lg">ანგარიშის წასაშლელად შეიყვანე პაროლი</h1>
+          <FormText
+            control={control}
+            name="password"
+            label="პაროლი*"
+            isLoading={isLoading}
+            password={true}
+            passwordShowDefault={true}
+            className="pb-4"
+          />
           <FormSubmitError
             isError={isError && error.data.message !== "wrong password"}
             error="პაროლი არასწორია!"

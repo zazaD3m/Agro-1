@@ -14,30 +14,26 @@ const FormGender = ({ control }) => {
       name="gender"
       render={({ field }) => (
         <FormItem className="space-y-3">
-          <FormLabel asChild className="text-lg">
+          <FormLabel asChild>
             <legend>სქესი</legend>
           </FormLabel>
           <FormControl>
             <RadioGroup
               onValueChange={field.onChange}
               defaultValue={field.value}
-              className="flex gap-x-8"
+              className="flex gap-8 max-xs:flex-col"
             >
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
                   <RadioGroupItem value="მამრობითი" />
                 </FormControl>
-                <FormLabel className="text-base font-normal">
-                  მამრობითი
-                </FormLabel>
+                <FormLabel className="font-normal">მამრობითი</FormLabel>
               </FormItem>
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
                   <RadioGroupItem value="მდედრობითი" />
                 </FormControl>
-                <FormLabel className="text-base font-normal">
-                  მდედრობითი
-                </FormLabel>
+                <FormLabel className="font-normal">მდედრობითი</FormLabel>
               </FormItem>
             </RadioGroup>
           </FormControl>

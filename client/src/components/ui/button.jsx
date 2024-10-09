@@ -5,10 +5,12 @@ import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none  disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none disabled:opacity-50",
   {
     variants: {
       variant: {
+        popoverTriggerAsInput:
+          "border border-input bg-background ring-offset-background data-[state=open]:ring-1 duration-300 data-[state=open]:ring-ring data-[state=open]:ring-offset-0 transition",
         primary:
           "bg-primary text-primary-foreground lg:hover:bg-primary/90 transition-all duration-300",
         action:

@@ -20,7 +20,7 @@ const TipTapCharCounter = ({ editor, limit }) => {
       </svg>
       <p className="text-xs">
         {editor.storage.characterCount.characters()} / {limit}
-        <span className="text-xxs">სიმბოლო</span>
+        <span className="text-xxs"> სიმბოლო</span>
       </p>
     </div>
   );

@@ -1,11 +1,6 @@
 import Tiptap from "@/components/tiptap/TipTap";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
 
 const AddNewProductDesc = ({ control, isLoading }) => {
   return (
@@ -14,12 +9,10 @@ const AddNewProductDesc = ({ control, isLoading }) => {
       name="desc"
       render={({ field }) => (
         <FormItem className="pb-8">
-          <FormLabel className="cursor-default text-lg font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            აღწერა
-          </FormLabel>
-          <FormControl>
-            <Tiptap onChange={field.onChange} isLoading={isLoading} />
-          </FormControl>
+          <Label asChild className="cursor-default text-base">
+            <legend>აღწერა</legend>
+          </Label>
+          <Tiptap onChange={field.onChange} isLoading={isLoading} />
           <FormMessage />
         </FormItem>
       )}

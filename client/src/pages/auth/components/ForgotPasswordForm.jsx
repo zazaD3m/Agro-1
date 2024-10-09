@@ -63,11 +63,10 @@ const ForgotPasswordForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">ელფოსტა</FormLabel>
+              <FormLabel>ელფოსტა</FormLabel>
               <FormControl>
                 <Input
                   disabled={isLoading}
-                  size="lg"
                   placeholder="m@example.com"
                   {...field}
                 />
