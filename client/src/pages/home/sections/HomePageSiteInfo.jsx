@@ -1,6 +1,13 @@
 import useWindowSize from "@/hooks/useWindowSize";
 import { cn } from "@/lib/utils";
-import { Handshake, PersonStanding, PhoneCall, Search } from "lucide-react";
+import {
+  CheckCircle,
+  FileCheck,
+  Handshake,
+  PersonStanding,
+  PhoneCall,
+  Search,
+} from "lucide-react";
 import { useInView } from "react-intersection-observer";
 
 const HomePageSiteInfo = ({ className }) => {
@@ -26,25 +33,25 @@ const HomePageSiteInfo = ({ className }) => {
     {
       title: "შერჩევა",
       icon: (
-        <PhoneCall className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
+        <FileCheck className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
       ),
     },
     {
       title: "დაკავშირება",
       icon: (
-        <Handshake className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
+        <PhoneCall className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
       ),
     },
     {
       title: "შეთანხმება",
       icon: (
-        <PersonStanding className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
+        <Handshake className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
       ),
     },
     {
       title: "შეძენა",
       icon: (
-        <PersonStanding className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
+        <CheckCircle className="size-6 text-white sm:size-8 md:size-10 2xl:size-12" />
       ),
     },
   ];
@@ -55,7 +62,7 @@ const HomePageSiteInfo = ({ className }) => {
         <h2 className="text-center text-3xl font-medium lg:text-4xl 2xl:text-5xl">
           ჩვენი საიტის <span className="text-[#68A249]">იდეა</span>
         </h2>
-        <p className="text-center text-sm sm:w-4/5 sm:text-base 2xl:text-lg">
+        <p className="pb-8 text-center text-sm sm:w-4/5 sm:text-base 2xl:text-lg">
           <span className="font-medium text-[#68A249]">აგროეზო</span> - ონლაინ
           პლატფორმა, რომელიც აერთიანებს ადგილობრივ ფერმერს და მომხმარებელს!
           საქონლის გაყიდვა და შეძენა! ონლაინ ბაზარი, პირდაპირი კავშირი პროდუქტის
@@ -132,13 +139,13 @@ const HomePageSiteInfo = ({ className }) => {
             </div>
           </div>
         ) : (
-          <div className="relative mb-8 flex w-5/6 justify-between md:w-4/5 lg:w-2/3">
+          <div className="relative flex w-5/6 justify-between md:w-4/5 lg:w-2/3">
             {circles.map((e, i) => (
               <div key={e.title} className="relative z-10 flex justify-center">
                 <div
                   className={cn(
                     "flex items-center justify-center rounded-full bg-[#3F444D] p-4 md:p-5 lg:p-6",
-                    (i === 0 || i === 4) && "bg-[#68A249]",
+                    (i === 0 || i === 5) && "bg-[#68A249]",
                   )}
                 >
                   {e.icon}
@@ -147,7 +154,7 @@ const HomePageSiteInfo = ({ className }) => {
                   <span
                     className={cn(
                       "text-xs text-[#3F444D] sm:text-sm 2xl:text-base",
-                      (i === 0 || i === 4) && "text-[#68A249]",
+                      (i === 0 || i === 5) && "text-[#68A249]",
                     )}
                   >
                     {e.title}

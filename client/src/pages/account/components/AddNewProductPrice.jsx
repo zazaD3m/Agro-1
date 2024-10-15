@@ -16,11 +16,12 @@ const AddNewProductPrice = ({ control, isLoading }) => {
         name="price"
         render={({ field }) => (
           <FormItem className="space-y-3">
-            <FormLabel className="text-base">ფასი</FormLabel>
-            <p className="text-sm font-light">
-              მიუთითე ნივთის ფასი
-              <span className="font-semibold text-destructive">*</span>
-            </p>
+            <FormLabel className="text-base">
+              ფასი
+              <span className="align-top text-sm font-semibold text-destructive">
+                *
+              </span>
+            </FormLabel>
             <FormControl>
               <Input
                 disabled={isLoading || field.value === "0.00"}

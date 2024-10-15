@@ -20,13 +20,11 @@ import {
 } from "@/components/ui/popover";
 import { LocationFilter } from "@/data/filters-data";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import useWindowSize from "@/hooks/useWindowSize";
 
-const CatalogPageLocation = ({ container }) => {
+const CatalogPageLocation = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const LocId = useSelector(selectLocId);
-  const { isDesktop } = useWindowSize();
 
   const handleLocIdClick = (id) => {
     dispatch(setFilter({ LocId: id === LocId ? LocationFilter.default : id }));
@@ -34,13 +32,13 @@ const CatalogPageLocation = ({ container }) => {
   };
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={setOpen} modal={true}>
       <PopoverTrigger asChild>
         <Button
           variant="popoverTriggerAsInput"
           role="combobox"
           aria-expanded={open}
-          className="group w-full rounded-md px-2"
+          className="group w-full rounded-md px-2 text-xs font-normal"
         >
           {LocId === LocationFilter.default
             ? ""
@@ -50,11 +48,7 @@ const CatalogPageLocation = ({ container }) => {
           <ChevronDown className="ml-2 h-5 w-5 shrink-0 opacity-50 transition-all group-hover:opacity-80" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        container={container}
-        avoidCollisions={isDesktop}
-        className="popover-content-width-full p-0"
-      >
+      <PopoverContent className="popover-content-width-full p-0">
         <Command>
           <CommandList>
             <CommandInput placeholder="მდებარეობა..." />
@@ -62,7 +56,7 @@ const CatalogPageLocation = ({ container }) => {
               მდებარეობა ვერ მოიძებნა.
             </CommandEmpty>
             <CommandGroup>
-              <ScrollArea className="mobile-filters-location-popover-height lg:h-[255px]">
+              <ScrollArea className="h-[255px]">
                 {LocationFilter.options.map((id) => {
                   const location = LocationFilter.nameMap[id];
                   return (

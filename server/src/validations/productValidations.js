@@ -1,16 +1,16 @@
-import { body, checkExact } from "express-validator";
-
+import { body } from "express-validator";
+import { LOCATION } from "../constants/LOCATION.js";
+import { SELLER } from "../constants/USER_DETAILS.js";
 export const productValidator = [
-  body("price")
-    .isFloat({ min: 0, max: 1000000 })
-    .withMessage("ფასი უნდა იყოს 0 ან 0-დან 1000000-მდე"),
-  body("title").isString().trim().notEmpty().escape(),
+  body("price").toFloat().isFloat({ min: 0, max: 1000000 }),
+  body("title").isString().trim().isLength({ min: 1, max: 50 }).escape(),
+  body("sellerType").toInt().isIn(SELLER.options),
+  body("locId").toInt().isIn(LOCATION.options),
+  body("name")
+    .isString()
+    .trim()
+    .notEmpty()
+    .isLength({ min: 1, max: 20 })
+    .escape(),
+  body("phoneNumber").isString().isLength({ min: 9, max: 9 }).matches(/^\d+$/),
 ];
-
-// .customSanitizer((s) => {
-//   return s
-//     .replace(/[^a-zA-Zა-ჰ\s-]/g, "") // Remove non-English, non-Georgian letters, and keep spaces and dashes
-//     .trim()
-//     .replace(/\s+/g, "-") // Replace spaces with "-"
-//     .replace(/-+/g, "-"); // Replace multiple dashes with a single dash
-// })

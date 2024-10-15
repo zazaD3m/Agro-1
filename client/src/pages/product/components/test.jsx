@@ -7,10 +7,11 @@ import {
 } from "react";
 import { Button } from "@/components/ui/button";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ChevronLeftIcon } from "@radix-ui/react-icons";
 import { createContext } from "react";
+
+const CarouselContext = createContext(null);
 
 const useCarousel = () => {
   const context = useContext(CarouselContext);
@@ -19,8 +20,6 @@ const useCarousel = () => {
   }
   return context;
 };
-
-const CarouselContext = createContext(null);
 
 const Carousel = forwardRef(
   (

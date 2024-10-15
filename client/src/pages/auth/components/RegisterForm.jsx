@@ -7,14 +7,16 @@ import { useEffect } from "react";
 import { LoadingButton } from "@/components/ui/loading-button";
 import FormText from "./FormText";
 import FormBirth from "./FormBirth";
-import { BIRTH_YEARS } from "@/constants/constants";
 import FormGender from "./FormGender";
 import FormCheckbox from "./FormCheckbox";
 import { useNavigate } from "react-router-dom";
+import BIRTH_YEARS from "@/constants/BIRTH_YEARS";
+import { GENDER } from "@/constants/USER_DETAILS";
 
 const registerSchema = yup.object({
   password: yup
     .string()
+    .trim()
     .required("ჩაწერე პაროლი")
     .min(8, "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს"),
   confirmPassword: yup
@@ -23,12 +25,13 @@ const registerSchema = yup.object({
     .oneOf([yup.ref("password")], "პაროლები ერთმანეთს არ ემთხვევა"),
   email: yup
     .string()
+    .trim()
     .email("ჩაწერე სწორი ფორმატის ელფოსტა")
     .required("ჩაწერე ელფოსტა"),
-  firstName: yup.string(),
-  lastName: yup.string(),
-  gender: yup.mixed().oneOf(["მდედრობითი", "მამრობითი", ""], "აირჩიე სქესი"),
-  birthYear: yup.mixed().oneOf([...BIRTH_YEARS, ""], "აირჩიე დაბადების წელი"),
+  firstName: yup.string().trim(),
+  lastName: yup.string().trim(),
+  genderId: yup.mixed().oneOf(GENDER.options, "აირჩიე სქესი"),
+  birthYear: yup.mixed().oneOf(BIRTH_YEARS, "აირჩიე დაბადების წელი"),
   phoneNumber: yup
     .string()
     .required("ჩაწერე ტელეფონის ნომერი")
@@ -53,8 +56,7 @@ const RegisterForm = () => {
       email: "",
       firstName: "",
       lastName: "",
-      gender: "",
-      sellerType: "",
+      genderId: 1,
       birthYear: "",
       phoneNumber: "",
       agreeTerms: false,
@@ -68,14 +70,8 @@ const RegisterForm = () => {
   const { handleSubmit, control, setError, setValue, getValues } = form;
 
   const onSubmit = (data) => {
-    data.phoneNumber = parseInt(data.phoneNumber);
-    delete data.confirmPassword;
-    const newUser = {};
-    for (const key in data) {
-      if (data[key]) {
-        newUser[key] = data[key];
-      }
-    }
+    const newUser = { ...data };
+
     registerMutation(newUser);
   };
 

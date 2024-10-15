@@ -1,29 +1,18 @@
-import TestComp from "@/components/TestComp";
-import TestComp2 from "@/components/TestComp2";
 import {
   Carousel,
   CarouselContent,
+  CarouselIndicator,
   CarouselItem,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
+import HomePageSiteInfo from "../sections/HomePageSiteInfo";
+import TestCompArrows from "@/components/TestCompArrows";
+import TestCompOpacity from "@/components/TestCompOpacity";
+import TestCompTractor from "@/components/TestCompTractor";
+import TestCompFullOpacity from "@/components/TestCompFullOpacity";
 
 const HOME_PAGE_CONTENT = [
-  {
-    img: "test-15.png",
-    heading: "გამყიდველებისთვის - დაამატეთ თქვენი პროდუქტები სრულიად უფასოდ!",
-    p: "არანაირი საკომისიო. ჩვენი საიტი კარგად არის ინდექსირებული საძიებო სისტემებში. მოსახერხებელი პირადი ანგარიში, საქონლის მარტივი დამატება, საქონლის შეკვეთა ვებგვერდზე.",
-    buttons: [
-      {
-        linkText: "გაყიდე",
-        link: "/account/add-new-product",
-      },
-      {
-        linkText: "ინსტრუქცია",
-        link: "/info/add-product",
-      },
-    ],
-  },
   {
     img: "test-13.png",
     heading: "გამყიდველებისთვის - დაამატეთ თქვენი პროდუქტები სრულიად უფასოდ!",
@@ -39,6 +28,22 @@ const HOME_PAGE_CONTENT = [
       },
     ],
   },
+  {
+    img: "test-15.png",
+    heading: "გამყიდველებისთვის - დაამატეთ თქვენი პროდუქტები სრულიად უფასოდ!",
+    p: "არანაირი საკომისიო. ჩვენი საიტი კარგად არის ინდექსირებული საძიებო სისტემებში. მოსახერხებელი პირადი ანგარიში, საქონლის მარტივი დამატება, საქონლის შეკვეთა ვებგვერდზე.",
+    buttons: [
+      {
+        linkText: "გაყიდე",
+        link: "/account/add-new-product",
+      },
+      {
+        linkText: "ინსტრუქცია",
+        link: "/info/add-product",
+      },
+    ],
+  },
+
   {
     img: "test-14.png",
     heading: "გამყიდველებისთვის - დაამატეთ თქვენი პროდუქტები სრულიად უფასოდ!",
@@ -66,34 +71,40 @@ const HomePageHeroCarousel = ({ className }) => {
     <div className={cn("overflow-hidden", className)}>
       <Carousel
         opts={{ loop: true }}
-        // plugins={[
-        //   Autoplay({
-        //     delay: 4000,
-        //   }),
-        // ]}
+        plugins={
+          [
+            // Autoplay({
+            //   delay: 4000,
+            // }),
+          ]
+        }
       >
         <CarouselContent>
-          {/* <CarouselItem>
-            <TestComp2 />
-          </CarouselItem> */}
           {HOME_PAGE_CONTENT.map((data, i) => (
             <CarouselItem key={i}>
-              <div className="bg-background=green relative flex justify-center">
+              <div className="flex justify-center">
                 <img
                   src={data.img}
-                  className="h-auto w-full bg-background object-contain sm:max-h-[450px] sm:w-auto"
+                  className="h-auto w-full bg-background object-contain sm:max-h-[400px] sm:w-auto 2xl:max-h-[450px]"
                 />
-                {/* <div className="absolute left-0 top-0 w-full space-y-4 p-4 pt-3 sm:p-6 sm:pl-8 xl:p-8 xl:pl-12">
-                  <h1 className="cursor-default text-pretty break-words font-semibold tracking-wide text-white sm:max-w-md sm:text-lg md:max-w-lg lg:text-xl xl:max-w-2xl xl:text-2xl">
-                    {data.heading}
-                  </h1>
-                  <p className="cursor-default rounded-md bg-transparent/60 p-2 text-sm font-medium text-white sm:max-w-md sm:text-base md:max-w-lg lg:text-lg xl:max-w-2xl xl:text-xl">
-                    {data.p}
-                  </p>
-                </div> */}
               </div>
             </CarouselItem>
           ))}
+          <CarouselItem>
+            <TestCompArrows />
+          </CarouselItem>
+          <CarouselItem className="flex items-center">
+            <HomePageSiteInfo />
+          </CarouselItem>
+          <CarouselItem>
+            <TestCompOpacity />
+          </CarouselItem>
+          <CarouselItem>
+            <TestCompTractor />
+          </CarouselItem>
+          <CarouselItem>
+            <TestCompFullOpacity />
+          </CarouselItem>
         </CarouselContent>
       </Carousel>
     </div>

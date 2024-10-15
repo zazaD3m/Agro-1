@@ -7,10 +7,10 @@ import { useEffect } from "react";
 import { LoadingButton } from "@/components/ui/loading-button";
 import FormText from "../auth/components/FormText";
 import FormBirth from "../auth/components/FormBirth";
-import { BIRTH_YEARS } from "@/constants/constants";
 import FormGender from "../auth/components/FormGender";
 import useUserInfo from "@/hooks/useUserInfo";
 import { useToast } from "@/components/ui/use-toast";
+import BIRTH_YEARS from "@/constants/BIRTH_YEARS";
 
 const editAccountSchema = yup.object({
   password: yup.string().required("ჩაწერე პაროლი"),

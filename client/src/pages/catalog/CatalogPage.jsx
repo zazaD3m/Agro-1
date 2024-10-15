@@ -8,11 +8,9 @@ import CatalogPageFiltersMobile from "./components/CatalogPageFiltersMobile";
 import CatalogPageFiltersSync from "./components/CatalogPageFiltersSync";
 import CatalogPageFiltersListDesktop from "./components/CatalogPageFiltersListDesktop";
 import CatalogPageFiltersListMobile from "./components/CatalogPageFiltersListMobile";
-import { useState } from "react";
 import CatalogPageViewType from "./components/CatalogPageViewType";
 
 const CatalogPage = () => {
-  const [container, setContainer] = useState(null);
   const { isDesktop, isMobile } = useWindowSize();
 
   return (
@@ -21,14 +19,11 @@ const CatalogPage = () => {
       <div className="bg-accent-dark pt-4 lg:pt-6">
         <div className="container flex gap-x-4 px-2 sm:px-4">
           {isDesktop && (
-            <aside
-              className="h-min w-[220px] shrink-0 rounded-md bg-background pb-12 shadow-md"
-              ref={setContainer}
-            >
+            <aside className="mb-32 h-min w-[220px] shrink-0 rounded-md bg-background pb-12 shadow-md">
               <div className="rounded-t-md bg-accent py-4 shadow-md">
                 <h1 className="text-center">ფილტრები</h1>
               </div>
-              <CatalogPageFilters container={container} />
+              <CatalogPageFilters />
             </aside>
           )}
           <div className="w-full">

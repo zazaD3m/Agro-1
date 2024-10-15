@@ -11,7 +11,7 @@ const FormGender = ({ control }) => {
   return (
     <FormField
       control={control}
-      name="gender"
+      name="genderId"
       render={({ field }) => (
         <FormItem className="space-y-3">
           <FormLabel asChild>
@@ -25,13 +25,13 @@ const FormGender = ({ control }) => {
             >
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
-                  <RadioGroupItem value="მამრობითი" />
+                  <RadioGroupItem value={1} />
                 </FormControl>
                 <FormLabel className="font-normal">მამრობითი</FormLabel>
               </FormItem>
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
-                  <RadioGroupItem value="მდედრობითი" />
+                  <RadioGroupItem value={2} />
                 </FormControl>
                 <FormLabel className="font-normal">მდედრობითი</FormLabel>
               </FormItem>

@@ -21,12 +21,12 @@ router
   .route("/")
   .get(getAllProducts)
   .post(
-    // [productValidator, validateProduct],
+    [productValidator, validateProduct],
     asyncHandler(async (req, res) => {
       console.log(req.body);
       // const newProduct = await Product.create(req.body);
       // res.status(201).json(newProduct);
-      res.status(201).json({ message: "success" });
+      res.status(201).json({ product: req.body });
     })
   );
 

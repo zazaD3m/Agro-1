@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import { generateForgotPasswordToken } from "../services/jwt.js";
+import { LOCATION } from "../constants/LOCATION.js";
 
 const userSchema = new Schema(
   {
@@ -15,17 +16,20 @@ const userSchema = new Schema(
     email: {
       type: String,
     },
-    gender: {
-      type: String,
+    genderId: {
+      type: Number,
     },
     birthYear: {
       type: Number,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
     },
     password: {
       type: String,
+    },
+    locId: {
+      type: Number,
     },
     address: { type: String },
     shopId: { type: Schema.Types.ObjectId },
