@@ -11,6 +11,7 @@ import TestCompArrows from "@/components/TestCompArrows";
 import TestCompOpacity from "@/components/TestCompOpacity";
 import TestCompTractor from "@/components/TestCompTractor";
 import TestCompFullOpacity from "@/components/TestCompFullOpacity";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const HOME_PAGE_CONTENT = [
   {
@@ -67,6 +68,8 @@ const images = [
 ];
 
 const HomePageHeroCarousel = ({ className }) => {
+  const { isDesktop } = useWindowSize();
+
   return (
     <div className={cn("overflow-hidden", className)}>
       <Carousel
@@ -90,21 +93,25 @@ const HomePageHeroCarousel = ({ className }) => {
               </div>
             </CarouselItem>
           ))}
-          <CarouselItem>
-            <TestCompArrows />
-          </CarouselItem>
-          <CarouselItem className="flex items-center">
-            <HomePageSiteInfo />
-          </CarouselItem>
-          <CarouselItem>
-            <TestCompOpacity />
-          </CarouselItem>
-          <CarouselItem>
-            <TestCompTractor />
-          </CarouselItem>
-          <CarouselItem>
-            <TestCompFullOpacity />
-          </CarouselItem>
+          {isDesktop && (
+            <>
+              <CarouselItem>
+                <TestCompArrows />
+              </CarouselItem>
+              <CarouselItem className="flex items-center">
+                <HomePageSiteInfo />
+              </CarouselItem>
+              <CarouselItem>
+                <TestCompOpacity />
+              </CarouselItem>
+              <CarouselItem>
+                <TestCompTractor />
+              </CarouselItem>
+              <CarouselItem>
+                <TestCompFullOpacity />
+              </CarouselItem>
+            </>
+          )}
         </CarouselContent>
       </Carousel>
     </div>
