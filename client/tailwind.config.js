@@ -149,54 +149,6 @@ module.exports = {
             right: "100%",
           },
         },
-        width: {
-          from: {
-            width: "0%",
-          },
-          to: {
-            width: "100%",
-          },
-        },
-        widthMobile1: {
-          "0%": {
-            width: "0%",
-          },
-          "20%": {
-            width: "33%",
-          },
-          "40%": {
-            width: "66%",
-          },
-          "60%": {
-            width: "100%",
-          },
-          "80%": {
-            width: "100%",
-          },
-          "100%": {
-            width: "100%",
-          },
-        },
-        widthMobile2: {
-          "0%": {
-            width: "0%",
-          },
-          "20%": {
-            width: "0%",
-          },
-          "40%": {
-            width: "0%",
-          },
-          "50%": {
-            width: "0%",
-          },
-          "75%": {
-            width: "50%",
-          },
-          "100%": {
-            width: "100%",
-          },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -212,9 +164,6 @@ module.exports = {
         slideDown: "slideDown 300ms linear both",
         slideUp: "slideUp 300ms linear both",
         progress: "progress 5s linear forwards",
-        width: "width 5s linear infinite",
-        widthMobile1: "widthMobile1 5s linear infinite",
-        widthMobile2: "widthMobile2 5s linear infinite",
       },
       transitionDuration: {
         2000: "2000ms",

@@ -3,9 +3,6 @@ import HomePageBlogPosts from "./sections/HomePageBlogPosts";
 import HomePageFeaturedProducts from "./sections/HomePageFeaturedProducts";
 import HomePageHero from "./sections/HomePageHero";
 import HomePageNewProducts from "./sections/HomePageNewProducts";
-import HomePageSiteInfo from "./sections/HomePageSiteInfo";
-import TestComp2 from "@/components/TestCompOpacity";
-import TestComp3 from "@/components/TestCompTractor";
 
 const HomePage = () => {
   return (
@@ -19,10 +16,6 @@ const HomePage = () => {
       </section>
       <section className="bg-background py-12">
         <HomePageFeaturedProducts className="container px-2 sm:px-4" />
-      </section>
-      <section className="relative overflow-hidden bg-background-green py-8">
-        <TestComp3 className="container px-2 sm:px-4" />
-        {/* <HomePageSiteInfo className="container px-2 sm:px-4" /> */}
       </section>
       <section className="bg-background py-12">
         <HomePageBlogPosts className="container px-2 sm:px-4" />

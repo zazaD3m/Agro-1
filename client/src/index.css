@@ -29,13 +29,12 @@
     --ring: 155 100% 30.8%;
     --radius: 0.5rem;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
     @apply min-w-0;
   }
+
   body {
     @apply relative bg-background text-foreground;
   }
@@ -55,432 +54,56 @@
   .mobile-filters-location-popover-height {
     height: calc(var(--radix-popover-content-available-height) - 65px);
   }
-  /* .centerAbsolute {
+  .centerAbsolute {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  .ball-1 {
-    left: 25%;
-    top: 75%;
-    transform: translate();
-    animation: 3s linear 0.5s infinite;
-  } */
 }
 
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.heroCirclesHeader {
+  transform: translateY(20px);
+  animation: slideUpHeroCircleHeader 0.5s linear 0.3s forwards;
 }
-
-.ball {
-  opacity: 0;
-  width: 80px;
-  height: 80px;
-  background-color: #3498db;
-  border-radius: 50%;
-  /* text-align: center; */
-  z-index: 50;
-}
-
-.circle {
-  border-radius: 50%;
-  border-width: 5px;
-  border-color: rgba(5, 14, 58, 0.165);
-  height: 350px;
-  width: 350px;
-  z-index: 0;
-}
-
-.cutCircleBottom {
-  width: 400px;
-  height: 42px;
-  top: 85%;
-  z-index: 10;
-}
-
-.ball1 {
-  animation: moveBall1 1.5s ease 0s forwards;
-}
-
-.ball2 {
-  animation: moveBall2 1.5s ease 0s forwards;
-}
-
-.ball3 {
-  animation: moveBall3 1.5s ease 0s forwards;
-}
-
-.ball4 {
-  animation: moveBall4 1.5s ease 0s forwards;
-}
-
-.ball5 {
-  animation: moveBall5 1.5s ease 0s forwards;
-}
-
-.ball6 {
-  animation: moveBall6 1.5s ease 0s forwards;
-}
-
-@keyframes moveBall1 {
-  100% {
-    opacity: 100;
-    top: 80%;
-    left: 27%;
-  }
-}
-
-@keyframes moveBall2 {
-  0% {
-  }
-  100% {
-    opacity: 100;
-    top: 50%;
-    left: 12.8%;
-  }
-}
-
-@keyframes moveBall3 {
-  0% {
-  }
-  100% {
-    opacity: 100;
-
-    top: 20%;
-    left: 27%;
-  }
-}
-
-@keyframes moveBall4 {
-  0% {
-  }
-  100% {
-    opacity: 100;
-
-    top: 20%;
-    left: 73%;
-  }
-}
-@keyframes moveBall5 {
-  0% {
-  }
-  100% {
-    opacity: 100;
-
-    top: 50%;
-    left: 87.2%;
-  }
-}
-
-@keyframes moveBall6 {
-  0% {
-  }
-  100% {
-    opacity: 100;
-    top: 80%;
-    left: 76%;
-  }
-}
-
-/* test3 start */
-
-.animateT {
-  /* right: -100%; */
-  transform: translateX(100%);
-  animation: moveT 3s linear 1.2s forwards;
-  will-change: transform;
-}
-
-@keyframes moveT {
-  0% {
-    /* right: -100%; */
-  }
-  100% {
-    /* right: 112px; */
-    transform: translateX(-20%);
-  }
-}
-
-.animateD {
-  /* right: -100%; */
-  transform: translateX(100%);
-  animation: moveD 2.5s linear 1.55s forwards;
-  will-change: transform;
-}
-
-@keyframes moveD {
-  0% {
-    /* right: -100%; */
-  }
-  100% {
-    /* right: 0%; */
-    transform: translateX(0);
-  }
-}
-
-/* test3 end */
-
-/* test4 start */
-
-.heroH {
-  opacity: 0;
-  animation: showH 0.5s linear 0.3s forwards;
-}
-@keyframes showH {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.heroP {
-  opacity: 0;
-  animation: showP 0.5s linear 0.8s forwards;
-}
-@keyframes showP {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.c-1 {
-  opacity: 0;
-  animation: showC 0.5s ease 1.5s forwards;
-}
-
-.c-2 {
-  opacity: 0;
-  animation: showC 0.5s ease 2s forwards;
-}
-
-.c-3 {
-  opacity: 0;
-  animation: showC 0.5s ease 2.5s forwards;
-}
-
-.c-4 {
-  opacity: 0;
-  animation: showC 0.5s ease 3s forwards;
-}
-
-.c-5 {
-  opacity: 0;
-  animation: showC 0.5s ease 3.5s forwards;
-}
-
-.c-6 {
-  opacity: 0;
-  animation: showC 0.5s ease 4s forwards;
-}
-
-@keyframes showC {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
+@keyframes slideUpHeroCircleHeader {
   100% {
     opacity: 100;
     transform: translateY(0);
   }
 }
 
-/* test4 end */
-
-/* test5 start */
-
-.heroH5 {
-  opacity: 0;
-  animation: showH 0.5s linear 0.3s forwards;
-}
-@keyframes showH {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.heroP5 {
-  opacity: 0;
-  animation: showP 0.5s linear 0.8s forwards;
-}
-@keyframes showP {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.heroCircles {
+  transform: translateY(20px);
+  animation: slideUpHeroCircle 0.5s ease forwards;
 }
 
-.showDiv5 {
-  opacity: 0;
-  animation: showD5 0.5s linear 1.3s forwards;
-}
-
-@keyframes showD5 {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes showC {
-  0% {
-    opacity: 0;
-    /* transform: translateY(20px); */
-  }
+@keyframes slideUpHeroCircle {
   100% {
     opacity: 100;
-    /* transform: translateY(0); */
+    transform: translateY(0);
   }
 }
 
-.line-5 {
-  transform: translateX(-100%);
-  opacity: 0;
-  /* animation: moveLine 5s linear 1.5s forwards; */
+.heroCircle-1 {
+  animation-delay: 0.9s;
 }
 
-@keyframes moveLine {
-  0% {
-    transform: translateX(-100%);
-    /* transform: translateY(20px); */
-  }
-  100% {
-    opacity: 100;
-    transform: translateX(-1%);
-    /* transform: translateY(0); */
-  }
+.heroCircle-2 {
+  animation-delay: 1.4s;
 }
 
-/* test5 end */
-
-/* test6 start */
-:root {
-  --initial-duration: 1.5s; /* Initial animation duration */
-  --initial-delay: 1.5s; /* Initial delay for the first arrow */
-  --delay-increment: 0.35s; /* Increment for each subsequent arrow */
+.heroCircle-3 {
+  animation-delay: 1.9s;
 }
 
-.arrow-0-1 {
-  animation: animateArrow var(--initial-duration) linear var(--initial-delay)
-    forwards;
+.heroCircle-4 {
+  animation-delay: 2.4s;
 }
 
-.arrow-0-2 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + var(--delay-increment)) forwards;
+.heroCircle-5 {
+  animation-delay: 2.9s;
 }
 
-.arrow-0-3 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 2)) forwards;
+.heroCircle-6 {
+  animation-delay: 3.4s;
 }
-
-.arrow-1-1 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 3)) forwards;
-}
-
-.arrow-1-2 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 4)) forwards;
-}
-
-.arrow-1-3 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 5)) forwards;
-}
-
-.arrow-2-1 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 6)) forwards;
-}
-
-.arrow-2-2 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 7)) forwards;
-}
-
-.arrow-2-3 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 8)) forwards;
-}
-
-.arrow-3-1 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 9)) forwards;
-}
-
-.arrow-3-2 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 10)) forwards;
-}
-
-.arrow-3-3 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 11)) forwards;
-}
-
-.arrow-4-1 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 12)) forwards;
-}
-
-.arrow-4-2 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 13)) forwards;
-}
-
-.arrow-4-3 {
-  animation: animateArrow var(--initial-duration) linear
-    calc(var(--initial-delay) + calc(var(--delay-increment) * 14)) forwards;
-}
-
-@keyframes animateArrow {
-  0% {
-    opacity: 0%;
-    color: #68a249;
-  }
-  20% {
-    opacity: 25%;
-    color: #68a249;
-  }
-  40% {
-    opacity: 50%;
-    color: #68a249;
-  }
-  60% {
-    opacity: 75%;
-    color: #68a249;
-  }
-  80% {
-    opacity: 100%;
-    color: #68a249;
-  }
-  100% {
-    opacity: 100%;
-    color: #3f444d;
-  }
-}
-/* test6 end */
