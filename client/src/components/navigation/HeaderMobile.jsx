@@ -24,11 +24,9 @@ const HeaderMobile = () => {
 
   return (
     <>
-      <div className="flex h-11 items-center justify-between px-4 py-px">
+      <div className="flex h-11 items-center justify-between pl-2 pr-4">
         <Link to="/">
-          <span className="cursor-pointer text-2xl font-semibold text-primary">
-            Agroezo
-          </span>
+          <img src="/AGROEZO.GE (2).png" className="h-9" />
         </Link>
         <Sheet>
           <SheetTrigger asChild>
