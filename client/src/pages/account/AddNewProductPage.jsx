@@ -20,7 +20,7 @@ import AddNewProductPhoneNumber from "./components/AddNewProductPhoneNumber";
 import AddNewProductLocation from "./components/AddNewProductLocation";
 import { CATEGORIES } from "@/data/categories-data";
 import AddNewProductAuthorName from "./components/AddNewProductAuthorName";
-import { DevTool } from "@hookform/devtools";
+// import { DevTool } from "@hookform/devtools";
 import AddNewProductImages from "./components/AddNewProductImages";
 import { useState } from "react";
 
