@@ -11,7 +11,7 @@ const AccountLayout = () => {
     >
       <div className="container flex px-2 sm:px-4 lg:gap-x-8">
         {isDesktop && (
-          <aside className="h-min w-min shrink-0 rounded-md bg-background shadow-sm">
+          <aside className="h-min shrink-0 rounded-md bg-background py-4 shadow-md">
             <AccountNavigation />
           </aside>
         )}

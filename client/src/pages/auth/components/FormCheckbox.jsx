@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 
 const FormCheckbox = ({
   control,
+  setValue,
   name,
   label,
   redirectLink,
@@ -21,18 +22,24 @@ const FormCheckbox = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <div className="flex items-start gap-x-2 gap-y-2 space-y-0  tracking-wider">
+          <div className="flex items-start gap-x-2 gap-y-2 space-y-0 tracking-wider">
             <FormControl>
               <Checkbox
                 className="mt-1"
-                checked={field.value}
-                onCheckedChange={field.onChange}
+                checked={field.value === 1}
+                onCheckedChange={() => {
+                  if (field.value === 1) {
+                    setValue(name, 0);
+                  } else {
+                    setValue(name, 1);
+                  }
+                }}
               />
             </FormControl>
-            <div className="">
+            <div>
               <FormLabel>{label} - </FormLabel>
               <Link
-                className="leading-snug text-blue-500 underline-offset-2 hover:underline"
+                className="text-sm leading-snug text-blue-500 underline-offset-2 hover:underline"
                 to={redirectLink}
               >
                 {redirectLinkText}

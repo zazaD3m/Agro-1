@@ -19,10 +19,7 @@ import FormText from "./FormText";
 
 const loginSchema = yup.object({
   password: yup.string().required("ჩაწერე პაროლი"),
-  email: yup
-    .string()
-    .email("ჩაწერე სწორი ფორმატის ელფოსტა")
-    .required("ჩაწერე ელფოსტა"),
+  email: yup.string().required("ჩაწერე ელფოსტა"),
 });
 
 const LoginForm = () => {

@@ -11,13 +11,18 @@ import FormGender from "../auth/components/FormGender";
 import useUserInfo from "@/hooks/useUserInfo";
 import { useToast } from "@/components/ui/use-toast";
 import BIRTH_YEARS from "@/constants/BIRTH_YEARS";
+import { GENDER } from "@/constants/USER_DETAILS";
+import LOCATION from "@/constants/LOCATION";
+import FormLocation from "../auth/components/FormLocation";
+import { Navigate } from "react-router-dom";
 
 const editAccountSchema = yup.object({
   password: yup.string().required("ჩაწერე პაროლი"),
-  firstName: yup.string(),
-  lastName: yup.string(),
-  gender: yup.mixed().oneOf(["მდედრობითი", "მამრობითი", ""], "აირჩიე სქესი"),
-  birthYear: yup.mixed().oneOf([...BIRTH_YEARS, ""], "აირჩიე დაბადების წელი"),
+  firstName: yup.string().trim().max(20),
+  lastName: yup.string().trim().max(20),
+  genderId: yup.mixed().oneOf(GENDER.options, "აირჩიე სქესი"),
+  birthYear: yup.mixed().oneOf(BIRTH_YEARS, "აირჩიე დაბადების წელი"),
+  locId: yup.mixed().oneOf(LOCATION.options, "აირჩიე ლოკაცია"),
   phoneNumber: yup
     .string()
     .required("ჩაწერე ტელეფონის ნომერი")
@@ -37,8 +42,9 @@ const EditAccountInfo = () => {
       password: "",
       firstName: userInfo.firstName ? userInfo.firstName : "",
       lastName: userInfo.lastName ? userInfo.lastName : "",
-      gender: userInfo.gender ? userInfo.gender : "",
+      genderId: userInfo.genderId ? userInfo.genderId : 1,
       birthYear: userInfo.birthYear ? userInfo.birthYear : "",
+      locId: userInfo.locId ? userInfo.locId : "",
       phoneNumber: userInfo.phoneNumber ? String(userInfo.phoneNumber) : "",
     },
     resolver: yupResolver(editAccountSchema),
@@ -49,7 +55,6 @@ const EditAccountInfo = () => {
   const { handleSubmit, control, setError, setValue } = form;
 
   const onSubmit = (data) => {
-    data.phoneNumber = parseInt(data.phoneNumber);
     updateUserMutation(data);
   };
 
@@ -71,6 +76,16 @@ const EditAccountInfo = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess]);
 
+  if (!userInfo?.loginStrategy.includes("local")) {
+    return (
+      <Navigate
+        to="/account/edit/password"
+        replace
+        state={{ userIsLocal: false }}
+      />
+    );
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -90,6 +105,7 @@ const EditAccountInfo = () => {
         </div>
         <FormGender control={control} />
         <FormBirth control={control} setValue={setValue} />
+        <FormLocation control={control} setValue={setValue} />
         <FormText
           control={control}
           name="phoneNumber"

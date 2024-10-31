@@ -22,11 +22,6 @@ export const registerUser = asyncHandler(async (req, res) => {
     ThrowErr.ServerError();
   }
 
-  // const { _id } = newUser;
-
-  // generateRefreshToken(res, _id);
-  // const accessToken = generateAccessToken(_id);
-
   return res.status(201).json({ message: "user registered successfully" });
 });
 

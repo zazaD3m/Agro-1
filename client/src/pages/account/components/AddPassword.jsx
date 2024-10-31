@@ -1,5 +1,4 @@
 import { Form, FormSubmitError } from "@/components/ui/form";
-import { useToast } from "@/components/ui/use-toast";
 import { useAddUserPasswordMutation } from "@/features/auth/authApiSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
@@ -7,9 +6,14 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import FormText from "../../auth/components/FormText";
 import { LoadingButton } from "@/components/ui/loading-button";
+import { Navigate, useLocation } from "react-router-dom";
 
 const addPasswordSchema = yup.object({
-  password: yup.string().required("ჩაწერე პაროლი"),
+  password: yup
+    .string()
+    .trim()
+    .required("ჩაწერე პაროლი")
+    .min(8, "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს"),
   confirmPassword: yup
     .string()
     .required("ჩაწერე პაროლი")
@@ -19,7 +23,10 @@ const addPasswordSchema = yup.object({
 const AddPassword = () => {
   const [addPasswordMutation, { isError, isLoading, isSuccess }] =
     useAddUserPasswordMutation();
-  const { toast } = useToast();
+  const location = useLocation();
+
+  const userIsLocal = location.state?.userIsLocal;
+  const shouldTitleRender = userIsLocal === false;
 
   const form = useForm({
     defaultValues: {
@@ -41,9 +48,7 @@ const AddPassword = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast({
-        title: "პაროლი წარმატებით შეიცვალა!",
-      });
+      <Navigate to="/account/edit/info" />;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
@@ -51,6 +56,11 @@ const AddPassword = () => {
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {shouldTitleRender && (
+          <h1 className="pb-4 text-sm lg:text-base">
+            პირადი ინფორმაციის რედაქტირებისთვის აუცილებელია პაროლის დამატება
+          </h1>
+        )}
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-x-12">
           <FormText
             control={control}

@@ -72,10 +72,22 @@ router.get(
   })
 );
 
+router.get("/callback/failure", (req, res) => {
+  res.send(`
+    <html>
+      <body>
+        <script>
+          window.close();
+        </script>
+      </body>
+    </html>
+  `);
+});
+
 router.get(
   "/callback",
   passport.authenticate("google", {
-    failureRedirect: `${CLIENT_URL}/auth/login`,
+    failureRedirect: `${API_URL}/api/auth/google/callback/failure`,
     session: false,
   }),
   (req, res) => {

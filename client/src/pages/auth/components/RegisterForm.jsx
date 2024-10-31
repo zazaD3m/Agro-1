@@ -3,6 +3,7 @@ import { useRegisterMutation } from "@/features/auth/authApiSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+
 import { useEffect } from "react";
 import { LoadingButton } from "@/components/ui/loading-button";
 import FormText from "./FormText";
@@ -12,6 +13,8 @@ import FormCheckbox from "./FormCheckbox";
 import { useNavigate } from "react-router-dom";
 import BIRTH_YEARS from "@/constants/BIRTH_YEARS";
 import { GENDER } from "@/constants/USER_DETAILS";
+import LOCATION from "@/constants/LOCATION";
+import FormLocation from "./FormLocation";
 
 const registerSchema = yup.object({
   password: yup
@@ -21,6 +24,7 @@ const registerSchema = yup.object({
     .min(8, "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს"),
   confirmPassword: yup
     .string()
+    .trim()
     .required("ჩაწერე პაროლი")
     .oneOf([yup.ref("password")], "პაროლები ერთმანეთს არ ემთხვევა"),
   email: yup
@@ -28,20 +32,19 @@ const registerSchema = yup.object({
     .trim()
     .email("ჩაწერე სწორი ფორმატის ელფოსტა")
     .required("ჩაწერე ელფოსტა"),
-  firstName: yup.string().trim(),
-  lastName: yup.string().trim(),
+  firstName: yup.string().trim().max(20),
+  lastName: yup.string().trim().max(20),
   genderId: yup.mixed().oneOf(GENDER.options, "აირჩიე სქესი"),
   birthYear: yup.mixed().oneOf(BIRTH_YEARS, "აირჩიე დაბადების წელი"),
+  locId: yup.mixed().oneOf(LOCATION.options, "აირჩიე ლოკაცია"),
   phoneNumber: yup
     .string()
     .required("ჩაწერე ტელეფონის ნომერი")
     .matches(/^[0-9]+$/, "უნდა შეიცავდეს მხოლოდ ციფრებს")
     .length(9, "უნდა იყოს 9 ციფრი")
     .typeError("ჩაწერე ტელეფონის ნომერი"),
-  agreeTerms: yup
-    .boolean()
-    .oneOf([true], "დაეთანხმე საიტის წესებსა და პირობებს"),
-  agreePrivacyPolicy: yup.boolean().oneOf([true, false]),
+  agreeTerms: yup.mixed().oneOf([1], "დაეთანხმე საიტის წესებსა და პირობებს"),
+  agreePrivacyPolicy: yup.mixed().oneOf([0, 1]),
 });
 
 const RegisterForm = () => {
@@ -58,9 +61,10 @@ const RegisterForm = () => {
       lastName: "",
       genderId: 1,
       birthYear: "",
+      locId: "",
       phoneNumber: "",
-      agreeTerms: false,
-      agreePrivacyPolicy: false,
+      agreeTerms: 0,
+      agreePrivacyPolicy: 0,
     },
     resolver: yupResolver(registerSchema),
     mode: "onSubmit",
@@ -71,6 +75,8 @@ const RegisterForm = () => {
 
   const onSubmit = (data) => {
     const newUser = { ...data };
+
+    delete newUser.confirmPassword;
 
     registerMutation(newUser);
   };
@@ -144,6 +150,7 @@ const RegisterForm = () => {
         />
         <FormGender control={control} />
         <FormBirth control={control} setValue={setValue} />
+        <FormLocation control={control} setValue={setValue} />
         <FormText
           control={control}
           name="phoneNumber"
@@ -156,17 +163,11 @@ const RegisterForm = () => {
         />
         <FormCheckbox
           control={control}
+          setValue={setValue}
           name="agreeTerms"
           label="ვეთანხმები"
           redirectLink="/rules"
           redirectLinkText="წესებსა და პირობებს*"
-        />
-        <FormCheckbox
-          control={control}
-          name="agreePrivacyPolicy"
-          label="ვეთანხმები"
-          redirectLink="/privacy-agreement"
-          redirectLinkText="კონფიდენციალობის პოლიტიკას"
         />
         <FormSubmitError
           isError={isError && error?.status !== 409 ? isError : false}

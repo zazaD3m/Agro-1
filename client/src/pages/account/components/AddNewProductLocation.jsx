@@ -25,12 +25,13 @@ import { cn } from "@/lib/utils";
 import { Check, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
-const AddNewProductLocation = ({ control, setValue }) => {
+const AddNewProductLocation = ({ control }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <FormField
       control={control}
-      name="locId"
+      name="LocId"
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel className="w-min text-nowrap font-normal">
@@ -71,9 +72,9 @@ const AddNewProductLocation = ({ control, setValue }) => {
                           key={locId}
                           onSelect={() => {
                             if (field?.value === locId) {
-                              setValue("locId", "");
+                              field.onChange("");
                             } else {
-                              setValue("locId", locId);
+                              field.onChange(locId);
                               setOpen(false);
                             }
                           }}

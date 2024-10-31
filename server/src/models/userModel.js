@@ -5,6 +5,9 @@ import { LOCATION } from "../constants/LOCATION.js";
 
 const userSchema = new Schema(
   {
+    email: {
+      type: String,
+    },
     firstName: {
       type: String,
       default: "",
@@ -13,8 +16,8 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
-    email: {
-      type: String,
+    phoneNumber: {
+      type: Number,
     },
     genderId: {
       type: Number,
@@ -22,27 +25,24 @@ const userSchema = new Schema(
     birthYear: {
       type: Number,
     },
-    phoneNumber: {
-      type: String,
+    locId: {
+      type: Number,
     },
     password: {
       type: String,
     },
-    locId: {
-      type: Number,
-    },
     address: { type: String },
     shopId: { type: Schema.Types.ObjectId },
     isBlocked: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      default: 0,
     },
     agreeTerms: {
-      type: Boolean,
+      type: Number,
     },
     agreePrivacyPolicy: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      default: 0,
     },
     resetPasswordToken: {
       type: String,

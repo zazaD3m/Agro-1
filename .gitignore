@@ -12,7 +12,11 @@ admin/build
 client/dist
 admin/dist
 
+uploads
+server/src/uploads
+
 **/.env*
 !**/.env*.example
 
 TODO.md
+DIRECTORY.md

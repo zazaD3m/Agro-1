@@ -68,11 +68,13 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import TestComp from "./components/TestComp";
+import Test from "./pages/account/components/Test";
 // AUTH START
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" errorElement={<GlobalError />}>
+      <Route path="test" element={<Test />} />
       <Route element={<RootLayout />}>
         <Route
           index

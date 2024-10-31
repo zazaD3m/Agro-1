@@ -107,3 +107,8 @@
 .heroCircle-6 {
   animation-delay: 3.4s;
 }
+
+.PopoverContent {
+  width: var(--radix-popover-trigger-width);
+  max-height: var(--radix-popover-content-available-height);
+}

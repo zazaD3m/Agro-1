@@ -1,14 +1,13 @@
 import { Icons } from "@/components/icons";
-import { selectCurrentUser } from "@/features/user/userSlice";
+import useUserInfo from "@/hooks/useUserInfo";
 import { Plus, ScrollText, User } from "lucide-react";
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const AccountNavigationItem = ({ icon, text, link }) => {
   return (
     <NavLink
       to={link}
-      className="group flex w-full gap-x-2 border-action py-3 pl-2 pr-4 font-light hover:bg-accent hover:text-action aria-[current=page]:border-l-4 aria-[current=page]:bg-accent aria-[current=page]:pl-1 aria-[current=page]:text-action"
+      className="group flex w-full shrink-0 gap-x-2 border-action py-3 pl-2 pr-4 font-light hover:bg-accent hover:text-action aria-[current=page]:border-l-4 aria-[current=page]:bg-accent aria-[current=page]:pl-1 aria-[current=page]:text-action"
     >
       <span className="ml-2 rounded-md bg-accent-dark p-1.5">{icon}</span>
       <span className="text-nowrap pt-0.5 text-black">{text}</span>
@@ -17,15 +16,25 @@ const AccountNavigationItem = ({ icon, text, link }) => {
 };
 
 const AccountNavigation = () => {
-  const user = useSelector(selectCurrentUser);
+  const { userInfo } = useUserInfo();
+  let userName = null;
+  if (userInfo.firstName || userInfo.lastName) {
+    if (!userInfo.lastName) {
+      userName = userInfo.firstName;
+    } else if (!userInfo.firstName) {
+      userName = userInfo.lastName;
+    } else {
+      userName = userInfo.firstName + " " + userInfo.lastName;
+    }
+  }
   return (
-    <div className="py-4">
-      <div className="flex items-center justify-center gap-x-2 pb-4">
+    <>
+      <div className="flex items-center justify-center gap-x-2 px-4 pb-4">
         <span className="shrink-0">
           <Icons.userProfile />
         </span>
-        {user.fullName && (
-          <p className="text-nowrap font-semibold">{user.fullName}</p>
+        {userName && (
+          <p className="shrink break-words font-semibold">{userName}</p>
         )}
       </div>
       {[
@@ -52,7 +61,7 @@ const AccountNavigation = () => {
           key={i}
         />
       ))}
-    </div>
+    </>
   );
 };
 export default AccountNavigation;

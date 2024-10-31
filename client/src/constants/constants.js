@@ -376,3 +376,5 @@ export const blogPosts = [
     img: "blog_6.webp",
   },
 ];
+
+export const TEMP_IMAGE_ROOT = "/";

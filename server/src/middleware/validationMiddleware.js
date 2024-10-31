@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import { validationResult } from "express-validator";
-import { CustomError } from "../utils/CustomError.js";
+import { CustomError, ThrowErr } from "../utils/CustomError.js";
 import { isProduction } from "../config/config.js";
 
 export const validate = asyncHandler(async (req, res, next) => {
@@ -9,8 +9,7 @@ export const validate = asyncHandler(async (req, res, next) => {
     if (!isProduction) {
       console.log(errors.array());
     }
-
-    throw new CustomError("Bad request!", 400);
+    ThrowErr.BadRequest();
   }
   next();
 });
@@ -23,10 +22,10 @@ export const validateRegister = asyncHandler(async (req, res, next) => {
     }
     errors.array().forEach((err) => {
       if (err.msg === "Email is already taken") {
-        throw new CustomError("Email is already taken", 409);
+        ThrowErr.Custom("Email is already taken", 409);
       }
     });
-    throw new CustomError("Bad request!", 400);
+    ThrowErr.BadRequest();
   }
   next();
 });
@@ -42,7 +41,7 @@ export const validateProduct = asyncHandler(async (req, res, next) => {
         throw new CustomError("Email is already taken", 409);
       }
     });
-    throw new CustomError("Bad request!", 400);
+    ThrowErr.BadRequest();
   }
   next();
 });

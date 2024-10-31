@@ -32,7 +32,7 @@ const FormBirth = ({ control, setValue }) => {
       name="birthYear"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>დაბადების წელი</FormLabel>
+          <FormLabel>დაბადების წელი*</FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <FormControl>

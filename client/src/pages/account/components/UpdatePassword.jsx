@@ -12,13 +12,9 @@ const updatePasswordSchema = yup.object({
   password: yup.string().required("ჩაწერე პაროლი"),
   newPassword: yup
     .string()
+    .trim()
     .required("ჩაწერე პაროლი")
-    .min(8, "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს და ციფრ(ებ)ს")
-    .matches(/[0-9]/, "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს და ციფრ(ებ)ს")
-    .matches(
-      /[a-zA-Z]/,
-      "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს და ასო(ებ)ს",
-    ),
+    .min(8, "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს"),
   confirmNewPassword: yup
     .string()
     .required("ჩაწერე პაროლი")

@@ -34,59 +34,55 @@ const englishToGeorgianMap = new Map([
   ["h", "ჰ"],
   ["-", " "],
 ]);
-const georgianToEnglishMap = new Map([
-  ["ა", "a"],
-  ["ბ", "b"],
-  ["გ", "g"],
-  ["დ", "d"],
-  ["ე", "e"],
-  ["ვ", "v"],
-  ["ზ", "z"],
-  ["თ", "T"],
-  ["ი", "i"],
-  ["კ", "k"],
-  ["ლ", "l"],
-  ["მ", "m"],
-  ["ნ", "n"],
-  ["ო", "o"],
-  ["პ", "p"],
-  ["ჟ", "J"],
-  ["რ", "r"],
-  ["ს", "s"],
-  ["ტ", "t"],
-  ["უ", "u"],
-  ["ფ", "f"],
-  ["ქ", "q"],
-  ["ღ", "R"],
-  ["ყ", "y"],
-  ["შ", "S"],
-  ["ჩ", "C"],
-  ["ც", "c"],
-  ["ძ", "Z"],
-  ["წ", "w"],
-  ["ჭ", "W"],
-  ["ხ", "x"],
-  ["ჯ", "j"],
-  ["ჰ", "h"],
-  ["-", "-"],
-  ["/", "-"],
-  [" ", "-"],
-]);
+const georgianToEnglishMap = {
+  ა: "a",
+  ბ: "b",
+  გ: "g",
+  დ: "d",
+  ე: "e",
+  ვ: "v",
+  ზ: "z",
+  თ: "T",
+  ი: "i",
+  კ: "k",
+  ლ: "l",
+  მ: "m",
+  ნ: "n",
+  ო: "o",
+  პ: "p",
+  ჟ: "J",
+  რ: "r",
+  ს: "s",
+  ტ: "t",
+  უ: "u",
+  ფ: "f",
+  ქ: "q",
+  ღ: "R",
+  ყ: "y",
+  შ: "S",
+  ჩ: "C",
+  ც: "c",
+  ძ: "Z",
+  წ: "w",
+  ჭ: "W",
+  ხ: "x",
+  ჯ: "j",
+  ჰ: "h",
+};
+
+export const convertToEnglish = (input) => {
+  let result = "";
+  for (const char of input) {
+    result += georgianToEnglishMap[char] || char;
+  }
+  return result;
+};
 
 export const convertToGeorgian = (input) => {
   let result = "";
   for (let char of input) {
     const georgianChar = englishToGeorgianMap.get(char) || char;
     result += georgianChar;
-  }
-  return result;
-};
-
-export const convertToEnglish = (input) => {
-  let result = "";
-  for (let char of input) {
-    const englishChar = georgianToEnglishMap.get(char) || char;
-    result += englishChar;
   }
   return result;
 };

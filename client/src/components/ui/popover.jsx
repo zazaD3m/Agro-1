@@ -13,7 +13,7 @@ const PopoverContent = React.forwardRef(
     ref,
   ) => {
     return (
-      <PopoverPrimitive.Portal container={container}>
+      <PopoverPrimitive.Portal>
         <PopoverPrimitive.Content
           ref={ref}
           align={align}

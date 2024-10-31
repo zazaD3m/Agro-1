@@ -7,6 +7,8 @@ import { ThrowErr } from "../utils/CustomError.js";
 
 const router = Router();
 
+// /api...
+
 router.use("/auth/google", googleAuthRoutes);
 // router.use("/auth/facebook", facebookAuthRoutes);
 router.use("/auth", localAuthRoutes);

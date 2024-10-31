@@ -58,13 +58,13 @@ const ProductCard = ({ product, isMobile, className }) => {
         </div>
       </Link>
       <div className="flex items-center justify-between">
-        <p className="font-normal">
+        <p className="font-medium">
           {product.price < 50 ? (
             <span className="text-sm max-xs:truncate sm:text-sm">
               ფასი შეთანხმებით
             </span>
           ) : (
-            <span className="">{product.price}.00 ₾</span>
+            <span className="font-semibold">{product.price}.00 ₾</span>
           )}
         </p>
         <FavoriteButton

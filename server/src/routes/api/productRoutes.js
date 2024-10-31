@@ -3,7 +3,12 @@ import { productValidator } from "../../validations/productValidations.js";
 import { validateProduct } from "../../middleware/validationMiddleware.js";
 import Product from "../../models/productModel.js";
 import asyncHandler from "express-async-handler";
-import { getAllProducts } from "../../controllers/productController.js";
+import {
+  addNewProduct,
+  getAllProducts,
+} from "../../controllers/productController.js";
+import { authenticateUser } from "../../middleware/authMiddleware.js";
+import { moveTempImagesToPermanentFolder } from "../../middleware/imageMiddleware.js";
 // import { getAllUsers, getMe } from "../../controllers/userController.js";
 // import { isAdmin } from "../../middleware/authMiddleware.js";
 
@@ -21,13 +26,10 @@ router
   .route("/")
   .get(getAllProducts)
   .post(
+    authenticateUser,
     [productValidator, validateProduct],
-    asyncHandler(async (req, res) => {
-      console.log(req.body);
-      // const newProduct = await Product.create(req.body);
-      // res.status(201).json(newProduct);
-      res.status(201).json({ product: req.body });
-    })
+    moveTempImagesToPermanentFolder,
+    addNewProduct
   );
 
 export default router;

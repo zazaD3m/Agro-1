@@ -21,7 +21,6 @@ const LoginPage = () => {
         </div>
         <div className="flex flex-col gap-4 sm:flex-row">
           <GoogleLoginButton />
-          {/* <FacebookLoginButton /> */}
         </div>
       </div>
       <div className="pb-20 pt-4 text-center">

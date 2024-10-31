@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
-import { generateSlug } from "../utils/generateSlug.js";
 import { convertToEnglish } from "../utils/translateString.js";
+import { generateProductSlug } from "../utils/helpers.js";
 
 const productSchema = new Schema(
   {
@@ -13,11 +13,11 @@ const productSchema = new Schema(
     LocId: Number,
     price: Number,
     slug: String,
-    images: [String],
     authorId: Schema.Types.ObjectId,
     authorName: String,
     authorType: Number,
-    phoneNumber: String,
+    phoneNumber: Number,
+    images: [String],
   },
   {
     timestamps: true,
@@ -26,13 +26,17 @@ const productSchema = new Schema(
 
 productSchema.pre("save", function (next) {
   const isTitleModified = this.isModified("title");
+  const isCatModified = this.isModified("CatId");
 
-  if (!this.seoTitle || isTitleModified) {
-    this.seoTitle = convertToEnglish(this.title);
+  if (isTitleModified) {
+    this.seoTitle = convertToEnglish(this.title)
+      .trim()
+      .replace(/['"]/g, "")
+      .replace(/\s+/g, "-");
   }
 
-  if (!this.slug || isTitleModified || this.isModified("CatId")) {
-    this.slug = generateSlug(
+  if (isTitleModified || isCatModified) {
+    this.slug = generateProductSlug(
       this._id,
       this.CatId,
       this.MainCatId,

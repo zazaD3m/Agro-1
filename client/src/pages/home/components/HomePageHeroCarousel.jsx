@@ -8,7 +8,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import HeroCircles from "@/pages/home/components/HeroCircles";
 import Autoplay from "embla-carousel-autoplay";
 
-const IMAGES = ["test-13.png", "test-15.png", "test-14.png"];
+const IMAGES = ["hero-1.png", "test-13.png", "test-15.png", "test-14.png"];
 
 const HomePageHeroCarousel = ({ className }) => {
   const { isDesktop } = useWindowSize();
@@ -17,11 +17,11 @@ const HomePageHeroCarousel = ({ className }) => {
     <div className={cn("overflow-hidden", className)}>
       <Carousel
         opts={{ loop: true }}
-        plugins={[
-          Autoplay({
-            delay: 4500,
-          }),
-        ]}
+        // plugins={[
+        //   Autoplay({
+        //     delay: 4500,
+        //   }),
+        // ]}
       >
         <CarouselContent>
           {IMAGES.map((img, i) => (

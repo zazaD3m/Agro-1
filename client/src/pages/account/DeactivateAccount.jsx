@@ -10,15 +10,17 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import FormText from "../auth/components/FormText";
 import { LoadingButton } from "@/components/ui/loading-button";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import ConfirmationDialog from "@/components/ConfirmationDialog";
 import { AlertDialogAction } from "@/components/ui/alert-dialog";
+import useUserInfo from "@/hooks/useUserInfo";
 
 const deactivateAccountSchema = yup.object({
   password: yup.string().required("ჩაწერე პაროლი"),
 });
 
 const DeactivateAccount = () => {
+  const { userInfo } = useUserInfo();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [container, setContainer] = useState(null);
   const navigate = useNavigate();
@@ -64,6 +66,16 @@ const DeactivateAccount = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess]);
+
+  if (!userInfo?.loginStrategy.includes("local")) {
+    return (
+      <Navigate
+        to="/account/edit/password"
+        replace
+        state={{ userIsLocal: false }}
+      />
+    );
+  }
 
   return (
     <>

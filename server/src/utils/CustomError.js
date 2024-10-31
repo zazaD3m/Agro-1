@@ -8,6 +8,27 @@ class CustomError extends Error {
 
     Error.captureStackTrace(this, this.constructor);
   }
+  static BadRequest(message = "Bad Request") {
+    return new CustomError(message, 400);
+  }
+  static Unauthorized(message = "Unauthorized") {
+    return new CustomError(message, 401);
+  }
+  static NotFound(message = "Not Found") {
+    return new CustomError(message, 404);
+  }
+  static Custom(message, statusCode) {
+    return new CustomError(message, statusCode);
+  }
+  static Conflict(message = "Conflict") {
+    return new CustomError(message, 409);
+  }
+  static Duplicate(message = "Duplicate input") {
+    return new CustomError(message, 409);
+  }
+  static ServerError(message = "Internal Server Error") {
+    return new CustomError(message, 500);
+  }
 }
 
 class ThrowErr {

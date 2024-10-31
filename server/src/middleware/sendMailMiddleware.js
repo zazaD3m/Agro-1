@@ -8,12 +8,12 @@ import {
   MAIL_SERVICE_USER,
 } from "../config/config.js";
 
-const resetPasswordMailResponseBody = ({ fullName, token }) => `<html>
+const resetPasswordMailResponseBody = ({ firstName, token }) => `<html>
       <head>
         <title>agroezo.ge, უფასო განცხადებები აგრო სფეროში</title>
       </head>
       <body>
-        <h1>გამარჯობათ ${fullName}!</h1>
+        <h1>გამარჯობათ ${firstName}!</h1>
         <div style="background:#fff;border:solid 1px #d8dce1;padding:24px;font-size:16px">
         <p>თქვენ მიიღეთ პაროლის შესაცვლელი ბმული</p>
         <p>დადასტურება - <a style="color:#0097d9" target="_blank" href=${CLIENT_URL}/auth/reset-password/${token} >პაროლის შეცვლა</a></p>
@@ -52,7 +52,7 @@ export const sendResetPasswordEmailMiddleware = asyncHanlder(
       from: '"agroezo.ge" <agro.ezo.service@gmail.com>',
       to: user.email,
       subject: "პაროლის აღდგენის ინსტრუქცია",
-      html: resetPasswordMailResponseBody({ fullName: user.fullName, token }),
+      html: resetPasswordMailResponseBody({ firstName: user.firstName, token }),
     };
 
     await mailTransporter.sendMail(mailDetails);
