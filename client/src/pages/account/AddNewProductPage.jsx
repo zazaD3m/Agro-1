@@ -121,11 +121,10 @@ const AddNewProductPage = () => {
   const onSubmit = (data) => {
     const newProduct = { ...data };
     newProduct.title = sanitizeTitle(data.title, data.CatId);
-
+    newProduct.images = images;
     delete newProduct.sellerType;
 
-    console.log(newProduct.desc);
-    // console.log(newProduct);
+    console.log(newProduct);
     addNewProduct(newProduct);
   };
 

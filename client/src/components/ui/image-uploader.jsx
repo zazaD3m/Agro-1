@@ -14,24 +14,25 @@ export const ImageUploader = ({
 }) => {
   const [uploadImage] = useUploadProductImageMutation();
 
-  const handleUpload = async (files) => {
-    let imageDataStartIndex = 1;
-    for (const p in imageData) {
-      if (!imageData[p].imgName) {
-        imageDataStartIndex = imageDataStartIndex + 1;
-      }
-    }
-    files = files.filter((_, i) => i + imageDataStartIndex < 5);
-    files.forEach((file, i) => {
-      setImageData((p) => ({
-        ...p,
-        [i + imageDataStartIndex]: {
-          ...p[i + imageDataStartIndex],
-          isLoading: true,
-          isHidden: false,
-        },
-      }));
+  // { isSuccess: false, isLoading: false, imgName: null },
+
+  const handleUpload = async (acceptedFiles) => {
+    console.log(imageData);
+    const freeSpaceForNewImages = 4 - imageData.length;
+    const files = acceptedFiles.slice(0, freeSpaceForNewImages);
+    console.log(files);
+    let newImageData = [...imageData];
+    // console.log(newImageData);
+    files.forEach(() => {
+      newImageData.push({
+        isSuccess: false,
+        isLoading: true,
+        imgName: null,
+      });
     });
+    console.log(newImageData);
+
+    setImageData(newImageData);
 
     try {
       const uploadPromises = files.map(async (file, i) => {
@@ -40,37 +41,35 @@ export const ImageUploader = ({
           formData.append("productTempImage", file);
 
           const response = await uploadImage(formData).unwrap();
-          setImageData((p) => ({
-            ...p,
-            [i + imageDataStartIndex]: {
-              ...p[i + imageDataStartIndex],
-              isLoading: false,
-              isSuccess: true,
-              imgName: response.name,
-              isHidden: false,
-            },
-          }));
-          return response.name;
+          return { isSuccess: true, imgName: response.name };
         } catch (error) {
-          setImageData((p) => ({
-            ...p,
-            [i + imageDataStartIndex]: {
-              ...p[i + imageDataStartIndex],
-              isLoading: false,
-              isSuccess: false,
-              imgName: response.name,
-              isHidden: false,
-            },
-          }));
+          return { isSuccess: false, imgName: null };
         }
       });
-    } catch (error) {}
+      const results = await Promise.allSettled(uploadPromises);
+      results
+        .filter((r) => r.value.isSuccess)
+        .map((r) => r.value.imgName)
+        .forEach((imgName, i) => {
+          const imgIndex = 4 - freeSpaceForNewImages + i;
+          newImageData[imgIndex] = {
+            isLoading: false,
+            isSuccess: true,
+            imgName,
+          };
+        });
+      console.log(newImageData);
+      setImageData(newImageData.filter((d) => d.isSuccess));
+      setImages(newImageData.map((data) => data.imgName));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onDropAccepted = useCallback(async (acceptedFiles) => {
-    console.log(acceptedFiles);
+    // console.log(acceptedFiles);
     setValidationErr([]);
-    await handleUpload(acceptedFiles);
+    //  handleUpload(acceptedFiles);
     // try {
     //   const uploadedImages = await Promise.all(
     //     files.map(async (file, i) => {
@@ -89,50 +88,62 @@ export const ImageUploader = ({
 
   const onDropRejected = useCallback((err) => {
     let errors = [];
-    err.forEach((e) => {
-      const errMsg = e.errors[0].code;
-      if (errMsg === "too-many-files") {
-        if (!errors.includes("დაშვებულია მაქსმიუმ 4 ფოტო")) {
-          errors.push("დაშვებულია მაქსმიუმ 4 ფოტო");
-        }
-      }
-      if (errMsg === "file-too-large") {
-        if (!errors.includes("ფოტო არ უნდა აღემატებოდეს 5 მბ-ს")) {
-          errors.push("ფოტო არ უნდა აღემატებოდეს 5 მბ-ს");
-        }
-      }
-      if (errMsg === "file-invalid-type") {
-        if (
-          !errors.includes(
-            "დაშვებულია მხოლოდ: jpg, jpeg, png, webp ფორმატის ფოტოები",
-          )
-        ) {
-          errors.push(
-            "დაშვებულია მხოლოდ: jpg, jpeg, png, webp ფორმატის ფოტოები",
-          );
-        }
-      }
-    });
-    console.log(errors);
-    if (errors.length < 1) {
-      setValidationErr(["მოხდა შეცდომა, სცადეთ ხელმეორედ"]);
-    } else {
-      setValidationErr(errors);
-    }
+    // err.forEach((e) => {
+    //   const errMsg = e.errors[0].code;
+    //   if (errMsg === "too-many-files") {
+    //     if (!errors.includes("დაშვებულია მაქსმიუმ 4 ფოტო")) {
+    //       errors.push("დაშვებულია მაქსმიუმ 4 ფოტო");
+    //     }
+    //   }
+    //   if (errMsg === "file-too-large") {
+    //     if (!errors.includes("ფოტო არ უნდა აღემატებოდეს 5 მბ-ს")) {
+    //       errors.push("ფოტო არ უნდა აღემატებოდეს 5 მბ-ს");
+    //     }
+    //   }
+    //   if (errMsg === "file-invalid-type") {
+    //     if (
+    //       !errors.includes(
+    //         "დაშვებულია მხოლოდ: jpg, jpeg, png, webp ფორმატის ფოტოები",
+    //       )
+    //     ) {
+    //       errors.push(
+    //         "დაშვებულია მხოლოდ: jpg, jpeg, png, webp ფორმატის ფოტოები",
+    //       );
+    //     }
+    //   }
+    // });
+    console.log({ error: err });
+    // if (errors.length < 1) {
+    //   setValidationErr(["მოხდა შეცდომა, სცადეთ ხელმეორედ"]);
+    // } else {
+    //   setValidationErr(errors);
+    // }
   }, []);
 
+  const handleErrors = (errors) => {
+    console.log(errors);
+  };
+
+  const onDrop = async (acceptedFiles, errors) => {
+    await handleUpload(acceptedFiles);
+    handleErrors(errors);
+  };
+
+  const isLoading = imageData.some((data) => data.isLoading) || false;
+
   const { getRootProps, getInputProps } = useDropzone({
-    onDropRejected,
-    onDropAccepted,
-    maxFiles: 4,
+    // onDropRejected,
+    // onDropAccepted,
+    onDrop,
     multiple: true,
-    maxSize: 1000 * 1000 * 2,
+    maxSize: 1000 * 1000 * 5,
     accept: {
       "image/png": [],
       "image/jpg": [],
       "image/jpeg": [],
       "image/webp": [],
     },
+    disabled: isLoading,
   });
 
   return (
@@ -140,7 +151,7 @@ export const ImageUploader = ({
       {...getRootProps()}
       className={cn(
         "group flex size-36 cursor-pointer flex-col items-center justify-center gap-y-2 rounded-2xl outline outline-2 -outline-offset-2 outline-primary",
-        // isLoading && "cursor-not-allowed",
+        isLoading && "cursor-not-allowed",
       )}
     >
       {/* {isLoading ? ( */}
