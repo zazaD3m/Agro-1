@@ -69,6 +69,8 @@ import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import TestComp from "./components/TestComp";
 import Test from "./pages/account/components/Test";
+import MyProductsActive from "./pages/account/components/MyProductsActive";
+import MyProductsArchive from "./pages/account/components/MyProductsArchive";
 // AUTH START
 
 const router = createBrowserRouter(
@@ -118,7 +120,10 @@ const router = createBrowserRouter(
                 </Suspense>
               }
             />
-            <Route path="my-products" element={<MyProductsPage />} />
+            <Route path="my-products" element={<MyProductsPage />}>
+              <Route path="active" element={<MyProductsActive />} />
+              <Route path="archive" element={<MyProductsArchive />} />
+            </Route>
             <Route path="edit" element={<EditAccountLayout />}>
               <Route index element={<Navigate to="info" replace />} />
               <Route path="info" element={<EditAccountInfo />} />

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Spinner } from "./ui/spinner";
 
-const FullSizeLoader = ({ props, className }) => {
+const FullSizeLoader = ({ props, noText, className }) => {
   return (
     <div
       className={cn(
@@ -11,7 +11,7 @@ const FullSizeLoader = ({ props, className }) => {
       {...props}
     >
       <Spinner size="huge">
-        <span className="text-primary">იტვირთება...</span>
+        {!noText && <span className="text-primary">იტვირთება...</span>}
       </Spinner>
     </div>
   );

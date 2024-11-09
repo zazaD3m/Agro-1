@@ -71,7 +71,7 @@ const HeaderDesktopTop = () => {
           </li>
         ))}
       </ul>
-      <ColorTester hidden={showColor} hideColors={hideColors} />
+      {/* <ColorTester hidden={showColor} hideColors={hideColors} /> */}
     </div>
   );
 };

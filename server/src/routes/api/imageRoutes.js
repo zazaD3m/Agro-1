@@ -15,11 +15,6 @@ router.post(
   authenticateUser,
   uploadProductTempImageMiddleware,
   processProductImage,
-  (req, res, next) => {
-    setTimeout(() => {
-      next();
-    }, Math.random() * 10000);
-  },
   uploadProductTempImage
 );
 router.put(

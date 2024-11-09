@@ -1,7 +1,6 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import { generateForgotPasswordToken } from "../services/jwt.js";
-import { LOCATION } from "../constants/LOCATION.js";
 
 const userSchema = new Schema(
   {
@@ -32,7 +31,7 @@ const userSchema = new Schema(
       type: String,
     },
     address: { type: String },
-    shopId: { type: Schema.Types.ObjectId },
+    freeSlots: { type: Number, default: 20 },
     isBlocked: {
       type: Number,
       default: 0,

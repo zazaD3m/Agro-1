@@ -26,8 +26,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
             ]
           : [{ type: "Users", id: "LIST" }],
     }),
-    getMe: builder.mutation({
-      query: () => ({ url: `${USERS_URL}/user`, method: "GET" }),
+    getMe: builder.query({
+      query: () => `${USERS_URL}/user`,
+      providesTags: ["GetMe"], // Adds the 'GetMe' tag to this query
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
@@ -42,7 +43,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetAllUsersQuery, useGetMeMutation } = userApiSlice;
+export const { useGetAllUsersQuery, useGetMeQuery } = userApiSlice;
 
 export const selectUsersResult =
   userApiSlice.endpoints.getAllUsers.select("getAllUsers");

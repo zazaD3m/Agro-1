@@ -1,11 +1,9 @@
 import { ChevronDown } from "lucide-react";
-import { useLayoutEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SubCategoryMobile from "./SubCategoryMobile";
 import { SheetCloseChild } from "../ui/sheet";
 import { CATEGORIES, MAIN_CAT_IDS } from "@/data/categories-data";
-import { useDispatch } from "react-redux";
-import { closeMobileCat } from "@/features/site/siteSlice";
+import { useState } from "react";
 
 const MainCategoryItem = ({ id, name, link, icon, setSelectedMainCatId }) => {
   return (
@@ -13,7 +11,7 @@ const MainCategoryItem = ({ id, name, link, icon, setSelectedMainCatId }) => {
       <div className="flex w-full items-center">
         <SheetCloseChild asChild>
           <Link
-            to={`catalog/${id}/${link}`}
+            to={`/catalog/${id}/${link}`}
             className="flex items-center gap-x-4 text-sm font-medium"
           >
             <img src={"/" + icon} className="size-10 shrink-0" alt={name} />
@@ -33,20 +31,8 @@ const MainCategoryItem = ({ id, name, link, icon, setSelectedMainCatId }) => {
   );
 };
 
-const MainCategoriesMobile = ({ setOnFavoritesOpen }) => {
-  const dispatch = useDispatch();
+const MainCategoriesMobile = () => {
   const [selectedMainCatId, setSelectedMainCatId] = useState(null);
-
-  useLayoutEffect(() => {
-    const handleBackButton = () => {
-      dispatch(closeMobileCat());
-      setOnFavoritesOpen(false);
-    };
-    window.addEventListener("popstate", handleBackButton, false);
-    return () => {
-      window.removeEventListener("popstate", handleBackButton, false);
-    };
-  }, []);
 
   return (
     <nav className="h-full overflow-auto px-4 pb-12">

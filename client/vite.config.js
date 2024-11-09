@@ -14,7 +14,13 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
+        // goes to nodejs
         target: "http://localhost:4000",
+        changeOrigin: true,
+      },
+      "/uploads": {
+        // goes through nginx
+        target: "http://agroezo.ge",
         changeOrigin: true,
       },
     },

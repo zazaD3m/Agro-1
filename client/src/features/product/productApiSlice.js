@@ -24,18 +24,26 @@ export const productApiSlice = apiSlice.injectEndpoints({
             ]
           : [{ type: "Products", id: "LIST" }],
     }),
+    getMyProducts: builder.query({
+      query: () => `${PRODUCTS_URL}/user-products`,
+      providesTags: ["GetMyProducts"],
+    }),
     addNewProduct: builder.mutation({
       query: (userInput) => ({
         url: `${PRODUCTS_URL}`,
         method: "POST",
         body: { ...userInput },
       }),
+      invalidatesTags: ["GetMyProducts", "GetMe"],
     }),
   }),
 });
 
-export const { useGetAllProductsQuery, useAddNewProductMutation } =
-  productApiSlice;
+export const {
+  useGetAllProductsQuery,
+  useAddNewProductMutation,
+  useGetMyProductsQuery,
+} = productApiSlice;
 
 export const selectProductsResult =
   productApiSlice.endpoints.getAllProducts.select("getAllProducts");

@@ -15,12 +15,26 @@ const productSchema = new Schema(
     slug: String,
     authorId: Schema.Types.ObjectId,
     authorName: String,
-    authorType: Number,
     phoneNumber: Number,
     images: [String],
   },
   {
     timestamps: true,
+  }
+);
+
+productSchema.index({ CatId: 1 }, { background: true });
+productSchema.index({ MainCatId: 1 }, { background: true });
+productSchema.index({ SubCatId: 1 }, { background: true });
+productSchema.index({ LocId: 1 }, { background: true });
+productSchema.index({ price: 1 }, { background: true });
+productSchema.index({ authorId: 1 }, { background: true });
+productSchema.index({ createdAt: -1 }, { background: true });
+
+productSchema.index(
+  { title: "text" },
+  {
+    collation: { locale: "ge", strength: 2 },
   }
 );
 

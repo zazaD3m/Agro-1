@@ -56,7 +56,7 @@ const HeaderMobile = () => {
             <SheetClose className="right-3 top-3 size-10 rounded-full bg-accent-dark p-2" />
           </SheetContent>
         </Sheet>
-        <ColorTester hidden={showColor} hideColors={hideColors} />
+        {/* <ColorTester hidden={showColor} hideColors={hideColors} /> */}
       </div>
       <Separator />
       <div className="flex items-center justify-center px-2 py-2">

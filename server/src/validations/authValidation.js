@@ -33,7 +33,15 @@ export const registerValidator = [
   body("phoneNumber")
     .isLength({ min: 9, max: 9 })
     .matches(/^[0-9]+$/)
-    .toInt(),
+    .toInt()
+    .custom(
+      asyncHandler(async (value) => {
+        const phoneNumberIsTaken = await User.findOne({ phoneNumber: value });
+        if (phoneNumberIsTaken) {
+          throw new Error("Phone number is already taken");
+        }
+      })
+    ),
   body("agreeTerms").isIn([1]).toInt(),
   body("agreePrivacyPolicy").isIn([0, 1]).toInt(),
   checkExact(),

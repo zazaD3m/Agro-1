@@ -50,6 +50,7 @@ passport.use(
           googleId: googleId,
           firstName: given_name,
           lastName: family_name,
+          agreeTerms: 1,
           loginStrategy: ["google"],
           email,
         });

@@ -6,6 +6,7 @@ import asyncHandler from "express-async-handler";
 import {
   addNewProduct,
   getAllProducts,
+  getMyProducts,
 } from "../../controllers/productController.js";
 import { authenticateUser } from "../../middleware/authMiddleware.js";
 import { moveTempImagesToPermanentFolder } from "../../middleware/imageMiddleware.js";
@@ -21,6 +22,8 @@ router.route("/product/:id").get(
     res.status(200).json(product);
   })
 );
+
+router.route("/user-products").get(authenticateUser, getMyProducts);
 
 router
   .route("/")

@@ -1,16 +1,10 @@
 import { Form } from "@/components/ui/form";
 import { yupResolver } from "@hookform/resolvers/yup";
-// import { DevTool } from "@hookform/devtools";
-
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import LOCATION from "@/constants/LOCATION";
 import useUserInfo from "@/hooks/useUserInfo";
-import { useToast } from "@/components/ui/use-toast";
 import { useAddNewProductMutation } from "@/features/product/productApiSlice";
-import { useSelector } from "react-redux";
-import { selectPreferedSellerType } from "@/features/user/userSlice";
-import AddNewProductFormSellerType from "./components/AddNewProductFormSellerType";
 import AddNewProductPrice from "./components/AddNewProductPrice";
 import AddNewProductCategory from "./components/AddNewProductCategory";
 import AddNewProductDesc from "./components/AddNewProductDesc";
@@ -20,9 +14,10 @@ import AddNewProductPhoneNumber from "./components/AddNewProductPhoneNumber";
 import AddNewProductLocation from "./components/AddNewProductLocation";
 import { CATEGORIES } from "@/data/categories-data";
 import AddNewProductAuthorName from "./components/AddNewProductAuthorName";
-// import { DevTool } from "@hookform/devtools";
 import AddNewProductImages from "./components/AddNewProductImages";
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { LoadingButton } from "@/components/ui/loading-button";
+import { useNavigate } from "react-router-dom";
 
 const addNewProductSchema = yup.object({
   title: yup
@@ -31,7 +26,6 @@ const addNewProductSchema = yup.object({
     .trim()
     .min(1, "მიუთითეთ სათაური")
     .max(50),
-  sellerType: yup.mixed().oneOf(["2", "3"]),
   price: yup.string().required("მიუთითეთ ფასი"),
   desc: yup.string().max(500, "შეამცირეთ აღწერა"),
   LocId: yup.mixed().oneOf(LOCATION.options, "აირჩიე მდებარეობა"),
@@ -56,7 +50,6 @@ const addNewProductSchema = yup.object({
       "first-char-not-zero",
       "ჩაწერე სწორი ფორმატის ტელეფონის ნომერი",
       (value) => {
-        // Ensure value is defined before checking
         return value ? value[0] !== "0" : true;
       },
     )
@@ -84,16 +77,38 @@ const sanitizeTitle = (title, CatId) => {
 };
 
 const AddNewProductPage = () => {
+  const navigate = useNavigate();
   const [images, setImages] = useState(null);
-  const { toast } = useToast();
   const { userInfo } = useUserInfo();
-  const preferedSellerType = useSelector(selectPreferedSellerType);
-  const [addNewProduct, { isError, error, isLoading, isSuccess }] =
+  const [addNewProduct, { isError, isLoading, isSuccess }] =
     useAddNewProductMutation();
+
+  useLayoutEffect(() => {
+    if (userInfo.freeSlots === 0) {
+      navigate("/account/my-products/active", {
+        state: {
+          message: "no free slots remaining",
+        },
+        replace: true,
+      });
+    }
+  }, [userInfo]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/account/my-products/active", {
+        state: {
+          message: "new product added",
+        },
+      });
+    }
+    if (isError) {
+      navigate("/account/my-products/active", { replace: true });
+    }
+  }, [isSuccess, isError]);
 
   const form = useForm({
     defaultValues: {
-      sellerType: preferedSellerType ? preferedSellerType : "3",
       price: "",
       desc: "",
       title: "",
@@ -103,12 +118,6 @@ const AddNewProductPage = () => {
       MainCatId: "",
       phoneNumber: userInfo?.phoneNumber ? userInfo.phoneNumber : "",
       authorName: userInfo?.firstName ? userInfo.firstName : "",
-      // password: "",
-      // firstName: userInfo.firstName ? userInfo.firstName : "",
-      // lastName: userInfo.lastName ? userInfo.lastName : "",
-      // gender: userInfo.gender ? userInfo.gender : "",
-      // birthYear: userInfo.birthYear ? userInfo.birthYear : "",
-      // phoneNumber: userInfo.phoneNumber ? String(userInfo.phoneNumber) : "",
     },
     resolver: yupResolver(addNewProductSchema),
     mode: "onSubmit",
@@ -116,15 +125,14 @@ const AddNewProductPage = () => {
     shouldFocusError: true,
   });
 
-  const { handleSubmit, control, setValue, getValues } = form;
+  const { handleSubmit, control, setValue } = form;
 
   const onSubmit = (data) => {
     const newProduct = { ...data };
     newProduct.title = sanitizeTitle(data.title, data.CatId);
-    newProduct.images = images;
-    delete newProduct.sellerType;
-
-    console.log(newProduct);
+    if (images && images.length > 0) {
+      newProduct.images = images;
+    }
     addNewProduct(newProduct);
   };
 
@@ -137,10 +145,19 @@ const AddNewProductPage = () => {
           className="flex flex-col gap-y-8"
         >
           <div className="rounded-md border bg-background p-4 pt-2.5 shadow-md">
+            <AddNewProductCategory control={control} setValue={setValue} />
+          </div>
+          <div className="rounded-md border bg-background p-4 pt-2.5 shadow-md">
             <AddNewProductImages images={images} setImages={setImages} />
           </div>
           <div className="rounded-md border bg-background p-4 pt-2.5 shadow-md">
-            <AddNewProductCategory control={control} setValue={setValue} />
+            <AddNewProductTitle control={control} />
+          </div>
+          <div className="rounded-md border bg-background p-4 pt-2.5 shadow-md">
+            <AddNewProductDesc control={control} />
+          </div>
+          <div className="rounded-md border bg-background p-4 pt-2.5 shadow-md">
+            <AddNewProductPrice />
           </div>
           <div className="rounded-md border bg-background p-4 pt-2.5 shadow-md">
             <h2 className="pb-4 font-medium">საკონტაქტო ინფორმაცია</h2>
@@ -155,23 +172,16 @@ const AddNewProductPage = () => {
               />
             </div>
           </div>
-          <div className="rounded-md border bg-background p-4 pt-2.5 shadow-md">
-            <AddNewProductTitle control={control} />
-          </div>
 
-          <div className="rounded-md border bg-background p-4 pt-2.5 shadow-md">
-            <AddNewProductFormSellerType
-              control={control}
-              userInfo={userInfo}
-            />
-          </div>
-          <div className="rounded-md border bg-background p-4 pt-2.5 shadow-md">
-            <AddNewProductPrice />
-          </div>
-          <div className="rounded-md border bg-background p-4 pt-2.5 shadow-md">
-            <AddNewProductDesc control={control} />
-          </div>
-          <button type="submit">hhhhhh</button>
+          <LoadingButton
+            variant="primary"
+            size="lg"
+            type="submit"
+            className="w-full"
+            loading={isLoading}
+          >
+            დამატება
+          </LoadingButton>
         </form>
       </Form>
     </div>

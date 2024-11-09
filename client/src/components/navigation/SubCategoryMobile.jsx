@@ -27,7 +27,7 @@ const SubCategoryItems = ({ subCat, subCatId, mainCatLink }) => {
     <div className="flex flex-col gap-y-4 py-4">
       <SheetCloseChild asChild>
         <Link
-          to={`catalog/${subCatId}/${mainCatLink}/${subCat.link}`}
+          to={`/catalog/${subCatId}/${mainCatLink}/${subCat.link}`}
           className="flex w-min items-center gap-x-2 text-nowrap font-medium hover:text-primary"
         >
           {subCat.name}
@@ -41,7 +41,7 @@ const SubCategoryItems = ({ subCat, subCatId, mainCatLink }) => {
         return (
           <SheetCloseChild key={id} asChild>
             <Link
-              to={`catalog/${id}/${mainCatLink}/${subCat.link}/${cat.link}`}
+              to={`/catalog/${id}/${mainCatLink}/${subCat.link}/${cat.link}`}
               className="border-b pb-4 pl-2 text-sm transition-colors last:border-none hover:text-primary"
             >
               {cat.name}
@@ -96,7 +96,7 @@ const SubCategoryMobile = ({ mainCat, mainCatId, setSelectedMainCatId }) => {
               return (
                 <SheetCloseChild key={catId} asChild>
                   <Link
-                    to={`catalog/${catId}/${mainCat.link}/${cat.link}`}
+                    to={`/catalog/${catId}/${mainCat.link}/${cat.link}`}
                     className="flex items-center text-nowrap border-b pb-4 font-medium last:border-none hover:text-primary"
                   >
                     {cat.name}

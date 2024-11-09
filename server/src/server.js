@@ -1,6 +1,7 @@
 import connectDB from "./config/dbConfig.js";
 import app from "./app.js";
 import { PORT } from "./config/config.js";
+import "./cron/index.js";
 
 connectDB();
 
