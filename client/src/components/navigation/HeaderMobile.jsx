@@ -26,7 +26,7 @@ const HeaderMobile = () => {
     <>
       <div className="flex h-11 items-center justify-between pl-2 pr-4">
         <Link to="/">
-          <img src="/logo-f.png" className="h-9" />
+          <img src="/logo-3.png" className="h-9" />
         </Link>
         <Sheet>
           <SheetTrigger asChild>
