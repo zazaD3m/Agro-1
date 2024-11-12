@@ -9,7 +9,7 @@ const AuthLayout = () => {
       <main className="relative w-full lg:grid lg:grid-cols-2">
         <section className="mx-auto flex max-w-md flex-col px-2 sm:min-w-[26rem]">
           <Link to="/" className="mx-auto py-12">
-            <img src="/logo-1.png" className="h-10" />
+            <img src="/logo.png" className="h-10" />
           </Link>
           <Outlet />
         </section>

@@ -8,7 +8,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import HeroCircles from "@/pages/home/components/HeroCircles";
 import Autoplay from "embla-carousel-autoplay";
 
-const IMAGES = ["agroezo-1.jpg", "momxmarebeli-1.jpg", "mewarme-1.jpg"];
+const IMAGES = ["agroezo.jpg", "momxmarebeli.jpg", "mewarme.jpg"];
 
 const HomePageHeroCarousel = ({ className }) => {
   const { isDesktop } = useWindowSize();

@@ -168,6 +168,7 @@ const router = createBrowserRouter(
           <Route index element={<BlogPage />} />
         </Route>
         {/* == BLOG PATHS END */}
+        <Route path="*" element={<PageNotFound />} />
       </Route>
       {/* == AUTH PATHS START */}
       <Route element={<RejectAuthenticatedUser />}>
@@ -184,7 +185,6 @@ const router = createBrowserRouter(
       </Route>
       {/* == AUTH PATHS END */}
       <Route path="test" element={<TestComp />} />
-      <Route path="*" element={<PageNotFound />} />
     </Route>,
   ),
 );
